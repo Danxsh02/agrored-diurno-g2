@@ -3,8 +3,8 @@
 ## Integrantes y Microservicios
 * **Daniel Muñoz Delgado (Cuenta Github: Danxsh02)** - Integrador - `ms-lotes` (Puerto 3005)
 * **Valentina Montero (Cuenta Github: monterozapatavalentina-ctrl)** - Documentador - `ms-productos` (Puerto 3002)
-* **Estefanía Del Amor Restrepo(Cuenta Github: tefDel)** - Arquitecto - `ms-clientes` (Puerto 3003)
-* **Edwin David Correa Cifuentes(Cuenta Github: edwinc2010)** - Coordinador / Relator - `ms-pedidos` (Puerto 3004)
+* **Estefanía Del Amor Restrepo (Cuenta Github: tefDel)** - Arquitecto - `ms-clientes` (Puerto 3003)
+* **Edwin David Correa Cifuentes (Cuenta Github: edwinc2010)** - Coordinador / Relator - `ms-pedidos` (Puerto 3004)
 
 ## Descripción de la Empresa
 AgroRed S.A. es una empresa de agroindustria y distribución que gestiona productos, clientes, pedidos y lotes de producción.
