@@ -1,18 +1,66 @@
 # AgroRed S.A - Microproyecto Módulo 3
 
-## Integrantes y Microservicios
-* **Daniel Muñoz Delgado (Cuenta Github: Danxsh02)** - Integrador - `ms-lotes` (Puerto 3005)
-* **Valentina Montero (Cuenta Github: monterozapatavalentina-ctrl)** - Documentador - `ms-productos` (Puerto 3002)
-* **Estefanía Del Amor Restrepo (Cuenta Github: tefDel)** - Arquitecto - `ms-clientes` (Puerto 3003)
-* **Edwin David Correa Cifuentes (Cuenta Github: edwinc2010)** - Coordinador / Relator - `ms-pedidos` (Puerto 3004)
+**Jornada:** Diurna · **Grupo:** 6 (`agrored-diurno-g6`)
 
-## Descripción de la Empresa
-AgroRed S.A. es una empresa de agroindustria y distribución que gestiona productos, clientes, pedidos y lotes de producción.
+AgroRed S.A. es una empresa de agroindustria y distribución que gestiona productos, clientes, pedidos y lotes de producción. Esta aplicación está construida como un conjunto de microservicios independientes en Node.js y Express.
 
-## Enlaces
-* [Colección de pruebas en Thunder Client](./thunder-tests/) - *Añadida en la carpeta del proyecto*
-* [Diagrama de Arquitectura](#) - *Pendiente*
+## Integrantes y microservicios
 
-## Instrucciones de despliegue (Para el Taller 3)
-* **Servidor 1:** MySQL, bases de datos por servicio.
-* **Servidor 2:** Node.js, Apache (Gateway).
+| Nombre | Usuario de GitHub | Rol | Microservicio a cargo |
+|---|---|---|---|
+| Daniel Muñoz Delgado | Danxsh02 | Integrador | `ms-lotes` |
+| Valentina Montero | monterozapatavalentina-ctrl | Documentador | `ms-productos` |
+| Estefanía Del Amor Restrepo | tefDel | Arquitecto | `ms-clientes` |
+| Edwin David Correa Cifuentes | edwinc2010 | Coordinador / Relator | `ms-pedidos` |
+
+## Microservicios
+
+| Carpeta | Entidad | Responsable | Puerto | Depende de |
+|---|---|---|---|---|
+| `ms-productos` | Producto | Valentina Montero | 3002 | [ninguno] |
+| `ms-clientes` | Cliente | Estefanía Del Amor Restrepo | 3003 | [ninguno] |
+| `ms-pedidos` | Pedido | Edwin David Correa Cifuentes | 3004 | [ms-clientes, ms-productos] |
+| `ms-lotes` | Lote | Daniel Muñoz Delgado | 3005 | [ms-productos] |
+
+## Estructura del repositorio
+
+```
+agrored-diurno-g6/
+├── README.md          # Este archivo
+├── ms-productos/      # Microservicio de productos
+├── ms-clientes/       # Microservicio de clientes
+├── ms-pedidos/        # Microservicio de pedidos
+├── ms-lotes/          # Microservicio de lotes
+└── thunder-tests/     # Colección de pruebas de Thunder Client
+```
+
+Cada microservicio tiene la misma estructura interna:
+
+```
+ms-xxx/
+├── src/
+│   ├── app.js            # Configuración de Express y registro de rutas
+│   ├── index.js          # Arranque del servidor
+│   ├── routes/           # Definición de endpoints
+│   ├── controllers/      # Capa de presentación (HTTP)
+│   ├── services/         # Lógica de negocio y validaciones
+│   ├── repositories/     # Acceso a datos (en memoria por ahora)
+│   ├── models/           # Entidad y validación
+│   └── utils/            # Utilidades (HttpError)
+├── package.json
+├── package-lock.json
+└── .env.example
+```
+
+## Cómo ejecutar un microservicio
+
+Ejemplo con 'ms-productos':
+
+```bash
+cd ms-productos
+npm install
+cp .env.example .env
+npm run dev
+```
+
+Debe aparecer 'ms-productos escuchando en http://127.0.0.1:3002'. Para comprobar que funciona: `GET /health`.
