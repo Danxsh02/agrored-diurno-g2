@@ -4,6 +4,7 @@
 
 // Lista de resultados de calidad permitidos
 const RESULTADOS_VALIDOS = ['pendiente', 'aprobado', 'rechazado'];
+const FECHA = /^\d{4}-\d{2}-\d{2}$/;
 
 function validarLote(datos) {
   const errores = [];
@@ -17,7 +18,7 @@ function validarLote(datos) {
   if (!Number.isInteger(datos.producto_id) || datos.producto_id <= 0) {
     errores.push('producto_id es obligatorio y debe ser un entero positivo');
   }
-  if (!datos.fecha_produccion || typeof datos.fecha_produccion !== 'string') {
+  if (!datos.fecha_produccion || typeof datos.fecha_produccion !== 'string' || !FECHA.test(datos.fecha_produccion)) {
     errores.push('fecha_produccion es obligatoria (formato YYYY-MM-DD)');
   }
   if (typeof datos.cantidad !== 'number' || datos.cantidad <= 0) {
@@ -27,8 +28,8 @@ function validarLote(datos) {
     errores.push(`resultado_calidad debe ser uno de: ${RESULTADOS_VALIDOS.join(', ')}`);
   }
   // Campos opcionales/recomendados
-  if (datos.fecha_vencimiento && typeof datos.fecha_vencimiento !== 'string') {
-    errores.push('fecha_vencimiento debe ser un texto (formato YYYY-MM-DD)');
+  if (datos.fecha_vencimiento && (typeof datos.fecha_vencimiento !== 'string' || !FECHA.test(datos.fecha_vencimiento))) {
+    errores.push('fecha_vencimiento debe tener formato YYYY-MM-DD');
   }
   if (datos.centro_produccion && typeof datos.centro_produccion !== 'string') {
     errores.push('centro_produccion debe ser un texto');
