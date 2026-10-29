@@ -16,6 +16,10 @@ async function obtener(id) {
 async function crear(datos) {
   const errores = validarProducto(datos);
   if (errores.length > 0) throw new HttpError(400, 'Datos inválidos', errores);
+
+  const existente = await repo.findById(datos.id);
+  if (existente) throw new HttpError(409, `Ya existe un producto con id ${datos.id}`);
+
   return repo.create(construirProducto(datos));
 }
 

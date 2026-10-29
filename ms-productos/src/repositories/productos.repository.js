@@ -4,8 +4,6 @@ const productos = [
   { id: 2, nombre: 'Tomate', categoria: 'hortaliza', unidad: 'kg', precio: 3500, activo: true },
 ];
 
-let siguienteId = 3;
-
 async function findAll() {
   return productos;
 }
@@ -15,9 +13,8 @@ async function findById(id) {
 }
 
 async function create(producto) {
-  const nuevo = { id: siguienteId++, ...producto };
-  productos.push(nuevo);
-  return nuevo;
+  productos.push(producto);
+  return producto;
 }
 
 module.exports = { findAll, findById, create };

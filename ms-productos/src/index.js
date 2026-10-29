@@ -1,7 +1,6 @@
-// =====================================================================
-// Punto de arranque del microservicio.
-// Lee la configuración (variables de entorno) y pone el servidor a escuchar.
-// =====================================================================
+// Punto de arranque del microservicio:Lee la configuración (variables de entorno)
+// y pone el servidor a escuchar.
+
 const app = require('./app');
 
 const PORT = Number(process.env.PORT) || 3000;
