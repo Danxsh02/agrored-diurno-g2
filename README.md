@@ -1,6 +1,6 @@
-# AgroRed S.A - Microproyecto Módulo 3
+# AgroRed S.A. - Microproyecto Módulo 3
 
-**Jornada:** Diurna · **Grupo:** 6 (`agrored-diurno-g6`)
+**Jornada:** Diurna · **Grupo:** 6 (`agrored-diurno-g2`)
 
 AgroRed S.A. es una empresa de agroindustria y distribución que gestiona productos, clientes, pedidos y lotes de producción. Esta aplicación está construida como un conjunto de microservicios independientes en Node.js y Express.
 
@@ -9,23 +9,24 @@ AgroRed S.A. es una empresa de agroindustria y distribución que gestiona produc
 | Nombre | Usuario de GitHub | Rol | Microservicio a cargo |
 |---|---|---|---|
 | Daniel Muñoz Delgado | Danxsh02 | Integrador | `ms-lotes` |
-| Valentina Montero Zapata | monterozapatavalentina-ctrl | Documentador | `ms-clientes` |
 | Estefanía Del Amor Restrepo | tefDel | Arquitecto | `ms-productos` |
+| Valentina Montero | monterozapatavalentina-ctrl | Documentador | `ms-clientes` |
 | Edwin David Correa Cifuentes | edwinc2010 | Coordinador / Relator | `ms-pedidos` |
 
 ## Microservicios
 
 | Carpeta | Entidad | Responsable | Puerto | Depende de |
 |---|---|---|---|---|
+| `ms-usuarios` | Usuarios | Zeida Maria Solarte (Plantilla) | 3001 | [ninguno] |
 | `ms-productos` | Producto | Estefanía Del Amor Restrepo | 3002 | [ninguno] |
-| `ms-clientes` | Cliente | Valentina Montero Zapata | 3003 | [ninguno] |
+| `ms-clientes` | Cliente | Valentina Montero| 3003 | [ninguno] |
 | `ms-pedidos` | Pedido | Edwin David Correa Cifuentes | 3004 | [ms-clientes, ms-productos] |
 | `ms-lotes` | Lote | Daniel Muñoz Delgado | 3005 | [ms-productos] |
 
 ## Estructura del repositorio
 
 ```
-agrored-diurno-g6/
+agrored-diurno-g2/
 ├── README.md          # Este archivo
 ├── ms-productos/      # Microservicio de productos
 ├── ms-clientes/       # Microservicio de clientes
@@ -62,5 +63,5 @@ npm install
 cp .env.example .env
 npm run dev
 ```
-
+Tomando de ejemplo a productos:
 Debe aparecer 'ms-productos escuchando en http://127.0.0.1:3002'. Para comprobar que funciona: `GET /health`.
