@@ -1,7 +1,6 @@
-// =====================================================================
-// Configuración de la aplicación Express.
-// Aquí se registran los middlewares, las rutas y el manejo de errores.
-// =====================================================================
+// Configuración de la aplicación Express:
+// Se registran los middlewares, las rutas y el manejo de errores.
+
 const express = require('express');
 const productosRoutes = require('./routes/productos.routes');
 

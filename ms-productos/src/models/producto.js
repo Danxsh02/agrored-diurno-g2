@@ -9,6 +9,10 @@ function validarProducto(datos) {
     return ['Se esperaba un objeto JSON con los datos del producto'];
   }
 
+  if (!Number.isInteger(datos.id) || datos.id <= 0) {
+    errores.push('id es obligatorio y debe ser un entero positivo');
+  }
+
   if (typeof datos.nombre !== 'string' || datos.nombre.trim() === '') {
     errores.push('nombre es obligatorio');
   }
@@ -34,6 +38,7 @@ function validarProducto(datos) {
 
 function construirProducto(datos) {
   return {
+    id: datos.id,
     nombre: datos.nombre.trim(),
     categoria: datos.categoria,
     unidad: datos.unidad,
