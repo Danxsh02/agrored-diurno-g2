@@ -46,12 +46,11 @@ El archivo `.env.example` contiene la configuración inicial del servicio:
 ```dotenv
 PORT=3005
 HOST=127.0.0.1
-ROLES=administrador,comercial,produccion
 ```
 
 - `PORT` define el puerto en el que escucha el microservicio.
 - `HOST` define la dirección de escucha. Con `127.0.0.1`, el servicio acepta conexiones desde la máquina local.
-- `ROLES` contiene los nombres de los roles configurados para el proyecto. En esta versión, la variable no se utiliza para autorizar operaciones.
+
 
 ## Verificación del servicio
 
