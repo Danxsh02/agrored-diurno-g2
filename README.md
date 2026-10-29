@@ -26,7 +26,7 @@ AgroRed S.A. es una empresa de agroindustria y distribución que gestiona produc
 ## Estructura del repositorio
 
 ```
-agrored-diurno-g6/
+agrored-diurno-g2/
 ├── README.md          # Este archivo
 ├── ms-productos/      # Microservicio de productos
 ├── ms-clientes/       # Microservicio de clientes
