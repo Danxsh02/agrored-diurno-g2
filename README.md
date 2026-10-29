@@ -9,16 +9,16 @@ AgroRed S.A. es una empresa de agroindustria y distribución que gestiona produc
 | Nombre | Usuario de GitHub | Rol | Microservicio a cargo |
 |---|---|---|---|
 | Daniel Muñoz Delgado | Danxsh02 | Integrador | `ms-lotes` |
-| Valentina Montero | monterozapatavalentina-ctrl | Documentador | `ms-productos` |
-| Estefanía Del Amor Restrepo | tefDel | Arquitecto | `ms-clientes` |
+| Valentina Montero Zapata | monterozapatavalentina-ctrl | Documentador | `ms-clientes` |
+| Estefanía Del Amor Restrepo | tefDel | Arquitecto | `ms-productos` |
 | Edwin David Correa Cifuentes | edwinc2010 | Coordinador / Relator | `ms-pedidos` |
 
 ## Microservicios
 
 | Carpeta | Entidad | Responsable | Puerto | Depende de |
 |---|---|---|---|---|
-| `ms-productos` | Producto | Valentina Montero | 3002 | [ninguno] |
-| `ms-clientes` | Cliente | Estefanía Del Amor Restrepo | 3003 | [ninguno] |
+| `ms-productos` | Producto | Estefanía Del Amor Restrepo | 3002 | [ninguno] |
+| `ms-clientes` | Cliente | Valentina Montero Zapata | 3003 | [ninguno] |
 | `ms-pedidos` | Pedido | Edwin David Correa Cifuentes | 3004 | [ms-clientes, ms-productos] |
 | `ms-lotes` | Lote | Daniel Muñoz Delgado | 3005 | [ms-productos] |
 
