@@ -1,6 +1,6 @@
 # AgroRed S.A - Microproyecto Módulo 3
 
-**Jornada:** Diurna · **Grupo:** 6 (`agrored-diurno-g6`)
+**Jornada:** Diurna · **Grupo:** 6 (`agrored-diurno-g2`)
 
 AgroRed S.A. es una empresa de agroindustria y distribución que gestiona productos, clientes, pedidos y lotes de producción. Esta aplicación está construida como un conjunto de microservicios independientes en Node.js y Express.
 
