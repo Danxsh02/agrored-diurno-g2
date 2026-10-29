@@ -17,6 +17,7 @@ AgroRed S.A. es una empresa de agroindustria y distribución que gestiona produc
 
 | Carpeta | Entidad | Responsable | Puerto | Depende de |
 |---|---|---|---|---|
+| `ms-usuarios` | Usuarios | Zeida Maria Solarte | 3001 | [ninguno] |
 | `ms-productos` | Producto | Valentina Montero | 3002 | [ninguno] |
 | `ms-clientes` | Cliente | Estefanía Del Amor Restrepo | 3003 | [ninguno] |
 | `ms-pedidos` | Pedido | Edwin David Correa Cifuentes | 3004 | [ms-clientes, ms-productos] |
@@ -62,5 +63,5 @@ npm install
 cp .env.example .env
 npm run dev
 ```
-
+Tomando de ejemplo a productos:
 Debe aparecer 'ms-productos escuchando en http://127.0.0.1:3002'. Para comprobar que funciona: `GET /health`.
