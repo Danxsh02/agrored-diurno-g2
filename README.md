@@ -1,4 +1,4 @@
-# AgroRed S.A - Microproyecto Módulo 3
+# AgroRed S.A. - Microproyecto Módulo 3
 
 **Jornada:** Diurna · **Grupo:** 6 (`agrored-diurno-g2`)
 
