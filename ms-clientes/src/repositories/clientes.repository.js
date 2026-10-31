@@ -6,8 +6,18 @@ const clientes = [
 ];
 let siguienteId = 3;
 
-async function findAll() {
-  return clientes;
+async function findAll(filtros = {}) {
+  let resultado = clientes;
+  if (filtros.ciudad) {
+    resultado = resultado.filter((c) => c.ciudad.toLowerCase() === filtros.ciudad.toLowerCase());
+  }
+  if (filtros.tipo) {
+    resultado = resultado.filter((c) => c.tipo === filtros.tipo);
+  }
+  if (filtros.ids) {
+    resultado = resultado.filter((c) => filtros.ids.includes(c.id));
+  }
+  return resultado;
 }
 
 async function findById(id) {
@@ -24,4 +34,18 @@ async function create(cliente) {
   return nuevo;
 }
 
-module.exports = { findAll, findById, findByNit, create };
+async function update(id, datos) {
+  const indice = clientes.findIndex((c) => c.id === id);
+  if (indice === -1) return null;
+  clientes[indice] = { id, ...datos };
+  return clientes[indice];
+}
+
+async function remove(id) {
+  const indice = clientes.findIndex((c) => c.id === id);
+  if (indice === -1) return false;
+  clientes.splice(indice, 1);
+  return true;
+}
+
+module.exports = { findAll, findById, findByNit, create, update, remove };
