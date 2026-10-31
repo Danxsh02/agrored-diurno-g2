@@ -1,51 +1,60 @@
-// CAPA DE ACCESO A DATOS (repositorio)
+// CAPA DE ACCESO A DATOS (repositorio): versión MySQL
 
-const clientes = [
-  { id: 1, nombre: 'Distribuidora El Valle', nit: '900123456-7', ciudad: 'Cali', telefono: '3001234567', tipo: 'distribuidor', direccion: 'Calle 10 # 20-30', email: 'compras@distribuidora.com' },
-  { id: 2, nombre: 'Comercial Andina', nit: '800987654-3', ciudad: 'Bogotá', telefono: '3109876543', tipo: 'comercio', direccion: 'Carrera 15 # 80-12', email: 'ventas@andina.com' },
-];
-let siguienteId = 3;
+const pool = require('../db');
 
 async function findAll(filtros = {}) {
-  let resultado = clientes;
+  let sql = 'SELECT * FROM clientes';
+  const condiciones = [];
+  const valores = [];
+
   if (filtros.ciudad) {
-    resultado = resultado.filter((c) => c.ciudad.toLowerCase() === filtros.ciudad.toLowerCase());
+    condiciones.push('ciudad = ?');
+    valores.push(filtros.ciudad);
   }
   if (filtros.tipo) {
-    resultado = resultado.filter((c) => c.tipo === filtros.tipo);
+    condiciones.push('tipo = ?');
+    valores.push(filtros.tipo);
   }
   if (filtros.ids) {
-    resultado = resultado.filter((c) => filtros.ids.includes(c.id));
+    condiciones.push('id IN (?)');
+    valores.push(filtros.ids);
   }
-  return resultado;
+  if (condiciones.length > 0) sql += ' WHERE ' + condiciones.join(' AND ');
+
+  const [filas] = await pool.query(sql + ' ORDER BY id', valores);
+  return filas;
 }
 
 async function findById(id) {
-  return clientes.find((c) => c.id === id) || null;
+  const [filas] = await pool.query('SELECT * FROM clientes WHERE id = ?', [id]);
+  return filas.length > 0 ? filas[0] : null;
 }
 
 async function findByNit(nit) {
-  return clientes.find((c) => c.nit === nit) || null;
+  const [filas] = await pool.query('SELECT * FROM clientes WHERE nit = ?', [nit]);
+  return filas.length > 0 ? filas[0] : null;
 }
 
 async function create(cliente) {
-  const nuevo = { id: siguienteId++, ...cliente };
-  clientes.push(nuevo);
-  return nuevo;
+  const [resultado] = await pool.query(
+    'INSERT INTO clientes (nombre, nit, ciudad, telefono, tipo, direccion, email) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [cliente.nombre, cliente.nit, cliente.ciudad, cliente.telefono, cliente.tipo, cliente.direccion, cliente.email]
+  );
+  return findById(resultado.insertId);
 }
 
-async function update(id, datos) {
-  const indice = clientes.findIndex((c) => c.id === id);
-  if (indice === -1) return null;
-  clientes[indice] = { id, ...datos };
-  return clientes[indice];
+async function update(id, cliente) {
+  const [resultado] = await pool.query(
+    'UPDATE clientes SET nombre = ?, nit = ?, ciudad = ?, telefono = ?, tipo = ?, direccion = ?, email = ? WHERE id = ?',
+    [cliente.nombre, cliente.nit, cliente.ciudad, cliente.telefono, cliente.tipo, cliente.direccion, cliente.email, id]
+  );
+  if (resultado.affectedRows === 0) return null;
+  return findById(id);
 }
 
 async function remove(id) {
-  const indice = clientes.findIndex((c) => c.id === id);
-  if (indice === -1) return false;
-  clientes.splice(indice, 1);
-  return true;
+  const [resultado] = await pool.query('DELETE FROM clientes WHERE id = ?', [id]);
+  return resultado.affectedRows > 0;
 }
 
 module.exports = { findAll, findById, findByNit, create, update, remove };
