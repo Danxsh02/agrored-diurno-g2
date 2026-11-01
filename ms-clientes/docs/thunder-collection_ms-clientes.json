@@ -1,0 +1,256 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "ms-clientes",
+    "collectionId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+    "dateExported": "2026-10-31T05:10:01.245Z",
+    "version": "1.4",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "11e58818-1476-454e-9541-fd0471827a6b",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Listar todos",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2026-10-31T04:51:28.035Z",
+            "modified": "2026-10-31T04:51:28.035Z",
+            "headers": []
+        },
+        {
+            "_id": "3702ffc6-d135-4220-9868-194d98e624c8",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Filtrar por ciudad",
+            "url": "http://127.0.0.1:3003/clientes?ciudad=Cali",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2026-10-31T04:52:51.087Z",
+            "modified": "2026-10-31T04:52:51.087Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "ciudad",
+                    "value": "Cali",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "fa4e0f16-6013-40d0-a876-b75800553732",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Consultar por lotes",
+            "url": "http://127.0.0.1:3003/clientes?ids=1,2",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2026-10-31T04:53:28.097Z",
+            "modified": "2026-10-31T04:53:28.097Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "ids",
+                    "value": "1,2",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "5288e33d-2aa5-4dc6-b83c-34eca4c05221",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Obtener existente",
+            "url": "http://127.0.0.1:3003/clientes/1",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2026-10-31T04:54:48.770Z",
+            "modified": "2026-10-31T04:54:48.770Z",
+            "headers": []
+        },
+        {
+            "_id": "0d54371d-45d2-4ac5-ae64-03662259ff45",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Obtener inexistente",
+            "url": "http://127.0.0.1:3003/clientes/99",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2026-10-31T04:55:29.712Z",
+            "modified": "2026-10-31T04:55:29.712Z",
+            "headers": []
+        },
+        {
+            "_id": "baceb6cc-2cd5-4b46-a7c9-685ea6a62035",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Obtener id no numérico",
+            "url": "http://127.0.0.1:3003/clientes/abc",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2026-10-31T04:55:56.144Z",
+            "modified": "2026-10-31T04:55:56.144Z",
+            "headers": []
+        },
+        {
+            "_id": "11ddb2a2-9a93-44e9-94fa-a8dac1189bdd",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Crear válido",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2026-10-31T04:56:21.065Z",
+            "modified": "2026-10-31T04:56:21.065Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Supermercado La Sabana\",\r",
+                    "  \"nit\": \"901555444-2\",\r",
+                    "  \"ciudad\": \"Bogotá\",\r",
+                    "  \"telefono\": \"3205557788\",\r",
+                    "  \"tipo\": \"comercio\",\r",
+                    "  \"direccion\": \"Avenida 68 # 45-20\",\r",
+                    "  \"email\": \"compras@lasabana.com\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "86910c21-4855-4a10-a2a2-4ae1000b3539",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Crear sin atributo obligatorio",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2026-10-31T04:58:44.827Z",
+            "modified": "2026-10-31T04:58:44.827Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"\",\r",
+                    "  \"nit\": \"900122863-4\",\r",
+                    "  \"ciudad\": \"Palmira\",\r",
+                    "  \"telefono\": \"3001234567\",\r",
+                    "  \"tipo\": \"distribuidor\",\r",
+                    "  \"direccion\": \"Calle 10 # 20-30\",\r",
+                    "  \"email\": \"compras@distribuidora.com\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "3ea79f4c-6ece-447f-9788-bcd79bcd6286",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Crear con NIT repetido",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2026-10-31T05:04:05.645Z",
+            "modified": "2026-10-31T05:04:05.645Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Colombina\",\r",
+                    "  \"nit\": \"900123456-7\",\r",
+                    "  \"ciudad\": \"Cali\",\r",
+                    "  \"telefono\": \"3154968645\",\r",
+                    "  \"tipo\": \"comercio\",\r",
+                    "  \"direccion\": \"Calle 15 # 10-30\",\r",
+                    "  \"email\": \"compras@colombina.com\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "f7f83adc-c623-4319-a376-590637686dda",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Actualizar inexistente",
+            "url": "http://127.0.0.1:3003/clientes/99",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2026-10-31T05:05:25.847Z",
+            "modified": "2026-10-31T05:05:25.847Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Distribuidora El Valle\",",
+                    "  \"nit\": \"900123456-7\",",
+                    "  \"ciudad\": \"Palmira\",",
+                    "  \"telefono\": \"3001234567\",",
+                    "  \"tipo\": \"distribuidor\",",
+                    "  \"direccion\": \"Calle 10 # 20-30\",",
+                    "  \"email\": \"compras@distribuidora.com\"",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "787bfa3f-50b7-406e-8dca-0780e5472fea",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Actualizar existente",
+            "url": "http://127.0.0.1:3003/clientes/1",
+            "method": "PUT",
+            "sortNum": 110000,
+            "created": "2026-10-31T05:05:50.768Z",
+            "modified": "2026-10-31T05:05:50.768Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Distribuidora El Valle\",",
+                    "  \"nit\": \"900123456-7\",",
+                    "  \"ciudad\": \"Palmira\",",
+                    "  \"telefono\": \"3001234567\",",
+                    "  \"tipo\": \"distribuidor\",",
+                    "  \"direccion\": \"Calle 10 # 20-30\",",
+                    "  \"email\": \"compras@distribuidora.com\"",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "bf47ff0c-bb2b-4ce5-8d04-dd15405b8a1d",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Eliminar existente",
+            "url": "http://127.0.0.1:3003/clientes/3",
+            "method": "DELETE",
+            "sortNum": 120000,
+            "created": "2026-10-31T05:06:47.834Z",
+            "modified": "2026-10-31T05:06:47.834Z",
+            "headers": []
+        },
+        {
+            "_id": "8a609bc4-7fe4-4caa-972e-6076a7303e68",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Eliminar otra vez",
+            "url": "http://127.0.0.1:3003/clientes/3",
+            "method": "DELETE",
+            "sortNum": 130000,
+            "created": "2026-10-31T05:07:20.081Z",
+            "modified": "2026-10-31T05:07:20.081Z",
+            "headers": []
+        }
+    ],
+    "ref": "mIDOYT8sg7ecLTQWeQSy6nEhvujz71wTmoGwzBiH8h5P25_0js90g6_tZlPX02xD9Vp1Z14tVfriPQxdKquWMw"
+}

@@ -1,0 +1,336 @@
+{
+    "info": {
+        "_postman_id": "17a521a8-1c3e-431b-9824-cd034fb62380",
+        "name": "ms-clientes",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "Listar todos",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes",
+                    "path": [
+                        "clientes"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                }
+            }
+        },
+        {
+            "name": "Filtrar por ciudad",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes?ciudad=Cali",
+                    "query": [
+                        {
+                            "key": "ciudad",
+                            "value": "Cali"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "clientes"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                }
+            }
+        },
+        {
+            "name": "Consultar por lotes",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes?ids=1,2",
+                    "query": [
+                        {
+                            "key": "ids",
+                            "value": "1,2"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "clientes"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                }
+            }
+        },
+        {
+            "name": "Obtener existente",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes/1",
+                    "path": [
+                        "clientes",
+                        "1"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                }
+            }
+        },
+        {
+            "name": "Obtener inexistente",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes/99",
+                    "path": [
+                        "clientes",
+                        "99"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                }
+            }
+        },
+        {
+            "name": "Obtener id no numérico",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes/abc",
+                    "path": [
+                        "clientes",
+                        "abc"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                }
+            }
+        },
+        {
+            "name": "Crear válido",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes",
+                    "path": [
+                        "clientes"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\r\n  \"nombre\": \"Supermercado La Sabana\",\r\n  \"nit\": \"901555444-2\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"telefono\": \"3205557788\",\r\n  \"tipo\": \"comercio\",\r\n  \"direccion\": \"Avenida 68 # 45-20\",\r\n  \"email\": \"compras@lasabana.com\"\r\n}"
+                }
+            }
+        },
+        {
+            "name": "Crear sin atributo obligatorio",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes",
+                    "path": [
+                        "clientes"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\r\n  \"nombre\": \"\",\r\n  \"nit\": \"900122863-4\",\r\n  \"ciudad\": \"Palmira\",\r\n  \"telefono\": \"3001234567\",\r\n  \"tipo\": \"distribuidor\",\r\n  \"direccion\": \"Calle 10 # 20-30\",\r\n  \"email\": \"compras@distribuidora.com\"\r\n}"
+                }
+            }
+        },
+        {
+            "name": "Crear con NIT repetido",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes",
+                    "path": [
+                        "clientes"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\r\n  \"nombre\": \"Colombina\",\r\n  \"nit\": \"900123456-7\",\r\n  \"ciudad\": \"Cali\",\r\n  \"telefono\": \"3154968645\",\r\n  \"tipo\": \"comercio\",\r\n  \"direccion\": \"Calle 15 # 10-30\",\r\n  \"email\": \"compras@colombina.com\"\r\n}"
+                }
+            }
+        },
+        {
+            "name": "Actualizar inexistente",
+            "request": {
+                "method": "PUT",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes/99",
+                    "path": [
+                        "clientes",
+                        "99"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"nombre\": \"Distribuidora El Valle\",\n  \"nit\": \"900123456-7\",\n  \"ciudad\": \"Palmira\",\n  \"telefono\": \"3001234567\",\n  \"tipo\": \"distribuidor\",\n  \"direccion\": \"Calle 10 # 20-30\",\n  \"email\": \"compras@distribuidora.com\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Actualizar existente",
+            "request": {
+                "method": "PUT",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes/1",
+                    "path": [
+                        "clientes",
+                        "1"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"nombre\": \"Distribuidora El Valle\",\n  \"nit\": \"900123456-7\",\n  \"ciudad\": \"Palmira\",\n  \"telefono\": \"3001234567\",\n  \"tipo\": \"distribuidor\",\n  \"direccion\": \"Calle 10 # 20-30\",\n  \"email\": \"compras@distribuidora.com\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Eliminar existente",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes/3",
+                    "path": [
+                        "clientes",
+                        "3"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                }
+            }
+        },
+        {
+            "name": "Eliminar otra vez",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://127.0.0.1:3003/clientes/3",
+                    "path": [
+                        "clientes",
+                        "3"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "3003"
+                }
+            }
+        }
+    ]
+}
