@@ -35,8 +35,8 @@ const lotes = [
 ];
 let siguienteId = 4;
 
-async function findAll() {
-  return lotes;
+async function findAll(filtros = {}) {
+  return lotes.filter((l) => !filtros.resultado_calidad || l.resultado_calidad === filtros.resultado_calidad);
 }
 
 async function findById(id) {
@@ -53,4 +53,18 @@ async function create(lote) {
   return nuevo;
 }
 
-module.exports = { findAll, findById, findByCodigo, create };
+async function update(id, datos) {
+  const i = lotes.findIndex((l) => l.id === id);
+  if (i === -1) return null;
+  lotes[i] = { id, ...datos };
+  return lotes[i];
+}
+
+async function remove(id) {
+  const i = lotes.findIndex((l) => l.id === id);
+  if (i === -1) return false;
+  lotes.splice(i, 1);
+  return true;
+}
+
+module.exports = { findAll, findById, findByCodigo, create, update, remove };
