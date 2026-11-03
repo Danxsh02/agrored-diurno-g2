@@ -1,82 +1,213 @@
 # ms-lotes · Microservicio de Lotes de Producción
 
-**AgroRed S.A.** · Redes y Servicios Multimedia · UAO · Módulo 3
+**AgroRed S.A.** · Redes y Servicios Multimedia · UAO · Módulo 3 · Taller 2
 
-Microservicio para la gestión de lotes de producción, desarrollado con **Node.js** y **Express** y organizado mediante una arquitectura por capas.
+Microservicio que gestiona la entidad **Lote** (lotes de producción), desarrollado con **Node.js**, **Express** y **MySQL**, y organizado en capas.
 
-## Encargado del Microservicio:
-Daniel Muñoz Delgado
+- **Responsable:** Daniel Muñoz Delgado
+- **Puerto:** 3005
+- **Base de datos:** `lotes_db` (usuario `lotes_user`)
 
-Esta versión corresponde al **Taller 1**. Implementa la consulta y creación de lotes utilizando almacenamiento en memoria. La integración con MySQL, el inicio de sesión, el cifrado de contraseñas y la autenticación mediante tokens JWT forman parte de la versión ampliada prevista para el Taller 3.
+## Cómo ejecutarlo
 
-## Requisitos
+### Requisitos
+- Node.js LTS 22 o superior y npm.
+- MySQL 8 en ejecución.
 
-- Node.js LTS 22 o superior.
-- npm, incluido con Node.js.
+### Pasos
+1. Instalar dependencias:
+   ```bash
+   npm install
+   ```
+2. Crear la base de datos y su usuario (como `root`, en MySQL Workbench o en la consola):
+   ```sql
+   CREATE DATABASE lotes_db CHARACTER SET utf8mb4;
+   CREATE USER 'lotes_user'@'localhost' IDENTIFIED BY '<clave>';
+   GRANT ALL PRIVILEGES ON lotes_db.* TO 'lotes_user'@'localhost';
+   ```
+3. Crear la tabla y los datos iniciales, conectado como `lotes_user`:
+   ```bash
+   mysql -u lotes_user -p lotes_db
+   mysql> SOURCE db/schema.sql;
+   ```
+   (o abrir `db/schema.sql` en MySQL Workbench y ejecutarlo).
+4. Crear el archivo `.env` a partir del ejemplo y completar los valores:
+   ```bat
+   copy .env.example .env
+   ```
+   En Linux o macOS: `cp .env.example .env`.
+5. Iniciar el servicio:
+   ```bash
+   npm run dev
+   ```
 
-Comprueba las versiones instaladas:
+### Variables de entorno
 
-```bash
-node -v
-npm -v
-```
-
-## Instalación y ejecución
-
-Ejecuta los comandos desde la carpeta raíz del proyecto `ms-lotes`.
-
-### Windows (CMD)
-
-```bat
-npm install
-copy .env.example .env
-npm run dev
-```
-
-### Linux o macOS
-
-```bash
-npm install
-cp .env.example .env
-npm run dev
-```
-
-El archivo `.env.example` contiene la configuración inicial del servicio:
-
-```dotenv
-PORT=3005
-HOST=127.0.0.1
-```
-
-- `PORT` define el puerto en el que escucha el microservicio.
-- `HOST` define la dirección de escucha. Con `127.0.0.1`, el servicio acepta conexiones desde la máquina local.
-
-
-## Verificación del servicio
-
-Con el servidor en ejecución, consulta las siguientes direcciones desde el navegador o mediante Thunder Client en Visual Studio Code.
-
-| Método | URL | Descripción |
+| Variable | Descripción | Ejemplo |
 |---|---|---|
-| `GET` | `http://localhost:3005/health` | Comprueba que el servicio responde. |
-| `GET` | `http://localhost:3005/lotes` | Devuelve los lotes registrados. |
+| `PORT` | Puerto del servicio | `3005` |
+| `HOST` | Dirección de escucha | `127.0.0.1` |
+| `DB_HOST` | Servidor MySQL | `localhost` |
+| `DB_PORT` | Puerto de MySQL | `3306` |
+| `DB_NAME` | Base de datos | `lotes_db` |
+| `DB_USER` | Usuario de la base | `lotes_user` |
+| `DB_PASSWORD` | Clave del usuario (no se sube al repositorio) | — |
+| `JWT_SECRET` | Clave compartida del grupo para verificar tokens | — |
+| `PRODUCTOS_URL` | Dirección de ms-productos | `http://127.0.0.1:3002` |
 
-Respuesta de `GET /health`:
+El archivo `.env` nunca se sube al repositorio.
+
+## Representación y atributos
 
 ```json
 {
-  "servicio": "ms-lotes",
-  "estado": "ok"
+  "id": 1,
+  "codigo_lote": "LOT-MAN-2026-001",
+  "producto_id": 1,
+  "fecha_produccion": "2026-10-20",
+  "cantidad": 500,
+  "resultado_calidad": "aprobado",
+  "fecha_vencimiento": "2026-11-10",
+  "centro_produccion": "Valle del Cauca",
+  "producto": { "id": 1, "nombre": "Mango", "categoria": "fruta" }
 }
 ```
+
+El atributo `producto_id` es lo que se guarda en la base de datos. El objeto `producto` **no se guarda**: ms-lotes lo pide a ms-productos cada vez que responde.
+
+| Atributo | Tipo | Obligatorio | Reglas |
+|---|---|---|---|
+| `id` | entero | automático | Lo genera la base de datos |
+| `codigo_lote` | texto | sí | Único (409 si se repite) |
+| `producto_id` | entero | sí | Entero positivo; el producto debe existir en ms-productos |
+| `fecha_produccion` | fecha | sí | Formato `YYYY-MM-DD`; no puede ser futura |
+| `cantidad` | número | sí | Mayor a 0 |
+| `resultado_calidad` | texto | sí | `pendiente`, `aprobado` o `rechazado` |
+| `fecha_vencimiento` | fecha | no | Formato `YYYY-MM-DD` |
+| `centro_produccion` | texto | no | — |
+
+## Endpoints
+
+| Operación | Método | URI | Cuerpo | Respuesta exitosa | Errores posibles |
+|---|---|---|---|---|---|
+| Salud | GET | `/health` | — | 200 | — |
+| Listar | GET | `/lotes` | — | 200 + arreglo | 401 |
+| Filtrar | GET | `/lotes?resultado_calidad=aprobado` | — | 200 + arreglo filtrado | 401 |
+| Obtener | GET | `/lotes/:id` | — | 200 + objeto | 400 · 401 · 404 |
+| Crear | POST | `/lotes` | JSON sin `id` | 201 + objeto + cabecera `Location` | 400 · 401 · 403 · 409 · 503 |
+| Actualizar | PUT | `/lotes/:id` | JSON completo sin `id` | 200 + objeto actualizado | 400 · 401 · 403 · 404 · 409 · 503 |
+| Eliminar | DELETE | `/lotes/:id` | — | 204 sin cuerpo | 400 · 401 · 403 · 404 |
+
+Todas las rutas de `/lotes` exigen la cabecera `Authorization: Bearer <token>`. `/health` es pública.
+
+### Ejemplo: crear un lote
+
+`POST http://localhost:3005/lotes`
+
+```json
+{
+  "codigo_lote": "LOT-MAN-2026-003",
+  "producto_id": 1,
+  "fecha_produccion": "2026-10-27",
+  "cantidad": 250,
+  "resultado_calidad": "pendiente",
+  "fecha_vencimiento": "2026-11-20",
+  "centro_produccion": "Valle del Cauca"
+}
+```
+
+Respuesta `201 Created` (con `Location: /lotes/4`):
+
+```json
+{
+  "id": 4,
+  "codigo_lote": "LOT-MAN-2026-003",
+  "producto_id": 1,
+  "fecha_produccion": "2026-10-27",
+  "cantidad": 250,
+  "resultado_calidad": "pendiente",
+  "fecha_vencimiento": "2026-11-20",
+  "centro_produccion": "Valle del Cauca",
+  "producto": { "id": 1, "nombre": "Mango", "categoria": "fruta" }
+}
+```
+
+### Ejemplo: listar lotes
+
+`GET http://localhost:3005/lotes`
+
+Respuesta `200 OK`:
+
+```json
+[
+  {
+    "id": 1,
+    "codigo_lote": "LOT-MAN-2026-001",
+    "producto_id": 1,
+    "fecha_produccion": "2026-10-20",
+    "cantidad": 500,
+    "resultado_calidad": "aprobado",
+    "fecha_vencimiento": "2026-11-10",
+    "centro_produccion": "Valle del Cauca",
+    "producto": { "id": 1, "nombre": "Mango", "categoria": "fruta" }
+  }
+]
+```
+
+### Errores
+
+| Código | Situación | Ejemplo de respuesta |
+|---|---|---|
+| 400 | Datos inválidos o id no numérico | `{"error":"Datos inválidos","detalles":["cantidad debe ser un número mayor a 0"]}` |
+| 400 | El producto referenciado no existe | `{"error":"No existe el producto con id 999"}` |
+| 401 | Falta el token o es inválido | `{"error":"..."}` |
+| 403 | El rol no tiene permiso | `{"error":"..."}` |
+| 404 | El lote no existe | `{"error":"No existe el lote con id 99"}` |
+| 409 | `codigo_lote` repetido | `{"error":"Ya existe un lote con el código LOT-MAN-2026-001"}` |
+| 503 | ms-productos no está disponible al escribir | `{"error":"ms-productos no está disponible"}` |
+
+## Seguridad
+
+Cada petición lleva un token JWT firmado por ms-usuarios. ms-lotes verifica la firma con `JWT_SECRET` sin consultar a ms-usuarios.
+
+| Operación | Roles permitidos |
+|---|---|
+| Consultar (GET) | Cualquier usuario autenticado |
+| Crear, actualizar, eliminar | `administrador`, `produccion` |
+
+Sin token o con token inválido responde 401. Con un rol sin permiso responde 403.
+
+## Relaciones
+
+### Lo que ms-lotes consulta
+
+| Atributo | Microservicio consultado | Para validar (al crear y actualizar) | Para componer (al consultar) | Datos que usa |
+|---|---|---|---|---|
+| `producto_id` | ms-productos | `GET /productos/:id` | `GET /productos?ids=…` | `id`, `nombre`, `categoria` |
+
+- Al escribir: si el producto no existe responde 400; si ms-productos no responde, 503.
+- Al leer: agrega el objeto `producto` con una sola consulta por lotes. Si ms-productos no responde, la respuesta sale igual con `producto: null` y un campo `aviso`.
+- En ambos casos reenvía el token recibido y espera máximo 3 segundos.
+
+### Quién consulta a ms-lotes
+
+Ningún microservicio consulta a ms-lotes.
 
 ## Estructura del proyecto
 
 ```text
 ms-lotes/
+├── db/
+│   └── schema.sql
+├── docs/
+│   └── (colección de pruebas exportada)
 ├── src/
+│   ├── clients/
+│   │   └── productos.client.js
 │   ├── controllers/
 │   │   └── lotes.controller.js
+│   ├── middlewares/
+│   │   └── auth.js
 │   ├── models/
 │   │   └── lote.js
 │   ├── repositories/
@@ -88,284 +219,71 @@ ms-lotes/
 │   ├── utils/
 │   │   └── http-error.js
 │   ├── app.js
+│   ├── db.js
 │   └── index.js
 ├── .env.example
 ├── .gitignore
 ├── package.json
-├── package-lock.json
 └── README.md
 ```
 
 ## Arquitectura por capas
 
-El microservicio separa las responsabilidades de enrutamiento, control de solicitudes, lógica de negocio, validación y acceso a datos.
-
 | Archivo | Capa | Responsabilidad |
 |---|---|---|
-| `src/index.js` | Arranque | Lee la configuración del servidor e inicia la escucha de peticiones. |
-| `src/app.js` | Configuración | Configura Express, define `GET /health`, monta las rutas y centraliza el manejo de errores. |
-| `src/routes/lotes.routes.js` | Rutas | Asocia los métodos HTTP y las URI con los controladores. |
-| `src/controllers/lotes.controller.js` | Controladores | Recibe las solicitudes, invoca los servicios y construye las respuestas HTTP. |
-| `src/services/lotes.service.js` | Servicios | Aplica las reglas de negocio y coordina las operaciones del repositorio. |
-| `src/repositories/lotes.repository.js` | Repositorio | Consulta y almacena los lotes en memoria. |
-| `src/models/lote.js` | Modelo | Define los campos del lote y las validaciones de entrada. |
-| `src/utils/http-error.js` | Utilidad | Representa errores asociados a códigos de estado HTTP. |
+| `src/index.js` | Arranque | Lee la configuración e inicia el servidor |
+| `src/app.js` | Configuración | Middlewares, `/health`, montaje de rutas y manejo de errores |
+| `src/routes/lotes.routes.js` | Presentación | Asocia método y URI con el controlador y aplica los permisos |
+| `src/controllers/lotes.controller.js` | Presentación | Lee la petición, llama al servicio y arma la respuesta |
+| `src/middlewares/auth.js` | Seguridad | Verifica el token JWT y el rol |
+| `src/services/lotes.service.js` | Lógica de negocio | Validaciones, regla del código único y composición con productos |
+| `src/clients/productos.client.js` | Acceso externo | Consulta a ms-productos por REST |
+| `src/repositories/lotes.repository.js` | Acceso a datos | Consultas SQL a MySQL |
+| `src/db.js` | Acceso a datos | Pool de conexiones a MySQL |
+| `src/models/lote.js` | Modelo | Atributos del lote y su validación |
 
-El flujo general de una petición es el siguiente:
+## Regla de negocio
 
-1. Express recibe la solicitud HTTP.
-2. La ruta identifica el controlador correspondiente.
-3. El controlador procesa los parámetros y llama al servicio.
-4. El servicio aplica las validaciones y reglas de negocio.
-5. El repositorio consulta o modifica los datos en memoria cuando es necesario.
-6. El controlador devuelve la respuesta HTTP al cliente.
+El `codigo_lote` identifica de forma única cada lote para poder trazarlo hasta el producto y el centro de producción. Dos lotes con el mismo código harían imposible esa trazabilidad, por eso el servicio responde `409 Conflict`. Además, `fecha_produccion` no puede ser futura, porque un lote solo se registra después de producirse (400).
 
-## Endpoints implementados
+## Persistencia
 
-| Método | URI | Descripción | Respuestas HTTP |
-|---|---|---|---|
-| `GET` | `/health` | Verifica el estado del microservicio. | `200 OK` |
-| `GET` | `/lotes` | Consulta todos los lotes registrados. | `200 OK` |
-| `GET` | `/lotes/:id` | Consulta un lote por su identificador. | `200 OK`, `400 Bad Request`, `404 Not Found` |
-| `POST` | `/lotes` | Crea un nuevo lote de producción. | `201 Created`, `400 Bad Request`, `409 Conflict` |
+Los datos se guardan en MySQL (`lotes_db`, tabla `lotes`). Solo la capa de acceso a datos (`lotes.repository.js` y `db.js`) conoce la base: las rutas, el controlador y el modelo no cambiaron al migrar desde la versión en memoria. Las consultas usan parámetros (`?`) para evitar la inyección SQL.
 
-### 1. Verificar el estado del servicio
+La columna `producto_id` es un entero sin `FOREIGN KEY`: la tabla de productos vive en la base de ms-productos, y su existencia se valida por REST.
 
-**Método:** `GET`
+## Pruebas
 
-```text
-http://localhost:3005/health
-```
+La colección de Thunder Client está exportada en `docs/`. Casos cubiertos:
 
-Respuesta `200 OK`:
-
-```json
-{
-  "servicio": "ms-lotes",
-  "estado": "ok"
-}
-```
-
-### 2. Listar todos los lotes
-
-**Método:** `GET`
-
-```text
-http://localhost:3005/lotes
-```
-
-Respuesta `200 OK`:
-
-```json
-[
-  {
-    "id": 1,
-    "codigo_lote": "LOT-MAN-2026-001",
-    "producto_id": 12,
-    "fecha_produccion": "2026-10-20",
-    "cantidad": 500,
-    "resultado_calidad": "aprobado",
-    "fecha_vencimiento": "2026-11-10",
-    "centro_produccion": "Valle del Cauca"
-  },
-  {
-    "id": 2,
-    "codigo_lote": "LOT-MAN-2026-002",
-    "producto_id": 12,
-    "fecha_produccion": "2026-10-25",
-    "cantidad": 300,
-    "resultado_calidad": "pendiente",
-    "fecha_vencimiento": "2026-11-15",
-    "centro_produccion": "Valle del Cauca"
-  },
-  {
-    "id": 3,
-    "codigo_lote": "LOT-AGU-2026-001",
-    "producto_id": 15,
-    "fecha_produccion": "2026-10-26",
-    "cantidad": 1000,
-    "resultado_calidad": "rechazado",
-    "fecha_vencimiento": "2026-11-05",
-    "centro_produccion": "Cali"
-  }
-]
-```
-
-El repositorio contiene inicialmente tres lotes de ejemplo. La respuesta es un arreglo JSON, incluso cuando se consulta la colección completa.
-
-### 3. Consultar un lote por identificador
-
-**Método:** `GET`
-
-```text
-http://localhost:3005/lotes/1
-```
-
-Respuesta `200 OK`:
-
-```json
-{
-  "id": 1,
-  "codigo_lote": "LOT-MAN-2026-001",
-  "producto_id": 12,
-  "fecha_produccion": "2026-10-20",
-  "cantidad": 500,
-  "resultado_calidad": "aprobado",
-  "fecha_vencimiento": "2026-11-10",
-  "centro_produccion": "Valle del Cauca"
-}
-```
-
-Posibles errores:
-
-| Código HTTP | Situación | Ejemplo de respuesta |
+| # | Caso | Código esperado |
 |---|---|---|
-| `400 Bad Request` | El identificador no es un entero positivo. | `{"error":"El id debe ser un entero positivo"}` |
-| `404 Not Found` | El identificador es válido, pero el lote no existe. | `{"error":"No existe el lote con id 99"}` |
+| 1 | Listar todos | 200 |
+| 2 | Filtrar por `resultado_calidad` | 200 |
+| 4 | Obtener existente | 200 |
+| 5 | Obtener inexistente | 404 |
+| 6 | Id no numérico | 400 |
+| 7 | Crear válido | 201 |
+| 8 | Crear sin atributo obligatorio | 400 |
+| 9 | Crear con `codigo_lote` repetido | 409 |
+| 10 | Actualizar existente | 200 |
+| 11 | Actualizar inexistente | 404 |
+| 12 | Eliminar existente | 204 |
+| 13 | Eliminar otra vez | 404 |
+| 14 | Sin token | 401 |
+| 15 | Token inventado | 401 |
+| 16 | GET con rol que solo consulta | 200 |
+| 17 | POST con rol sin permiso | 403 |
+| 18 | POST con rol con permiso | 201 |
+| 19 | Crear con producto válido | 201 |
+| 20 | Crear con producto inexistente | 400 |
+| 21 | Obtener por id con producto | 200 |
+| 22 | Listar (una sola petición `?ids=`) | 200 |
+| 23 | Listar con ms-productos detenido | 200 (`producto: null`) |
+| 24 | Crear con ms-productos detenido | 503 |
 
-Ejemplos de identificadores inválidos:
+El caso 3 (consulta por lotes con `?ids=`) no aplica: ningún microservicio consulta a ms-lotes.
 
-```text
-http://localhost:3005/lotes/abc
-http://localhost:3005/lotes/0
-http://localhost:3005/lotes/-1
-```
+## Tecnologías
 
-### 4. Crear un lote de producción
-
-**Método:** `POST`
-
-```text
-http://localhost:3005/lotes
-```
-
-Encabezado:
-
-```http
-Content-Type: application/json
-```
-
-En Thunder Client, selecciona `POST`, abre la sección `Body`, elige `JSON` y envía el siguiente cuerpo:
-
-```json
-{
-  "codigo_lote": "LOT-MAN-2026-003",
-  "producto_id": 12,
-  "fecha_produccion": "2026-10-27",
-  "cantidad": 250,
-  "resultado_calidad": "pendiente",
-  "fecha_vencimiento": "2026-11-20",
-  "centro_produccion": "Valle del Cauca"
-}
-```
-
-Respuesta exitosa `201 Created`:
-
-```json
-{
-  "id": 4,
-  "codigo_lote": "LOT-MAN-2026-003",
-  "producto_id": 12,
-  "fecha_produccion": "2026-10-27",
-  "cantidad": 250,
-  "resultado_calidad": "pendiente",
-  "fecha_vencimiento": "2026-11-20",
-  "centro_produccion": "Valle del Cauca"
-}
-```
-
-El identificador `4` corresponde al estado inicial del repositorio y puede variar según los lotes creados durante la ejecución. Cuando la creación es exitosa, la respuesta también incluye la cabecera `Location` con la URI del nuevo recurso, por ejemplo:
-
-```http
-Location: /lotes/4
-```
-
-Posibles errores:
-
-| Código HTTP | Situación | Descripción |
-|---|---|---|
-| `400 Bad Request` | Datos inválidos. | Uno o más campos no cumplen las validaciones. |
-| `400 Bad Request` | JSON mal formado. | El cuerpo de la solicitud no contiene un JSON válido. |
-| `409 Conflict` | Código de lote repetido. | Ya existe un lote con el mismo `codigo_lote`. |
-
-Ejemplo de respuesta por código repetido:
-
-```json
-{
-  "error": "Ya existe un lote con el código LOT-MAN-2026-001"
-}
-```
-
-Ejemplo de respuesta por datos inválidos:
-
-```json
-{
-  "error": "Datos inválidos",
-  "detalles": [
-    "cantidad debe ser un número mayor a 0",
-    "resultado_calidad debe ser uno de: pendiente, aprobado, rechazado"
-  ]
-}
-```
-
-La propiedad `detalles` contiene los mensajes correspondientes a los errores de validación encontrados.
-
-## Reglas de validación
-
-Las reglas se definen en `src/models/lote.js` y se aplican durante la creación de un lote.
-
-| Campo | Regla implementada |
-|---|---|
-| `codigo_lote` | Es obligatorio, debe ser una cadena no vacía y se eliminan los espacios al inicio y al final. |
-| `producto_id` | Debe ser un entero positivo. |
-| `fecha_produccion` | Es obligatoria y debe ser una cadena de texto. Se espera el formato `YYYY-MM-DD`, pero no se comprueba que la fecha sea válida. |
-| `cantidad` | Debe ser un número mayor que cero. |
-| `resultado_calidad` | Solo admite `pendiente`, `aprobado` o `rechazado`. |
-| `fecha_vencimiento` | Es opcional. Si se proporciona, debe ser una cadena de texto. |
-| `centro_produccion` | Es opcional. Si se proporciona, debe ser una cadena de texto y se eliminan los espacios al inicio y al final. |
-
-El código de lote debe ser único. Antes de crear un registro, el servicio consulta el repositorio mediante `findByCodigo()`. Si ya existe un lote con ese código, la operación se rechaza con `409 Conflict`.
-
-## Manejo de errores
-
-La aplicación centraliza el manejo de errores en `src/app.js`.
-
-- `400 Bad Request`: identificador inválido, datos que no cumplen las validaciones o JSON mal formado.
-- `404 Not Found`: lote inexistente o ruta no definida.
-- `409 Conflict`: código de lote duplicado.
-- `500 Internal Server Error`: error interno no controlado.
-
-Las respuestas de error se envían en formato JSON. Los errores de validación pueden incluir una propiedad `detalles` con información adicional.
-
-## Rutas pendientes
-
-En el Taller 1 no están implementadas las operaciones para actualizar o eliminar lotes. Las rutas `PUT /lotes/:id` y `DELETE /lotes/:id` están previstas para el Taller 2 y no forman parte de los endpoints disponibles en esta versión.
-
-## Almacenamiento de datos
-
-Los lotes se almacenan temporalmente en un arreglo de JavaScript definido en `src/repositories/lotes.repository.js`. El repositorio incluye las siguientes funciones:
-
-| Función | Responsabilidad |
-|---|---|
-| `findAll()` | Devuelve todos los lotes almacenados. |
-| `findById(id)` | Busca un lote por su identificador. |
-| `findByCodigo(codigo_lote)` | Busca un lote por su código. |
-| `create(lote)` | Asigna un identificador, agrega el lote al arreglo y devuelve el registro creado. |
-
-Los cambios realizados en memoria se pierden cuando se reinicia el proceso del servidor. Esta versión no utiliza una base de datos.
-
-## Tecnologías utilizadas
-
-- **Node.js:** entorno de ejecución de JavaScript en el servidor.
-- **Express:** framework para gestionar las rutas y las solicitudes HTTP.
-- **JavaScript:** lenguaje utilizado para implementar el microservicio.
-- **npm:** administrador de paquetes y scripts del proyecto.
-- **Thunder Client:** extensión de Visual Studio Code para probar los endpoints HTTP.
-
-## Contexto académico
-
-- **Proyecto:** AgroRed S.A. — Microservicio de Lotes de Producción (`ms-lotes`).
-- **Asignatura:** Redes y Servicios Multimedia.
-- **Institución:** Universidad Autónoma de Occidente (UAO).
-- **Módulo:** 3.
-- **Entrega:** Taller 1.
+Node.js, Express, MySQL (`mysql2`), JSON Web Tokens (`jsonwebtoken`) y Thunder Client para las pruebas.

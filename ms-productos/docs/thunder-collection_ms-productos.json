@@ -1,0 +1,241 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "ms-productos",
+    "collectionId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+    "dateExported": "2026-11-01T22:22:18.175Z",
+    "version": "1.4",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "e449e9b4-8349-40dd-8e9f-1bd64bae685f",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "01 Listar Todos",
+            "url": "http://127.0.0.1:3002/productos",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2026-11-01T21:53:52.147Z",
+            "modified": "2026-11-01T21:53:52.148Z",
+            "headers": []
+        },
+        {
+            "_id": "108dc765-8ce5-4ba9-a2e2-fb21e6913516",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "02 Filtrar por categoría",
+            "url": "http://127.0.0.1:3002/productos?categoria=fruta",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2026-11-01T21:55:08.318Z",
+            "modified": "2026-11-01T21:55:08.318Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "categoria",
+                    "value": "fruta",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "9fe39cc2-b0d9-4f96-8fbe-c1f5ac608b24",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "03 Consultar por lotes",
+            "url": "http://127.0.0.1:3002/productos?ids=1,2",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2026-11-01T21:56:34.554Z",
+            "modified": "2026-11-01T21:56:34.554Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "ids",
+                    "value": "1,2",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "4b7214d6-8b2a-4e93-b702-ac4fbf160573",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "04 Obtener existente",
+            "url": "http://127.0.0.1:3002/productos/1",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2026-11-01T21:57:10.802Z",
+            "modified": "2026-11-01T21:57:10.802Z",
+            "headers": []
+        },
+        {
+            "_id": "049fcf69-77b0-4981-ab07-b3b1bdfd78b6",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "05 Id inexistente",
+            "url": "http://127.0.0.1:3002/productos/99",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2026-11-01T21:57:48.910Z",
+            "modified": "2026-11-01T21:57:48.910Z",
+            "headers": []
+        },
+        {
+            "_id": "417e2d2e-bc01-4a0c-955c-a036dd30b2e3",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "06 Id no numerico",
+            "url": "http://127.0.0.1:3002/productos/abc",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2026-11-01T21:58:15.168Z",
+            "modified": "2026-11-01T21:58:15.168Z",
+            "headers": []
+        },
+        {
+            "_id": "d86d6476-d1c0-4155-9566-724ada93aa74",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "07 Crear valido",
+            "url": "http://127.0.0.1:3002/productos",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2026-11-01T21:59:20.028Z",
+            "modified": "2026-11-01T21:59:20.028Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Papaya\",\r",
+                    "  \"categoria\": \"fruta\",\r",
+                    "  \"unidad\": \"kg\",\r",
+                    "  \"precio\": 4200\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "1c75317a-b859-4b1d-808d-58aed3f6af8a",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "08 Crear sin obligatorios",
+            "url": "http://127.0.0.1:3002/productos",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2026-11-01T22:00:42.493Z",
+            "modified": "2026-11-01T22:00:42.493Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Solo nombre\",\r",
+                    "  \"activo\":1\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "5dc77f59-abe0-42dd-bd28-a3009f039f50",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "09 Crear nombre repetido",
+            "url": "http://127.0.0.1:3002/productos",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2026-11-01T22:02:11.928Z",
+            "modified": "2026-11-01T22:02:11.928Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Mango Tommy\",\r",
+                    "  \"categoria\": \"fruta\",\r",
+                    "  \"unidad\": \"caja\",\r",
+                    "  \"precio\": 45000\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "4c844d3b-297b-4e00-a1f7-ccdba5c4789e",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "10 Actualizar existente",
+            "url": "http://127.0.0.1:3002/productos/2",
+            "method": "PUT",
+            "sortNum": 110000,
+            "created": "2026-11-01T22:03:24.200Z",
+            "modified": "2026-11-01T22:03:24.200Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "    \"nombre\": \"Tomate Cherry\",",
+                    "    \"categoria\": \"hortaliza\",",
+                    "    \"unidad\": \"kg\",",
+                    "    \"precio\": 3500,",
+                    "    \"activo\": true",
+                    "  }"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "3c001b1e-14dd-4b57-94f9-50dc139c417c",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "11 Actualizar inexistente\t",
+            "url": "http://127.0.0.1:3002/productos/99",
+            "method": "PUT",
+            "sortNum": 130000,
+            "created": "2026-11-01T22:06:19.587Z",
+            "modified": "2026-11-01T22:06:19.587Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Mango\",\r",
+                    "  \"categoria\": \"fruta\",\r",
+                    "  \"unidad\": \"caja\",\r",
+                    "  \"precio\": 48000,\r",
+                    "  \"activo\": true\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "f5f56b73-eff2-4fbf-acd8-4de2675d08c7",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "12 Eliminar existente",
+            "url": "http://127.0.0.1:3002/productos/3",
+            "method": "DELETE",
+            "sortNum": 140000,
+            "created": "2026-11-01T22:07:17.573Z",
+            "modified": "2026-11-01T22:07:17.573Z",
+            "headers": []
+        },
+        {
+            "_id": "a6e36e6b-2f09-43dd-a240-8e1220d14e64",
+            "colId": "1f2c8897-362d-4c59-8914-54d5f3c6b00b",
+            "containerId": "",
+            "name": "13 Eliminar otra vez",
+            "url": "http://127.0.0.1:3002/productos/3",
+            "method": "DELETE",
+            "sortNum": 150000,
+            "created": "2026-11-01T22:08:05.902Z",
+            "modified": "2026-11-01T22:08:05.902Z",
+            "headers": []
+        }
+    ],
+    "ref": "O01_4L1mS2Xo2FiHqQH-B0JHp8PX9VMg9nWLYtuwEFYC4cGLC5DKVKoy2G37eWVYtQG2Tq6ausDs6to1NcVIug"
+}

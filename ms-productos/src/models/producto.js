@@ -9,12 +9,10 @@ function validarProducto(datos) {
     return ['Se esperaba un objeto JSON con los datos del producto'];
   }
 
-  if (!Number.isInteger(datos.id) || datos.id <= 0) {
-    errores.push('id es obligatorio y debe ser un entero positivo');
-  }
-
   if (typeof datos.nombre !== 'string' || datos.nombre.trim() === '') {
     errores.push('nombre es obligatorio');
+  } else if (datos.nombre.trim().length > 100) {
+    errores.push('nombre no puede superar 100 caracteres');
   }
 
   if (!CATEGORIAS_VALIDAS.includes(datos.categoria)) {
@@ -38,7 +36,6 @@ function validarProducto(datos) {
 
 function construirProducto(datos) {
   return {
-    id: datos.id,
     nombre: datos.nombre.trim(),
     categoria: datos.categoria,
     unidad: datos.unidad,
@@ -47,4 +44,4 @@ function construirProducto(datos) {
   };
 }
 
-module.exports = { validarProducto, construirProducto };
+module.exports = { validarProducto, construirProducto, CATEGORIAS_VALIDAS};

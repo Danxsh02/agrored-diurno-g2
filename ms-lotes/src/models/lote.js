@@ -5,6 +5,7 @@
 // Lista de resultados de calidad permitidos
 const RESULTADOS_VALIDOS = ['pendiente', 'aprobado', 'rechazado'];
 const FECHA = /^\d{4}-\d{2}-\d{2}$/;
+const hoy = () => new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD en hora local
 
 function validarLote(datos) {
   const errores = [];
@@ -20,6 +21,9 @@ function validarLote(datos) {
   }
   if (!datos.fecha_produccion || typeof datos.fecha_produccion !== 'string' || !FECHA.test(datos.fecha_produccion)) {
     errores.push('fecha_produccion es obligatoria (formato YYYY-MM-DD)');
+  }
+  if (FECHA.test(datos.fecha_produccion || '') && datos.fecha_produccion > hoy()) {
+    errores.push('fecha_produccion no puede ser futura');
   }
   if (typeof datos.cantidad !== 'number' || datos.cantidad <= 0) {
     errores.push('cantidad debe ser un número mayor a 0');
