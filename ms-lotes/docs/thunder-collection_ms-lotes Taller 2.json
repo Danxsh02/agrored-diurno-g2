@@ -1,0 +1,216 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "ms-lotes Taller 2",
+    "collectionId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+    "dateExported": "2026-11-03T15:53:14.327Z",
+    "version": "1.4",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "7bb057e4-9056-4d63-9232-89d38ef12906",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "1 Listar todos los contenidos",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2026-11-01T03:19:04.634Z",
+            "modified": "2026-11-01T03:19:04.634Z",
+            "headers": []
+        },
+        {
+            "_id": "d34d5109-2bfe-4586-9fbe-b528288421c6",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "2 Filtrar por resultado",
+            "url": "http://127.0.0.1:3005/lotes?resultado_calidad=aprobado",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2026-11-01T03:19:56.808Z",
+            "modified": "2026-11-01T03:19:56.808Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "resultado_calidad",
+                    "value": "aprobado",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "02c53ed1-bf24-44a5-bb0f-2f17e3e66175",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "3 Obtener dato existente",
+            "url": "http://127.0.0.1:3005/lotes/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2026-11-01T03:21:00.980Z",
+            "modified": "2026-11-01T03:21:00.980Z",
+            "headers": []
+        },
+        {
+            "_id": "b943b316-9f94-4280-af4c-58265e522f3d",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "4 Obtener dato inexistente",
+            "url": "http://127.0.0.1:3005/lotes/99",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2026-11-01T03:21:32.795Z",
+            "modified": "2026-11-01T03:21:32.795Z",
+            "headers": []
+        },
+        {
+            "_id": "ff893522-8de8-4943-b974-4f5134b24a09",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "5 Id no numérico",
+            "url": "http://127.0.0.1:3005/lotes/abc",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2026-11-01T03:23:26.510Z",
+            "modified": "2026-11-01T03:23:26.510Z",
+            "headers": []
+        },
+        {
+            "_id": "b932c888-a098-466f-bb6a-28066c5dc6bc",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "6 Crear dato válido",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2026-11-01T03:24:53.498Z",
+            "modified": "2026-11-01T03:24:53.498Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"codigo_lote\": \"LOT-MAN-2026-010\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-27\", \"cantidad\": 250, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Valle del Cauca\" }"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "3f3e3da8-649e-467d-bb8e-2b6732c63f1b",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "7 Crear dato sin atributo",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2026-11-01T03:26:47.100Z",
+            "modified": "2026-11-01T03:26:47.100Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"producto_id\": 1, \"fecha_produccion\": \"2026-10-27\", \"cantidad\": 250, \"resultado_calidad\": \"pendiente\" }"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "6ee81331-ab7a-4d11-825d-3aa3d272a871",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "8 Incumplir la regla de código repetido",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2026-11-01T03:28:03.724Z",
+            "modified": "2026-11-01T03:28:03.724Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"codigo_lote\": \"LOT-MAN-2026-010\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-27\", \"cantidad\": 250, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Valle del Cauca\" }"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "917b5f7f-05ab-4fde-9e0c-10bacea9832f",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "9 Actualizar dato ya existente",
+            "url": "http://127.0.0.1:3005/lotes/4",
+            "method": "PUT",
+            "sortNum": 90000,
+            "created": "2026-11-01T03:29:54.065Z",
+            "modified": "2026-11-01T03:29:54.065Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"codigo_lote\": \"LOT-MAN-2026-010\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-27\", \"cantidad\": 400, \"resultado_calidad\": \"aprobado\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\" }"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "4511a851-69e9-4c77-8594-1af3d9cfa116",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "10 Actualizar dato no existente",
+            "url": "http://127.0.0.1:3005/lotes/99",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2026-11-01T03:30:22.927Z",
+            "modified": "2026-11-01T03:30:22.927Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"codigo_lote\": \"LOT-MAN-2026-010\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-27\", \"cantidad\": 400, \"resultado_calidad\": \"aprobado\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\" }"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "2d0d0435-8616-4e20-9b20-a4c644281a83",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "11 Eliminar dato existente",
+            "url": "http://127.0.0.1:3005/lotes/4",
+            "method": "DELETE",
+            "sortNum": 105000,
+            "created": "2026-11-01T03:32:14.497Z",
+            "modified": "2026-11-01T03:32:14.497Z",
+            "headers": []
+        },
+        {
+            "_id": "956fb196-992f-4dd5-9480-1bb3c51aa7e3",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "12 Eliminar dato no existente",
+            "url": "http://127.0.0.1:3005/lotes/4",
+            "method": "DELETE",
+            "sortNum": 110000,
+            "created": "2026-11-01T03:31:32.934Z",
+            "modified": "2026-11-01T03:31:32.934Z",
+            "headers": []
+        },
+        {
+            "_id": "8af9366c-84b6-41dd-84b0-263133a24b8a",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "13 Post con fecha futura",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2026-11-01T03:33:47.925Z",
+            "modified": "2026-11-01T03:33:47.925Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"codigo_lote\": \"LOT-MAN-2026-010\", \"producto_id\": 1, \"fecha_produccion\": \"2030-01-01\", \"cantidad\": 250, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Valle del Cauca\" }"
+                ],
+                "form": []
+            }
+        }
+    ],
+    "ref": "5sJTUG4oO1Ib81EI34IBF706a4tImjEZ4vNQ8tuZRFKRm9ikdP7qHe_U0HLI1SzZz7sQG3TdsCxeCe5SQtrrvg"
+}
