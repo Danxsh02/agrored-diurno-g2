@@ -1,10 +1,9 @@
 // =====================================================================
 // CAPA DE ACCESO A DATOS (repositorio)
 // Única capa que sabe DÓNDE se guardan los datos.
-// Versión del Taller 1: datos en memoria (se pierden al reiniciar).
-// En el Taller 2 se reemplaza por MySQL SIN tocar las otras capas.
-// Todas las funciones son async (devuelven promesas) para que el cambio
-// a una base de datos real no obligue a modificar la capa de servicio.
+// Versión en memoria (se pierden al reiniciar). En la Parte 3 se
+// reemplaza por MySQL SIN tocar las otras capas: las funciones
+// conservan el mismo nombre, los mismos parámetros y el mismo resultado.
 // =====================================================================
 const pedidos = [
   { id: 1, cliente_id: 1, producto_id: 1, cantidad: 50, centro_distribucion: 'Cali', estado: 'recibido', fecha: '2026-10-20' },
@@ -13,8 +12,10 @@ const pedidos = [
 ];
 let siguienteId = 4;
 
-async function findAll() {
-  return pedidos;
+async function findAll(filtros = {}) {
+  let lista = pedidos;
+  if (filtros.estado) lista = lista.filter((p) => p.estado === filtros.estado);
+  return lista;
 }
 
 async function findById(id) {
@@ -27,4 +28,20 @@ async function create(pedido) {
   return nuevo;
 }
 
-module.exports = { findAll, findById, create };
+// Devuelve el pedido actualizado, o null si no existe
+async function update(id, datos) {
+  const i = pedidos.findIndex((p) => p.id === id);
+  if (i === -1) return null;
+  pedidos[i] = { id, ...datos };
+  return pedidos[i];
+}
+
+// Devuelve true si eliminó algo, false si no existía
+async function remove(id) {
+  const i = pedidos.findIndex((p) => p.id === id);
+  if (i === -1) return false;
+  pedidos.splice(i, 1);
+  return true;
+}
+
+module.exports = { findAll, findById, create, update, remove };
