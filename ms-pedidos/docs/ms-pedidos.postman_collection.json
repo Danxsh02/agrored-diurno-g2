@@ -1,0 +1,460 @@
+{
+  "info": {
+    "_postman_id": "5b24299a-d3ff-4612-bef3-519f2bbbe667",
+    "name": "ms-pedidos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34023514"
+  },
+  "item": [
+    {
+      "name": "1. Listar todos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3004/pedidos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "2. Filtrar por estado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3004/pedidos?estado=recibido",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos"
+          ],
+          "query": [
+            {
+              "key": "estado",
+              "value": "recibido"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "4. Obtener un pedido existente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3004/pedidos/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "5. Obtener un id que no existe",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 404\", function () { pm.response.to.have.status(404); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3004/pedidos/999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "6. Obtener con id no numérico",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3004/pedidos/abc",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos",
+            "abc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "7. Crear con datos válidos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 201\", function () { pm.response.to.have.status(201); });",
+              "pm.collectionVariables.set(\"pedidoId\", pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cliente_id\": 1,\n  \"producto_id\": 2,\n  \"cantidad\": 10,\n  \"centro_distribucion\": \"Cali\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3004/pedidos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "8. Crear sin un atributo obligatorio",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"producto_id\": 2,\n  \"cantidad\": 10,\n  \"centro_distribucion\": \"Cali\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3004/pedidos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "9. Crear violando la regla de negocio (cantidad 0)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cliente_id\": 1,\n  \"producto_id\": 2,\n  \"cantidad\": 0,\n  \"centro_distribucion\": \"Cali\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3004/pedidos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10. Actualizar un pedido existente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 200\", function () { pm.response.to.have.status(200); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cliente_id\": 1,\n  \"producto_id\": 2,\n  \"cantidad\": 25,\n  \"centro_distribucion\": \"Cali\",\n  \"estado\": \"despachado\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3004/pedidos/{{pedidoId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos",
+            "{{pedidoId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11. Actualizar un id que no existe",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 404\", function () { pm.response.to.have.status(404); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cliente_id\": 1,\n  \"producto_id\": 2,\n  \"cantidad\": 10,\n  \"centro_distribucion\": \"Cali\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3004/pedidos/999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12. Eliminar un pedido existente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 204\", function () { pm.response.to.have.status(204); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3004/pedidos/{{pedidoId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos",
+            "{{pedidoId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13. Eliminar el mismo pedido otra vez",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Código 404\", function () { pm.response.to.have.status(404); });"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3004/pedidos/{{pedidoId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3004",
+          "path": [
+            "pedidos",
+            "{{pedidoId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "pedidoId",
+      "value": "4"
+    }
+  ]
+}
