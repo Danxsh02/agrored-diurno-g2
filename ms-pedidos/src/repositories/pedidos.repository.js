@@ -1,47 +1,53 @@
 // =====================================================================
-// CAPA DE ACCESO A DATOS (repositorio)
-// Única capa que sabe DÓNDE se guardan los datos.
-// Versión en memoria (se pierden al reiniciar). En la Parte 3 se
-// reemplaza por MySQL SIN tocar las otras capas: las funciones
-// conservan el mismo nombre, los mismos parámetros y el mismo resultado.
+// CAPA DE ACCESO A DATOS (repositorio) — versión MySQL
+// Mismas funciones, mismos parámetros y mismo resultado que la versión
+// en memoria: por eso rutas, controlador, servicio y modelo no cambian.
+// Siempre se usan parámetros (?) para evitar la inyección SQL.
 // =====================================================================
-const pedidos = [
-  { id: 1, cliente_id: 1, producto_id: 1, cantidad: 50, centro_distribucion: 'Cali', estado: 'recibido', fecha: '2026-10-20' },
-  { id: 2, cliente_id: 2, producto_id: 2, cantidad: 120, centro_distribucion: 'Bogotá', estado: 'despachado', fecha: '2026-10-22' },
-  { id: 3, cliente_id: 1, producto_id: 3, cantidad: 30, centro_distribucion: 'Cali', estado: 'entregado', fecha: '2026-10-25' },
-];
-let siguienteId = 4;
+const pool = require('../db');
 
 async function findAll(filtros = {}) {
-  let lista = pedidos;
-  if (filtros.estado) lista = lista.filter((p) => p.estado === filtros.estado);
-  return lista;
+  let sql = 'SELECT * FROM pedidos';
+  const valores = [];
+  if (filtros.estado) {
+    sql += ' WHERE estado = ?';
+    valores.push(filtros.estado);
+  }
+  const [filas] = await pool.query(sql + ' ORDER BY id', valores);
+  return filas;
 }
 
 async function findById(id) {
-  return pedidos.find((p) => p.id === id) || null;
+  const [filas] = await pool.query('SELECT * FROM pedidos WHERE id = ?', [id]);
+  return filas.length > 0 ? filas[0] : null;
 }
 
 async function create(pedido) {
-  const nuevo = { id: siguienteId++, ...pedido };
-  pedidos.push(nuevo);
-  return nuevo;
+  const [resultado] = await pool.query(
+    `INSERT INTO pedidos (cliente_id, producto_id, cantidad, centro_distribucion, estado, fecha)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    [pedido.cliente_id, pedido.producto_id, pedido.cantidad,
+     pedido.centro_distribucion, pedido.estado, pedido.fecha]);
+  return findById(resultado.insertId);   // MySQL devuelve el id generado
 }
 
 // Devuelve el pedido actualizado, o null si no existe
 async function update(id, datos) {
-  const i = pedidos.findIndex((p) => p.id === id);
-  if (i === -1) return null;
-  pedidos[i] = { id, ...datos };
-  return pedidos[i];
+  const [resultado] = await pool.query(
+    `UPDATE pedidos
+        SET cliente_id = ?, producto_id = ?, cantidad = ?,
+            centro_distribucion = ?, estado = ?, fecha = ?
+      WHERE id = ?`,
+    [datos.cliente_id, datos.producto_id, datos.cantidad,
+     datos.centro_distribucion, datos.estado, datos.fecha, id]);
+  if (resultado.affectedRows === 0) return null;
+  return findById(id);
 }
 
 // Devuelve true si eliminó algo, false si no existía
 async function remove(id) {
-  const i = pedidos.findIndex((p) => p.id === id);
-  if (i === -1) return false;
-  pedidos.splice(i, 1);
-  return true;
+  const [resultado] = await pool.query('DELETE FROM pedidos WHERE id = ?', [id]);
+  return resultado.affectedRows > 0;
 }
 
 module.exports = { findAll, findById, create, update, remove };
