@@ -1,0 +1,294 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "ms-usuarios",
+    "collectionId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+    "dateExported": "2026-11-04T03:02:06.134Z",
+    "version": "1.4",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "ad3e1823-5394-47aa-b68a-5b27858052f3",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "health",
+            "url": "http://127.0.0.1:3001/health",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2026-11-04T02:35:54.782Z",
+            "modified": "2026-11-04T02:35:54.782Z",
+            "headers": []
+        },
+        {
+            "_id": "8109f775-8286-499a-aa47-f67adb117e7b",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "usuarios",
+            "url": "http://127.0.0.1:3001/usuarios",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2026-11-04T02:38:04.223Z",
+            "modified": "2026-11-04T02:38:04.223Z",
+            "headers": []
+        },
+        {
+            "_id": "2866b65c-6978-44ad-9d6f-d56f3cc52dcf",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "usuario_comercial",
+            "url": "http://127.0.0.1:3001/usuarios?rol=comercial",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2026-11-04T02:38:49.399Z",
+            "modified": "2026-11-04T02:38:49.399Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "rol",
+                    "value": "comercial",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "9fc5d62e-95f1-48e7-bb2a-73fa5ac82fc1",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "usuarios_1,3",
+            "url": "http://127.0.0.1:3001/usuarios?ids=1,3",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2026-11-04T02:40:24.158Z",
+            "modified": "2026-11-04T02:40:24.158Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "ids",
+                    "value": "1,3",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "4b07a9dc-ad69-4ba8-9ad8-dc13c56e4499",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "usuario_1",
+            "url": "http://127.0.0.1:3001/usuarios/1",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2026-11-04T02:41:23.562Z",
+            "modified": "2026-11-04T02:41:23.562Z",
+            "headers": []
+        },
+        {
+            "_id": "9314470d-ffb7-4787-b61c-a272618628d6",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "usuario_inexistente",
+            "url": "http://127.0.0.1:3001/usuarios/99",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2026-11-04T02:41:53.274Z",
+            "modified": "2026-11-04T02:41:53.274Z",
+            "headers": []
+        },
+        {
+            "_id": "948a6361-bd0a-479a-a05b-f1ca210f0b3f",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "usuario_abc",
+            "url": "http://127.0.0.1:3001/usuarios/abc",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2026-11-04T02:42:29.705Z",
+            "modified": "2026-11-04T02:42:29.705Z",
+            "headers": []
+        },
+        {
+            "_id": "bb380c48-3176-496d-a5ba-b96830af8203",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "crear_usuario",
+            "url": "http://127.0.0.1:3001/usuarios",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2026-11-04T02:43:10.085Z",
+            "modified": "2026-11-04T02:43:10.085Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Julio Rincón\",\r",
+                    "  \"email\": \"julio.rincon@agrored.com\",\r",
+                    "  \"rol\": \"comercial\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "5c839613-67d1-4dd2-a621-27b567eaf5f9",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "elimina_usuariodenuevo",
+            "url": "http://127.0.0.1:3001/usuarios/4",
+            "method": "DELETE",
+            "sortNum": 110000,
+            "created": "2026-11-04T02:45:59.423Z",
+            "modified": "2026-11-04T02:45:59.423Z",
+            "headers": []
+        },
+        {
+            "_id": "2c2ef3f5-2152-4753-a792-f2bda39f1683",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "crear_mismo_usuario",
+            "url": "http://127.0.0.1:3001/usuarios",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2026-11-04T02:48:02.202Z",
+            "modified": "2026-11-04T02:48:02.202Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Julio Rincón\",\r",
+                    "  \"email\": \"julio.rincon@agrored.com\",\r",
+                    "  \"rol\": \"comercial\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "e7bc1724-deb0-448e-9222-8810ecf58a4c",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "crear_sin_nombre",
+            "url": "http://127.0.0.1:3001/usuarios",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2026-11-04T02:48:51.696Z",
+            "modified": "2026-11-04T02:48:51.696Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"\",\r",
+                    "  \"email\": \"julio.rincon@agrored.com\",\r",
+                    "  \"rol\": \"comercial\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "2e7be6e6-36c5-4290-aa84-b2e5ab2b76b6",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "actualizar_2",
+            "url": "http://127.0.0.1:3001/usuarios/2",
+            "method": "PUT",
+            "sortNum": 140000,
+            "created": "2026-11-04T02:50:02.528Z",
+            "modified": "2026-11-04T02:50:02.528Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Laura Gómez\",\r",
+                    "  \"email\": \"laura.gomez@agrored.com\",\r",
+                    "  \"rol\": \"produccion\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "3a5df5f7-e0d7-46e4-acc9-d47b6abb883e",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "actualizar_inexistente",
+            "url": "http://127.0.0.1:3001/usuarios/99",
+            "method": "PUT",
+            "sortNum": 150000,
+            "created": "2026-11-04T02:50:48.211Z",
+            "modified": "2026-11-04T02:50:48.211Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Laura Gómez\",\r",
+                    "  \"email\": \"laura.gomez@agrored.com\",\r",
+                    "  \"rol\": \"produccion\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "004367d9-86f9-404a-8626-458cecda06b2",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "elimina_usuario",
+            "url": "http://127.0.0.1:3001/usuarios/5",
+            "method": "DELETE",
+            "sortNum": 160000,
+            "created": "2026-11-04T02:52:23.481Z",
+            "modified": "2026-11-04T02:52:23.481Z",
+            "headers": []
+        },
+        {
+            "_id": "75d66546-08cd-4690-ba5c-f78a190d58fb",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "actualiza_2_mismocorreo",
+            "url": "http://127.0.0.1:3001/usuarios/2",
+            "method": "PUT",
+            "sortNum": 170000,
+            "created": "2026-11-04T02:54:42.044Z",
+            "modified": "2026-11-04T02:54:42.044Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Laura Gómez\",\r",
+                    "  \"email\": \"admin@empresa.com\",\r",
+                    "  \"rol\": \"produccion\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "78a2b8b6-b740-4989-989b-687fcad110ab",
+            "colId": "b26ff41a-3a0b-47df-b638-ee61ec944680",
+            "containerId": "",
+            "name": "crear_usuario_otrorol",
+            "url": "http://127.0.0.1:3001/usuarios",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2026-11-04T02:57:18.342Z",
+            "modified": "2026-11-04T02:57:18.342Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Rosa Reyes\",\r",
+                    "  \"email\": \"rosa.reyes@agrored.com\",\r",
+                    "  \"rol\": \"gerente\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        }
+    ],
+    "ref": "q5Ky8rNZr8f7h6XP2xYBLsb5Bcp0OJKhMWRxej37woC_8W9CQgqtNlpEAKXXzNkGlkFs_1ttsEgQAYwfdJ2VcA"
+}
