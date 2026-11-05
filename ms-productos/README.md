@@ -1,79 +1,101 @@
-# ms-productos: Microservicio de Productos
+# ms-productos
 
-**AgroRed S.A.** 
+Servicio del catálogo de productos de la empresa agroindustrial: **AgroRed S.A.**
 
-Microservicio que gestiona la entidad **Producto**, desarrollado con **Node.js**, **Express** y **MySQL**, y organizado en capas.
+| | |
+|---|---|
+| **Responsable** | Estefanía Del Amor Restrepo (`tefDel`) |
+| **Puerto** | 3002 |
+| **Stack** | Node.js · Express · MySQL |
+| **Versión** | Taller 2 (semana 1) |
 
-- **Responsable:** Estefanía Del Amor Restrepo (`tefDel`)
-- **Puerto:** 3002
-- **Base de datos:** `productos_db` (usuario `productos_user`)
+## ¿Qué hace?
 
-Es el servicio dueño del catálogo de productos. Los microservicios `ms-pedidos` y `ms-lotes` lo consultan para validar y mostrar los productos que referencian.
+Este servicio es el único responsable de la información de los productos que vende AgroRed. Otros microservicios, como ms-pedidos y ms-lotes, se apoyan en él para saber qué productos existen. En esta versión permite:
 
-## Cómo ejecutarlo
+- listar el catálogo, con filtro por categoría y por lista de ids,
+- buscar un producto por su id,
+- registrar un producto nuevo, validando sus datos y evitando nombres repetidos,
+- actualizar y eliminar productos.
 
-### Requisitos
+La autenticación con JWT y la validación de relaciones llegan en la semana 2 del taller 2.
 
-- Node.js LTS 22 o superior y npm.
-- MySQL o MariaDB en ejecución (en desarrollo se usa el de XAMPP).
+## Puesta en marcha
 
-### Pasos
+Necesitas Node.js LTS (22 o superior), npm y MySQL (en el puerto 3306).
 
-1. Instalar dependencias:
-   ```bash
-   npm install
-   ```
-2. Encender **MySQL** en el panel de XAMPP (puerto 3306) y crear la base de datos y su usuario, como `root`:
-   ```bash
-   /c/xampp/mysql/bin/mysql -u root
-   ```
-   ```sql
-   CREATE DATABASE productos_db CHARACTER SET utf8mb4;
-   CREATE USER 'productos_user'@'localhost' IDENTIFIED BY '<clave>';
-   GRANT ALL PRIVILEGES ON productos_db.* TO 'productos_user'@'localhost';
-   FLUSH PRIVILEGES;
-   EXIT;
-   ```
-3. Crear la tabla y los datos iniciales, conectado como `productos_user` y desde la carpeta `ms-productos` (ejecutarlo **una sola vez**):
-   ```bash
-   /c/xampp/mysql/bin/mysql -u productos_user -p productos_db
-   ```
-   ```sql
-   SOURCE db/schema.sql;
-   SELECT * FROM productos;
-   ```
-   Debe mostrar Mango y Tomate. Para empezar de cero: `DROP TABLE productos;` y volver a ejecutar el `SOURCE`.
-4. Crear el archivo `.env` a partir del ejemplo y completar los valores:
-   ```bash
-   cp .env.example .env
-   ```
-   En CMD de Windows: `copy .env.example .env`.
-5. Iniciar el servicio:
-   ```bash
-   npm run dev
-   ```
+**1. Crear la base de datos y su usuario** (como `root`, en MySQL Workbench):
 
-Debe aparecer `ms-productos escuchando en http://127.0.0.1:3002`. Para comprobarlo: `GET /health`.
+```sql
+CREATE DATABASE productos_db CHARACTER SET utf8mb4;
+CREATE USER 'productos_user'@'localhost' IDENTIFIED BY 'una-clave-segura';
+GRANT ALL PRIVILEGES ON productos_db.* TO 'productos_user'@'localhost';
+FLUSH PRIVILEGES;
+```
 
-### Variables de entorno
+**2. Crear la tabla y los datos iniciales.** En Workbench, conectado como `productos_user`: **File → Open SQL Script**, elegir `db/schema.sql` y ejecutarlo **una sola vez**. Para comprobarlo:
 
-| Variable | Descripción | Ejemplo |
-|---|---|---|
-| `PORT` | Puerto del servicio | `3002` |
-| `HOST` | Dirección de escucha | `127.0.0.1` |
-| `DB_HOST` | Servidor MySQL | `localhost` |
-| `DB_PORT` | Puerto de MySQL | `3306` |
-| `DB_NAME` | Base de datos | `productos_db` |
-| `DB_USER` | Usuario de la base | `productos_user` |
-| `DB_PASSWORD` | Clave del usuario (no se sube al repositorio) | — |
+```sql
+SELECT * FROM productos;
+```
 
-El archivo `.env` nunca se sube al repositorio.
+**3. Instalar y arrancar.** Desde la carpeta `ms-productos`:
 
-## Representación y atributos
+```bash
+npm install
+cp .env.example .env
+npm run dev
+```
+
+> En CMD de Windows, el segundo comando es `copy .env.example .env`.
+
+Edita el `.env` y pon la clave real de la base de datos en `DB_PASSWORD`:
+
+```dotenv
+PORT=3002
+HOST=127.0.0.1
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=productos_db
+DB_USER=productos_user
+DB_PASSWORD=una-clave-segura
+```
+
+El archivo `.env` nunca se sube al repositorio. Si todo salió bien, la consola muestra:
+
+```text
+ms-productos escuchando en http://127.0.0.1:3002
+```
+
+`npm run dev` reinicia el servidor automáticamente cada vez que guardas un archivo.
+
+## Contrato de la API
+
+Base: `http://127.0.0.1:3002`
+
+| Operación | Método | URI | Cuerpo | Respuesta exitosa | Errores posibles |
+|---|---|---|---|---|---|
+| Salud | GET | `/health` | — | 200 | — |
+| Listar | GET | `/productos` | — | 200 + arreglo | — |
+| Filtrar | GET | `/productos?categoria=fruta` | — | 200 + arreglo filtrado | 400 categoría inválida |
+| Consultar por lotes | GET | `/productos?ids=1,2` | — | 200 + arreglo con esos registros | 400 ids inválidos · 404 ningún id existe |
+| Obtener | GET | `/productos/:id` | — | 200 + objeto | 400 id inválido · 404 |
+| Crear | POST | `/productos` | JSON sin id | 201 + objeto + cabecera `Location` | 400 · 409 |
+| Actualizar | PUT | `/productos/:id` | JSON completo sin id | 200 + objeto actualizado | 400 · 404 · 409 |
+| Eliminar | DELETE | `/productos/:id` | — | 204 sin cuerpo | 400 · 404 |
+
+Las rutas que no existen responden 404 con un mensaje en JSON.
+
+### Detalles de los filtros
+
+- **`?categoria=`** acepta `fruta`, `hortaliza` o `procesado` (sin importar mayúsculas). Un número o un valor que no esté en la lista responde 400 indicando las categorías válidas.
+- **`?ids=`** debe ser una lista de enteros positivos separados por comas; si algún valor no lo es, responde 400. Si **ninguno** de los ids existe, responde 404. Si existen solo **algunos**, responde 200 con los encontrados y agrega la cabecera `X-Ids-No-Encontrados` con los ids que faltaron.
+
+### Estructura de un producto
 
 ```json
 {
-  "id": 3,
+  "id": 4,
   "nombre": "Papaya",
   "categoria": "fruta",
   "unidad": "kg",
@@ -82,38 +104,9 @@ El archivo `.env` nunca se sube al repositorio.
 }
 ```
 
-| Atributo | Tipo | Obligatorio | Reglas |
-|---|---|---|---|
-| `id` | entero | automático | Lo genera la base de datos; no se envía en POST ni PUT |
-| `nombre` | texto | sí | No vacío, máximo 100 caracteres. **Único**, sin distinguir mayúsculas (409 si se repite) |
-| `categoria` | texto | sí | `fruta`, `hortaliza` o `procesado` |
-| `unidad` | texto | sí | `kg` o `caja` |
-| `precio` | número | sí | Mayor que 0 |
-| `activo` | booleano | no | `true` o `false`. Por defecto `true` |
+### Crear un producto
 
-Cualquier otro campo que se envíe se ignora.
-
-## Endpoints
-
-| Operación | Método | URI | Cuerpo | Respuesta exitosa | Errores posibles |
-|---|---|---|---|---|---|
-| Salud | GET | `/health` | — | 200 | — |
-| Listar | GET | `/productos` | — | 200 + arreglo | — |
-| Filtrar | GET | `/productos?categoria=fruta` | — | 200 + arreglo filtrado | 400 |
-| Consultar por lotes | GET | `/productos?ids=1,3,8` | — | 200 + arreglo con esos registros | 400 · 404 |
-| Obtener | GET | `/productos/:id` | — | 200 + objeto | 400 · 404 |
-| Crear | POST | `/productos` | JSON sin `id` | 201 + objeto + cabecera `Location` | 400 · 409 |
-| Actualizar | PUT | `/productos/:id` | JSON completo sin `id` | 200 + objeto actualizado | 400 · 404 · 409 |
-| Eliminar | DELETE | `/productos/:id` | — | 204 sin cuerpo | 400 · 404 |
-
-### Detalles de los filtros
-
-- **`?categoria=`** acepta `fruta`, `hortaliza` o `procesado` (sin importar mayúsculas). Un número o un valor que no esté en la lista responde 400 indicando las categorías válidas.
-- **`?ids=`** debe ser una lista de enteros positivos separados por comas; si algún valor no lo es, responde 400. Si **ninguno** de los ids existe, responde 404. Si existen solo **algunos**, responde 200 con los encontrados y agrega la cabecera `X-Ids-No-Encontrados` con los ids que faltaron.
-
-### Ejemplo: crear un producto
-
-`POST http://127.0.0.1:3002/productos`
+`POST /productos` con cuerpo JSON. El `id` lo genera la base de datos, no quien hace la petición.
 
 ```json
 {
@@ -124,44 +117,65 @@ Cualquier otro campo que se envíe se ignora.
 }
 ```
 
-Respuesta `201 Created` (con `Location: /productos/3`):
+Responde `201 Created` con el producto guardado. Fíjate en que `activo` aparece como `true` aunque no se envió, porque es su valor por defecto. La respuesta también trae la cabecera `Location: /productos/4`, que indica dónde consultar el recurso creado.
+
+### Actualizar un producto
+
+`PUT /productos/:id` con el cuerpo completo (sin `id`). Responde `200 OK` con el producto actualizado.
 
 ```json
 {
-  "id": 3,
-  "nombre": "Papaya",
-  "categoria": "fruta",
+  "nombre": "Tomate Cherry",
+  "categoria": "hortaliza",
   "unidad": "kg",
-  "precio": 4200,
+  "precio": 3500,
   "activo": true
 }
 ```
 
-### Ejemplo: listar productos
+### Eliminar un producto
 
-`GET http://127.0.0.1:3002/productos`
+`DELETE /productos/:id` responde `204 No Content`, sin cuerpo. Si se repite, responde 404 porque el producto ya no existe.
 
-Respuesta `200 OK`:
+### Listar productos
+
+`GET /productos` responde `200 OK`:
 
 ```json
 [
   { "id": 1, "nombre": "Mango", "categoria": "fruta", "unidad": "caja", "precio": 45000, "activo": true },
   { "id": 2, "nombre": "Tomate", "categoria": "hortaliza", "unidad": "kg", "precio": 3500, "activo": true },
-  { "id": 3, "nombre": "Papaya", "categoria": "fruta", "unidad": "kg", "precio": 4200, "activo": true }
+  { "id": 3, "nombre": "Jugo de mora", "categoria": "procesado", "unidad": "caja", "precio": 28000, "activo": true }
 ]
 ```
 
-### Errores
+## Reglas de los datos
 
-Todos salen en JSON con el campo `error`.
-
-| Código | Situación | Ejemplo de respuesta |
+| Campo | Obligatorio | Qué se acepta |
 |---|---|---|
-| 400 | Datos inválidos, id no numérico, o `ids` / `categoria` mal escritos | `{"error":"El id debe ser un entero positivo"}` |
-| 404 | El producto no existe, o ninguno de los `ids` existe | `{"error":"No existe el producto con id 99"}` |
-| 409 | Ya existe un producto con ese nombre | `{"error":"Ya existe un producto con el nombre Mango"}` |
+| `id` | — | Lo genera la base de datos; no se envía al crear ni al actualizar |
+| `nombre` | Sí | Texto con contenido, máximo 100 caracteres (se recortan los espacios de los extremos); **debe ser único** |
+| `categoria` | Sí | `fruta`, `hortaliza` o `procesado` |
+| `unidad` | Sí | `kg` o `caja` |
+| `precio` | Sí | Número mayor que 0 |
+| `activo` | No | `true` o `false`; si se omite, queda en `true` |
 
-Cuando el 400 viene de validar el cuerpo, se agrega `detalles` con todos los problemas encontrados:
+Cualquier otro campo que se envíe se ignora y no se guarda.
+
+## Reglas de negocio y errores
+
+- **Nombre único (409):** no puede haber dos productos con el mismo nombre, sin distinguir mayúsculas. Al actualizar, el nombre solo causa conflicto si pertenece a **otro** producto; el mismo producto puede conservar su nombre. Tiene sentido para la empresa porque los pedidos y los lotes que referencian al producto quedarían ambiguos con entradas duplicadas.
+- **Datos dentro de sus listas (400):** `precio` debe ser mayor que 0, y `categoria` y `unidad` deben estar dentro de su lista.
+
+Todos los errores salen en JSON con el campo `error`.
+
+| Código | Cuándo | Ejemplo |
+|---|---|---|
+| 400 | Algún dato no cumple las reglas, el id de la URL no es un entero positivo, o `ids` / `categoria` están mal escritos | `El id debe ser un entero positivo` |
+| 404 | El id es válido pero no hay un producto con ese número (GET, PUT o DELETE), o ninguno de los `ids` existe | `No existe el producto con id 99` |
+| 409 | El `nombre` enviado ya pertenece a otro producto (POST o PUT) | `Ya existe un producto con el nombre Mango` |
+
+Cuando el 400 viene de la validación del cuerpo, se agrega `detalles` con todos los problemas encontrados a la vez:
 
 ```json
 {
@@ -174,96 +188,95 @@ Cuando el 400 viene de validar el cuerpo, se agrega `detalles` con todos los pro
 }
 ```
 
+El servicio primero valida el formato y solo después busca duplicados. Por eso un dato inválido da 400 y nunca 409.
+
 ## Relaciones
 
-`ms-productos` **no guarda referencias** a otros microservicios y no consulta a nadie. Es un servicio consultado.
+`ms-productos` **no guarda referencias** a otros microservicios y no consulta a nadie. Es un servicio **consultado**.
 
-### Lo que ms-productos consulta
-
-Ninguno.
-
-### Quién consulta a ms-productos
+### Quién me consulta
 
 | Me consulta | Peticiones que me hace | Campos que no puedo cambiar sin avisar |
 |---|---|---|
-| `ms-pedidos` | `GET /productos/:id` · `GET /productos?ids=…` | `id`, `nombre`, `precio` |
-| `ms-lotes` | `GET /productos/:id` · `GET /productos?ids=…` | `id`, `nombre`, `categoria` |
+| `ms-pedidos` | `GET /productos/:id` (validar que el producto exista al crear o actualizar un pedido) · `GET /productos?ids=…` (componer la respuesta de los pedidos) | `id`, `nombre`, `precio` |
+| `ms-lotes` | `GET /productos/:id` (validar al crear o actualizar un lote) · `GET /productos?ids=…` (componer la respuesta de los lotes) | `id`, `nombre`, `categoria` |
 
-Si cambio el nombre o el tipo de alguno de esos atributos, aviso al grupo (rol Arquitecto) antes de subir el cambio.
+Si cambio el nombre o el tipo de alguno de esos atributos, aviso al grupo antes de subir el cambio.
 
-## Estructura del proyecto
+## Datos de partida
+
+Al ejecutar `db/schema.sql`, la tabla queda con tres productos:
+
+| id | nombre | categoria | unidad | precio | activo |
+|---|---|---|---|---|---|
+| 1 | Mango | fruta | caja | 45000 | true |
+| 2 | Tomate | hortaliza | kg | 3500 | true |
+| 3 | Jugo de mora | procesado | caja | 28000 | true |
+
+Los datos se guardan en MySQL, así que no se pierden al reiniciar el servicio.
+
+## Casos de prueba
+
+La colección de pruebas está en la carpeta `docs/` (Thunder Client). Se ejecutan en este orden, con la tabla recién creada. La Papaya recibe el id 4, así que los casos 12 y 13 usan ese id.
+
+| # | Petición | Resultado esperado |
+|---|---|---|
+| 1 | `GET /productos` | 200 · lista de productos |
+| 2 | `GET /productos?categoria=fruta` | 200 · solo los de categoría fruta |
+| 3 | `GET /productos?ids=1,2` | 200 · Mango y Tomate |
+| 4 | `GET /productos/1` | 200 · Mango |
+| 5 | `GET /productos/99` | 404 |
+| 6 | `GET /productos/abc` | 400 |
+| 7 | `POST /productos` con la Papaya | 201 · `id: 4`, `activo: true` |
+| 8 | `POST /productos` con `{"nombre": "Solo nombre"}` | 400 · lista de errores |
+| 9 | `POST /productos` con `"nombre": "Mango"` y el resto válido | 409 |
+| 10 | `PUT /productos/1` con el cuerpo de "Mango Tommy" | 200 |
+| 11 | `PUT /productos/99` con el mismo cuerpo | 404 |
+| 12 | `DELETE /productos/4` | 204 |
+| 13 | `DELETE /productos/4` otra vez | 404 |
+
+Para repetir las pruebas desde cero, ejecuta `DROP TABLE productos;` y vuelve a ejecutar `db/schema.sql`.
+
+## Organización del código
 
 ```text
 ms-productos/
 ├── db/
-│   └── schema.sql
+│   └── schema.sql                        # Tabla y datos iniciales
 ├── docs/
-│   └── thunder-collection_ms-productos.json
+│   └── thunder-collection_ms-productos.json   # Colección de pruebas
 ├── src/
 │   ├── controllers/
-│   │   └── productos.controller.js
+│   │   └── productos.controller.js       # Lee la petición y arma la respuesta HTTP
 │   ├── models/
-│   │   └── producto.js
+│   │   └── producto.js                   # Campos válidos y validación
 │   ├── repositories/
-│   │   └── productos.repository.js
+│   │   └── productos.repository.js       # Consultas SQL a MySQL
 │   ├── routes/
-│   │   └── productos.routes.js
+│   │   └── productos.routes.js           # Asocia método + URL con el controlador
 │   ├── services/
-│   │   └── productos.service.js
+│   │   └── productos.service.js          # Reglas de negocio (validar, nombre único)
 │   ├── utils/
-│   │   └── http-error.js
-│   ├── app.js
-│   ├── db.js
-│   └── index.js
+│   │   └── http-error.js                 # Error con código HTTP
+│   ├── app.js                            # Express, /health, montaje de rutas y errores
+│   ├── db.js                             # Pool de conexiones a MySQL
+│   └── index.js                          # Arranca el servidor con PORT y HOST
 ├── .env.example
 ├── package.json
-└── README.md
+└── package-lock.json
 ```
 
-## Arquitectura por capas
+Cada capa solo se comunica con la que tiene al lado, de modo que una petición recorre este camino:
 
-| Archivo | Capa | Responsabilidad |
-|---|---|---|
-| `src/index.js` | Arranque | Lee la configuración e inicia el servidor |
-| `src/app.js` | Configuración | Middlewares, `/health`, montaje de rutas y manejo de errores |
-| `src/routes/productos.routes.js` | Presentación | Asocia método y URI con el controlador |
-| `src/controllers/productos.controller.js` | Presentación | Lee la petición (id, filtros), llama al servicio y arma la respuesta |
-| `src/services/productos.service.js` | Lógica de negocio | Validaciones, regla del nombre único y manejo de 404 |
-| `src/repositories/productos.repository.js` | Acceso a datos | Consultas SQL a MySQL |
-| `src/db.js` | Acceso a datos | Pool de conexiones a MySQL |
-| `src/models/producto.js` | Modelo | Atributos del producto y su validación |
-| `src/utils/http-error.js` | Utilidad | Error con código de estado HTTP |
+```text
+Cliente → rutas → controlador → servicio → repositorio → MySQL
+                                    ↓
+                                 modelo (validación)
+```
 
-## Regla de negocio
+Para pasar de memoria a MySQL solo se reescribió el repositorio (y se agregó `db.js`); las rutas, el controlador, el servicio y el modelo no cambiaron por la migración. Las consultas usan parámetros (`?`) para evitar la inyección SQL, y la columna `nombre` lleva `UNIQUE` como segunda barrera de la regla de unicidad.
 
-El `nombre` de un producto no se puede repetir (sin distinguir mayúsculas), porque el catálogo no debe tener dos entradas para el mismo producto: los pedidos y los lotes que lo referencian quedarían ambiguos. Si se intenta crear o actualizar un producto con un nombre que ya existe en otro registro, el servicio responde `409 Conflict`. Al actualizar, un producto puede conservar su propio nombre sin que cuente como repetido. Además se valida que `precio` sea mayor que 0 y que `categoria` y `unidad` estén dentro de su lista (400).
+## Próximos pasos
 
-## Persistencia
-
-Los datos se guardan en MySQL (`productos_db`, tabla `productos`). Solo la capa de acceso a datos (`productos.repository.js` y `db.js`) conoce la base: las rutas, el controlador, el servicio y el modelo no cambiaron al migrar desde la versión en memoria. Las consultas usan parámetros (`?`) para evitar la inyección SQL. La columna `nombre` lleva `UNIQUE` como segunda barrera de la regla de unicidad.
-
-## Pruebas
-
-La colección de Thunder Client está exportada en `docs/`. Se ejecutan en este orden, con la tabla recién creada:
-
-| # | Caso | Código esperado |
-|---|---|---|
-| 1 | Listar todos | 200 |
-| 2 | Filtrar por categoría | 200 |
-| 3 | Consultar por lotes con `?ids=` | 200 |
-| 4 | Obtener un registro existente | 200 |
-| 5 | Obtener un id que no existe | 404 |
-| 6 | Obtener con id no numérico | 400 |
-| 7 | Crear con datos válidos | 201 |
-| 8 | Crear sin atributos obligatorios | 400 |
-| 9 | Crear con un nombre repetido | 409 |
-| 10 | Actualizar un registro existente | 200 |
-| 11 | Actualizar un id que no existe | 404 |
-| 12 | Eliminar un registro existente | 204 |
-| 13 | Eliminar el mismo registro otra vez | 404 |
-
-Los casos de seguridad (14 a 18) y de relaciones se documentarán al terminar la semana 2.
-
-## Tecnologías
-
-Node.js, Express, MySQL (`mysql2`) y Thunder Client para las pruebas.
+- **Semana 2:** seguridad con tokens JWT y permisos por rol, y atender las consultas de ms-pedidos y ms-lotes.
+- **Taller 3:** despliegue en el ambiente.
