@@ -12,4 +12,5 @@ CREATE TABLE productos (
 
 INSERT INTO productos (nombre, categoria, unidad, precio, activo) VALUES
   ('Mango', 'fruta', 'caja', 45000, TRUE),
-  ('Tomate', 'hortaliza', 'kg', 3500, TRUE);
+  ('Tomate', 'hortaliza', 'kg', 3500, TRUE),
+  ('Jugo de mora', 'procesado', 'caja', 28000, TRUE);
