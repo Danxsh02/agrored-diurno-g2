@@ -72,17 +72,23 @@ Prueben en el navegador: http://localhost:3004/health y http://localhost:3004/pe
 
 ### Representación de un pedido
 
+Como Pedido guarda referencias a otros microservicios, la respuesta incluye además el objeto relacionado, compuesto por el servicio con los datos de ms-clientes y ms-productos (`id` y `nombre`):
+
 ```json
 {
   "id": 1,
   "cliente_id": 1,
+  "cliente": { "id": 1, "nombre": "Distribuidora El Valle" },
   "producto_id": 1,
+  "producto": { "id": 1, "nombre": "Mango" },
   "cantidad": 50,
   "centro_distribucion": "Cali",
   "estado": "recibido",
   "fecha": "2026-10-20"
 }
 ```
+
+> **Estado de la implementación:** los objetos `cliente` y `producto` los agrega el servicio en la semana 2 (consulta a ms-clientes y ms-productos). Hasta entonces, la respuesta trae solo los campos propios del pedido (`id`, `cliente_id`, `producto_id`, `cantidad`, `centro_distribucion`, `estado`, `fecha`), como en los ejemplos de más abajo. Si el otro servicio no responde, el objeto vendrá en `null`.
 
 ### Atributos
 
@@ -96,7 +102,7 @@ Prueben en el navegador: http://localhost:3004/health y http://localhost:3004/pe
 | estado | texto | No (por defecto `recibido`) | `recibido`, `despachado` o `entregado` |
 | fecha | texto (AAAA-MM-DD) | No (por defecto, hoy) | Fecha real |
 
-`cliente_id` y `producto_id` se guardan solo como número (sin copiar los datos del cliente ni del producto).
+`cliente_id` y `producto_id` se guardan solo como número (sin copiar los datos del cliente ni del producto). Los objetos `cliente` y `producto` de la representación **no se guardan ni se envían** al crear o actualizar: solo se agregan en las respuestas.
 
 ### Endpoints
 
