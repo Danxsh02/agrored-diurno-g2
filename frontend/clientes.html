@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clientes · AgroRed</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="lateral" id="lateral">
+      <a class="marca" href="clientes.html"><span class="punto"></span>AgroRed</a>
+      <nav id="menu"></nav>
+      <p class="lateral-pie">Acceso solo desde la subred<br>172.16.1.56/29</p>
+    </aside>
+    <div class="velo" id="velo"></div>
+
+    <div class="contenido">
+      <header class="superior">
+        <button class="icono-btn menu-movil" id="btnMenu" aria-label="Abrir menú"><span data-ico="menu"></span></button>
+        <div class="titulo">
+          <h1>Clientes</h1>
+          <p>Distribuidores y comercios de AgroRed</p>
+        </div>
+        <div class="usuario">
+          <span class="avatar" id="avatar"></span>
+          <div class="usuario-datos">
+            <strong id="nombreUsuario"></strong>
+            <span class="rol-tag" id="rolUsuario"></span>
+          </div>
+          <button class="icono-btn" id="btnSalir" title="Cerrar sesión"><span data-ico="logout"></span></button>
+        </div>
+      </header>
+
+      <main>
+        <section class="resumen">
+          <article class="stat" style="--i:0"><small>Clientes registrados</small><strong id="stTotal">0</strong></article>
+          <article class="stat" style="--i:1"><small>Distribuidores</small><strong id="stDist">0</strong></article>
+          <article class="stat oro" style="--i:2"><small>Comercios</small><strong id="stCom">0</strong></article>
+          <article class="stat" style="--i:3"><small>Ciudades atendidas</small><strong id="stCiu">0</strong></article>
+        </section>
+
+        <div class="aviso" id="aviso" hidden>
+          <span data-ico="lock" data-tam="20"></span><span id="avisoTexto"></span>
+        </div>
+
+        <section class="panel">
+          <div class="barra-herr">
+            <label class="buscador">
+              <span class="ico-b" data-ico="search"></span>
+              <input class="entrada" id="buscar" type="search" placeholder="Buscar por nombre, NIT o correo…" autocomplete="off">
+            </label>
+            <select class="entrada" id="filtroCiudad"><option value="">Todas las ciudades</option></select>
+            <div class="chips" id="chips">
+              <button class="chip activo" data-tipo="">Todos</button>
+              <button class="chip" data-tipo="distribuidor">Distribuidores</button>
+              <button class="chip" data-tipo="comercio">Comercios</button>
+            </div>
+            <button class="btn oro" id="btnNuevo" hidden><span data-ico="plus"></span>Nuevo cliente</button>
+          </div>
+          <div class="tabla-caja">
+            <table><thead id="cabecera"></thead><tbody id="cuerpo"></tbody></table>
+          </div>
+          <p class="conteo" id="conteo"></p>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Formulario crear / editar -->
+  <div class="modal" id="modalForm">
+    <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="tituloForm">
+      <div class="modal-cab">
+        <h2 id="tituloForm">Nuevo cliente</h2>
+        <button class="icono-btn" data-cerrar aria-label="Cerrar"><span data-ico="x"></span></button>
+      </div>
+      <form id="form" novalidate>
+        <div class="rejilla">
+          <label class="campo ancho"><span>Nombre</span><input class="entrada" name="nombre" maxlength="100"><em class="err"></em></label>
+          <label class="campo"><span>NIT</span><input class="entrada" name="nit" maxlength="20" placeholder="900123456-7"><em class="err"></em></label>
+          <label class="campo"><span>Ciudad</span><input class="entrada" name="ciudad" maxlength="60"><em class="err"></em></label>
+          <label class="campo"><span>Teléfono</span><input class="entrada" name="telefono" maxlength="20"><em class="err"></em></label>
+          <label class="campo"><span>Tipo</span>
+            <select class="entrada" name="tipo">
+              <option value="">Selecciona…</option>
+              <option value="distribuidor">Distribuidor</option>
+              <option value="comercio">Comercio</option>
+            </select><em class="err"></em>
+          </label>
+          <label class="campo ancho"><span>Dirección (opcional)</span><input class="entrada" name="direccion" maxlength="150"><em class="err"></em></label>
+          <label class="campo ancho"><span>Correo (opcional)</span><input class="entrada" name="email" maxlength="120"><em class="err"></em></label>
+        </div>
+        <div class="form-pie">
+          <button type="button" class="btn sec" data-cerrar>Cancelar</button>
+          <button type="submit" class="btn oro" id="btnGuardar"><span id="textoGuardar">Crear cliente</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirmación de eliminación -->
+  <div class="modal" id="modalEliminar">
+    <div class="modal-caja chica" role="dialog" aria-modal="true">
+      <div class="modal-cab"><h2>Eliminar cliente</h2>
+        <button class="icono-btn" data-cerrar aria-label="Cerrar"><span data-ico="x"></span></button>
+      </div>
+      <p class="texto-modal">¿Seguro que quieres eliminar a <strong id="nombreBorrar"></strong>? Esta acción no se puede deshacer.</p>
+      <div class="form-pie">
+        <button class="btn sec" data-cerrar>Cancelar</button>
+        <button class="btn peligro" id="btnConfirmar">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toasts"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/sesion.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/clientes.js"></script>
+</body>
+</html>
