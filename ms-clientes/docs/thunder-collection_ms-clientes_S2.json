@@ -1,0 +1,404 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "ms-clientes",
+    "collectionId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+    "dateExported": "2026-11-08T19:06:49.063Z",
+    "version": "1.4",
+    "folders": [
+        {
+            "_id": "b7e25c28-245c-4f95-be92-e83a4ff56eea",
+            "name": "ms-clientesS2",
+            "containerId": "",
+            "created": "2026-11-07T04:07:46.526Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "11e58818-1476-454e-9541-fd0471827a6b",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Listar todos",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2026-10-31T04:51:28.035Z",
+            "modified": "2026-10-31T04:51:28.035Z",
+            "headers": []
+        },
+        {
+            "_id": "3702ffc6-d135-4220-9868-194d98e624c8",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Filtrar por ciudad",
+            "url": "http://127.0.0.1:3003/clientes?ciudad=Cali",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2026-10-31T04:52:51.087Z",
+            "modified": "2026-10-31T04:52:51.087Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "ciudad",
+                    "value": "Cali",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "fa4e0f16-6013-40d0-a876-b75800553732",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Consultar por lotes",
+            "url": "http://127.0.0.1:3003/clientes?ids=1,2",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2026-10-31T04:53:28.097Z",
+            "modified": "2026-10-31T04:53:28.097Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "ids",
+                    "value": "1,2",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywibm9tYnJlIjoiTGF1cmEgR8OzbWV6Iiwicm9sIjoiY29tZXJjaWFsIiwiaWF0IjoxNzk0MTU5MTg5LCJleHAiOjE3OTQxODc5ODl9.804nMdjf6sg3xusydpSotDwyal7E8w2C7XWhOBkra7k"
+            }
+        },
+        {
+            "_id": "5288e33d-2aa5-4dc6-b83c-34eca4c05221",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Obtener existente",
+            "url": "http://127.0.0.1:3003/clientes/1",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2026-10-31T04:54:48.770Z",
+            "modified": "2026-10-31T04:54:48.770Z",
+            "headers": []
+        },
+        {
+            "_id": "0d54371d-45d2-4ac5-ae64-03662259ff45",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Obtener inexistente",
+            "url": "http://127.0.0.1:3003/clientes/99",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2026-10-31T04:55:29.712Z",
+            "modified": "2026-10-31T04:55:29.712Z",
+            "headers": []
+        },
+        {
+            "_id": "baceb6cc-2cd5-4b46-a7c9-685ea6a62035",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Obtener id no numérico",
+            "url": "http://127.0.0.1:3003/clientes/abc",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2026-10-31T04:55:56.144Z",
+            "modified": "2026-10-31T04:55:56.144Z",
+            "headers": []
+        },
+        {
+            "_id": "11ddb2a2-9a93-44e9-94fa-a8dac1189bdd",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Crear válido",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2026-10-31T04:56:21.065Z",
+            "modified": "2026-10-31T04:56:21.065Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Superinter\",",
+                    "  \"nit\": \"9014875444-8\",",
+                    "  \"ciudad\": \"Medellín\",",
+                    "  \"telefono\": \"321457788\",",
+                    "  \"tipo\": \"comercio\",",
+                    "  \"direccion\": \"Avenida 100 # 52-12\",",
+                    "  \"email\": \"compras@inter.com\"",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "86910c21-4855-4a10-a2a2-4ae1000b3539",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Crear sin atributo obligatorio",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2026-10-31T04:58:44.827Z",
+            "modified": "2026-10-31T04:58:44.827Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Kevin Torres\",",
+                    "  \"nit\": \"900122863-4\",",
+                    "  \"ciudad\": \"Palmira\",",
+                    "  \"telefono\": \"3001234567\",",
+                    "  \"tipo\": \"distribuidor\",",
+                    "  \"direccion\": \"Calle 10 # 20-30\",",
+                    "  \"email\": \"compras@distribuidora.com\"",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "3ea79f4c-6ece-447f-9788-bcd79bcd6286",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Crear con NIT repetido",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2026-10-31T05:04:05.645Z",
+            "modified": "2026-10-31T05:04:05.645Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Colombina\",\r",
+                    "  \"nit\": \"900123456-7\",\r",
+                    "  \"ciudad\": \"Cali\",\r",
+                    "  \"telefono\": \"3154968645\",\r",
+                    "  \"tipo\": \"comercio\",\r",
+                    "  \"direccion\": \"Calle 15 # 10-30\",\r",
+                    "  \"email\": \"compras@colombina.com\"\r",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "f7f83adc-c623-4319-a376-590637686dda",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Actualizar inexistente",
+            "url": "http://127.0.0.1:3003/clientes/99",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2026-10-31T05:05:25.847Z",
+            "modified": "2026-10-31T05:05:25.847Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Distribuidora El Valle\",",
+                    "  \"nit\": \"900123456-7\",",
+                    "  \"ciudad\": \"Palmira\",",
+                    "  \"telefono\": \"3001234567\",",
+                    "  \"tipo\": \"distribuidor\",",
+                    "  \"direccion\": \"Calle 10 # 20-30\",",
+                    "  \"email\": \"compras@distribuidora.com\"",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "787bfa3f-50b7-406e-8dca-0780e5472fea",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Actualizar existente",
+            "url": "http://127.0.0.1:3003/clientes/99",
+            "method": "PUT",
+            "sortNum": 110000,
+            "created": "2026-10-31T05:05:50.768Z",
+            "modified": "2026-10-31T05:05:50.768Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Distribuidora El Valle\",",
+                    "  \"nit\": \"9014875444-8\",",
+                    "  \"ciudad\": \"Cali\",",
+                    "  \"telefono\": \"3001234567\",",
+                    "  \"tipo\": \"distribuidor\",",
+                    "  \"direccion\": \"Calle 10 # 20-30\",",
+                    "  \"email\": \"compras@distribuidora.com\"",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "bf47ff0c-bb2b-4ce5-8d04-dd15405b8a1d",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Eliminar existente",
+            "url": "http://127.0.0.1:3003/clientes/2",
+            "method": "DELETE",
+            "sortNum": 120000,
+            "created": "2026-10-31T05:06:47.834Z",
+            "modified": "2026-10-31T05:06:47.834Z",
+            "headers": []
+        },
+        {
+            "_id": "8a609bc4-7fe4-4caa-972e-6076a7303e68",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "",
+            "name": "Eliminar otra vez",
+            "url": "http://127.0.0.1:3003/clientes/3",
+            "method": "DELETE",
+            "sortNum": 130000,
+            "created": "2026-10-31T05:07:20.081Z",
+            "modified": "2026-10-31T05:07:20.081Z",
+            "headers": []
+        },
+        {
+            "_id": "eb5ed5fd-2186-4c65-af0c-25a8e1ab2466",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "b7e25c28-245c-4f95-be92-e83a4ff56eea",
+            "name": "Get_clientes",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2026-11-07T04:08:07.152Z",
+            "modified": "2026-11-07T04:08:07.152Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"email\": \"andres@agrored.com\",",
+                    "  \"password\": \"Produccion2026*\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiQW5kcsOpcyBDYXN0aWxsbyIsInJvbCI6InByb2R1Y2Npb24iLCJpYXQiOjE3OTQxNTg2NTQsImV4cCI6MTc5NDE4NzQ1NH0.m0QynHOvDJa-ahIwctja1_UaHBy_-Js0TA6wo7-wnjE"
+            }
+        },
+        {
+            "_id": "b64e7b6c-d40b-4e4f-a30c-cef9cc955598",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "b7e25c28-245c-4f95-be92-e83a4ff56eea",
+            "name": "post_usuario_token",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2026-11-07T04:19:05.261Z",
+            "modified": "2026-11-07T04:19:05.261Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"nombre\": \"Super inter\",\r",
+                    "  \"nit\": \"902468457-1\",\r",
+                    "  \"ciudad\": \"Cali\",\r",
+                    "  \"telefono\": \"3105557788\",\r",
+                    "  \"tipo\": \"comercio\",\r",
+                    "  \"direccion\": \"Avenida 25 # 45-20\",\r",
+                    "  \"email\": \"compras@superinter.com\"\r",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywibm9tYnJlIjoiTGF1cmEgR8OzbWV6Iiwicm9sIjoiY29tZXJjaWFsIiwiaWF0IjoxNzk0MTU5MTg5LCJleHAiOjE3OTQxODc5ODl9.804nMdjf6sg3xusydpSotDwyal7E8w2C7XWhOBkra7k"
+            }
+        },
+        {
+            "_id": "17d02c22-5466-47f6-bf85-1a932ef28aa0",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "b7e25c28-245c-4f95-be92-e83a4ff56eea",
+            "name": "Post_usuario_permiso_denegado",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "POST",
+            "sortNum": 160000,
+            "created": "2026-11-07T04:21:53.920Z",
+            "modified": "2026-11-07T04:21:53.920Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Supermercado La Sabana\",",
+                    "  \"nit\": \"901777888-1\",",
+                    "  \"ciudad\": \"Bogotá\",",
+                    "  \"telefono\": \"3205557788\",",
+                    "  \"tipo\": \"comercio\",",
+                    "  \"direccion\": \"Avenida 68 # 45-20\",",
+                    "  \"email\": \"compras@lasabana.com\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywibm9tYnJlIjoiTGF1cmEgR8OzbWV6Iiwicm9sIjoiY29tZXJjaWFsIiwiaWF0IjoxNzk0MTU5MTg5LCJleHAiOjE3OTQxODc5ODl9.804nMdjf6sg3xusydpSotDwyal7E8w2C7XWhOBkra7k"
+            }
+        },
+        {
+            "_id": "1bca5113-ee39-440f-be4d-2e7f0be175f5",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "b7e25c28-245c-4f95-be92-e83a4ff56eea",
+            "name": "Get_clientes_tokenInvalido",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2026-11-08T19:03:37.102Z",
+            "modified": "2026-11-08T19:03:37.102Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"email\": \"andres@agrored.com\",",
+                    "  \"password\": \"Produccion2026*\"",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "ca6ec605-7b1c-4839-997d-822d5cfda0d0",
+            "colId": "2fddf16e-b916-4ba8-9810-85b2cc1a813d",
+            "containerId": "b7e25c28-245c-4f95-be92-e83a4ff56eea",
+            "name": "Get_clientes_vencido",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "GET",
+            "sortNum": 180000,
+            "created": "2026-11-08T19:04:55.958Z",
+            "modified": "2026-11-08T19:04:55.958Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"email\": \"andres@agrored.com\",",
+                    "  \"password\": \"Produccion2026*\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiTGF1cmEgR8OzbWV6Iiwicm9sIjoiY29tZXJjaWFsIiwiaWF0IjoxNzk0MDI0MjMzLCJleHAiOjE3OTQwNTMwMzN9.T9Ok4wNz3Qk0sv2b_qzo3Px6RG6P99nMbR_Pf6L4RzE"
+            }
+        }
+    ],
+    "ref": "mIDOYT8sg7ecLTQWeQSy6gDGloD3tkvUxmdBvzlz7jlAPvHgAu71lzOfzwire1UUhPySHyQHOvDWzKrSya86ng"
+}

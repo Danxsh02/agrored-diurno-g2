@@ -1,0 +1,8 @@
+[
+  { "id": 1, "nombre": "Distribuidora El Valle", "nit": "900123456-7", "ciudad": "Cali", "telefono": "3001234567", "tipo": "distribuidor", "direccion": "Calle 10 # 20-30", "email": "compras@distribuidora.com" },
+  { "id": 2, "nombre": "Comercial Andina", "nit": "800987654-3", "ciudad": "Bogotá", "telefono": "3109876543", "tipo": "comercio", "direccion": "Carrera 15 # 80-12", "email": "ventas@andina.com" },
+  { "id": 3, "nombre": "Agrocomercial Antioquia", "nit": "901222333-4", "ciudad": "Medellín", "telefono": "3158889900", "tipo": "comercio", "direccion": "Carrera 43A # 14-22", "email": "compras@agroantioquia.com" },
+  { "id": 4, "nombre": "Supermercado La Sabana", "nit": "901555444-2", "ciudad": "Bogotá", "telefono": "3205557788", "tipo": "comercio", "direccion": "Avenida 68 # 45-20", "email": "compras@lasabana.com" },
+  { "id": 5, "nombre": "Frutas del Pacífico S.A.S.", "nit": "900765432-1", "ciudad": "Cali", "telefono": "3174440011", "tipo": "distribuidor", "direccion": "Calle 5 # 38-14", "email": "pedidos@frutaspacifico.com" },
+  { "id": 6, "nombre": "Hortalizas del Cauca", "nit": "901101202-5", "ciudad": "Palmira", "telefono": "3126667788", "tipo": "distribuidor", "direccion": "Km 3 vía Rozo", "email": "ventas@hortalizascauca.com" }
+]

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar sesión · AgroRed</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <main class="login">
+    <section class="hero">
+      <a class="marca" href="login.html"><span class="punto"></span>AgroRed S.A.</a>
+      <h1>Agroindustria y distribución con <em>visión de futuro</em></h1>
+      <p>Conectamos el campo colombiano con la tecnología: producción, calidad, distribución y monitoreo en tiempo real desde el Valle del Cauca hasta Bogotá.</p>
+      <div class="cifras">
+        <div><strong>4</strong><span>sedes conectadas</span></div>
+        <div><strong>40</strong><span>supervisores en campo</span></div>
+        <div><strong>15</strong><span>vendedores itinerantes</span></div>
+      </div>
+      <svg class="olas" viewBox="0 0 1600 240" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 120 C100 60 250 60 400 120 C550 180 700 180 800 120 C900 60 1050 60 1200 120 C1350 180 1500 180 1600 120"/>
+        <path d="M0 120 C100 60 250 60 400 120 C550 180 700 180 800 120 C900 60 1050 60 1200 120 C1350 180 1500 180 1600 120"/>
+        <path d="M0 120 C100 60 250 60 400 120 C550 180 700 180 800 120 C900 60 1050 60 1200 120 C1350 180 1500 180 1600 120"/>
+      </svg>
+    </section>
+
+    <section class="acceso">
+      <form class="tarjeta" id="formLogin">
+        <h2>Iniciar sesión</h2>
+        <p class="sub">Elige tu rol para entrar al sistema.</p>
+        <div class="roles" id="roles"></div>
+        <label class="campo">
+          <span>Usuario</span>
+          <input class="entrada" id="nombre" autocomplete="off" placeholder="Selecciona un rol">
+        </label>
+        <button class="btn oro ancho" id="entrar" type="submit" disabled>Entrar</button>
+        <p class="nota">Inicio de sesión simulado (Taller 2). En el Taller 3 se conecta con ms-usuarios.</p>
+      </form>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/sesion.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
