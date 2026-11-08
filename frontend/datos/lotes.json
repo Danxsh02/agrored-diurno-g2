@@ -1,0 +1,7 @@
+[
+  { "id": 1, "codigo_lote": "LOT-MAN-2026-001", "producto_id": 1, "fecha_produccion": "2026-10-20", "cantidad": 500, "resultado_calidad": "aprobado", "fecha_vencimiento": "2026-11-10", "centro_produccion": "Valle del Cauca", "producto": { "id": 1, "nombre": "Mango", "categoria": "fruta" } },
+  { "id": 2, "codigo_lote": "LOT-MAN-2026-002", "producto_id": 1, "fecha_produccion": "2026-10-25", "cantidad": 300, "resultado_calidad": "pendiente", "fecha_vencimiento": "2026-11-15", "centro_produccion": "Valle del Cauca", "producto": { "id": 1, "nombre": "Mango", "categoria": "fruta" } },
+  { "id": 3, "codigo_lote": "LOT-TOM-2026-001", "producto_id": 2, "fecha_produccion": "2026-10-26", "cantidad": 1000, "resultado_calidad": "rechazado", "fecha_vencimiento": "2026-11-05", "centro_produccion": "Cali", "producto": { "id": 2, "nombre": "Tomate", "categoria": "hortaliza" } },
+  { "id": 4, "codigo_lote": "LOT-PAP-2026-001", "producto_id": 3, "fecha_produccion": "2026-10-27", "cantidad": 250, "resultado_calidad": "aprobado", "fecha_vencimiento": "2026-11-12", "centro_produccion": "Cali", "producto": { "id": 3, "nombre": "Papaya", "categoria": "fruta" } },
+  { "id": 5, "codigo_lote": "LOT-TOM-2026-002", "producto_id": 2, "fecha_produccion": "2026-10-28", "cantidad": 800, "resultado_calidad": "pendiente", "fecha_vencimiento": "2026-11-08", "centro_produccion": "Valle del Cauca", "producto": { "id": 2, "nombre": "Tomate", "categoria": "hortaliza" } }
+]
