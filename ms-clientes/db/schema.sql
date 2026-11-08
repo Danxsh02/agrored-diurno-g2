@@ -18,4 +18,5 @@ CREATE TABLE clientes (
 
 INSERT INTO clientes (nombre, nit, ciudad, telefono, tipo, direccion, email) VALUES
   ('Distribuidora El Valle', '900123456-7', 'Cali', '3001234567', 'distribuidor', 'Calle 10 # 20-30', 'compras@distribuidora.com'),
-  ('Comercial Andina', '800987654-3', 'Bogotá', '3109876543', 'comercio', 'Carrera 15 # 80-12', 'ventas@andina.com');
+  ('Comercial Andina', '800987654-3', 'Bogotá', '3109876543', 'comercio', 'Carrera 15 # 80-12', 'ventas@andina.com'),
+  ('Agrocomercial Antioquia', '901222333-4', 'Medellín', '3158889900', 'comercio', 'Carrera 43A # 14-22', 'compras@agroantioquia.com');
