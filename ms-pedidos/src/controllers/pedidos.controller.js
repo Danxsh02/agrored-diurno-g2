@@ -18,25 +18,25 @@ async function listar(req, res) {
   const filtros = {
     estado: typeof req.query.estado === 'string' ? req.query.estado : undefined,
   };
-  const pedidos = await service.listar(filtros);
+  const pedidos = await service.listar(filtros, req.headers.authorization);
   res.status(200).json(pedidos);
 }
 
 // GET /pedidos/:id
 async function obtener(req, res) {
-  const pedido = await service.obtener(leerId(req));
+  const pedido = await service.obtener(leerId(req), req.headers.authorization);
   res.status(200).json(pedido);
 }
 
 // POST /pedidos
 async function crear(req, res) {
-  const nuevo = await service.crear(req.body);
+  const nuevo = await service.crear(req.body, req.headers.authorization);
   res.status(201).location(`${req.baseUrl}/${nuevo.id}`).json(nuevo);
 }
 
 // PUT /pedidos/:id  (reemplaza el pedido completo)
 async function actualizar(req, res) {
-  const pedido = await service.actualizar(leerId(req), req.body);
+  const pedido = await service.actualizar(leerId(req), req.body, req.headers.authorization);
   res.status(200).json(pedido);
 }
 

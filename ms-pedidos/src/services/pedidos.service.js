@@ -7,41 +7,67 @@
 //   - cantidad: entero mayor que 0
 //   - centro_distribucion: Bogotá o Cali
 //   - estado: recibido, despachado o entregado
+// Relación: el cliente referenciado debe existir en ms-clientes.
 // Pedido no tiene un campo único, así que no hay regla de 409.
-// En el Taller 2 (semana 2) cliente_id y producto_id se validarán
-// consultando a ms-clientes y ms-productos.
 // =====================================================================
 const repo = require('../repositories/pedidos.repository');
 const { validarPedido, construirPedido } = require('../models/pedido');
 const HttpError = require('../utils/http-error');
+const clientesClient = require('../clients/clientes.client');
 
 function noExiste(id) {
   return new HttpError(404, `No existe el pedido con id ${id}`);
 }
 
-async function listar(filtros) {
-  return repo.findAll(filtros);
+// Relación: el cliente referenciado debe existir en ms-clientes
+async function validarCliente(clienteId, token) {
+  if (!(await clientesClient.existeCliente(clienteId, token))) {
+    throw new HttpError(400, `No existe el cliente con id ${clienteId}`);
+  }
 }
 
-async function obtener(id) {
+// Agrega a cada pedido su objeto cliente, con UNA sola consulta a ms-clientes
+async function componer(pedidos, token) {
+  const ids = [...new Set(pedidos.map((p) => p.cliente_id))];
+  const clientes = await clientesClient.clientesPorIds(ids, token);
+  if (!clientes) {                                  // degradación controlada
+    return pedidos.map((p) =>
+      ({ ...p, cliente: null, aviso: 'ms-clientes no disponible' }));
+  }
+  return pedidos.map((p) => ({ ...p, cliente: clientes.get(p.cliente_id) || null }));
+}
+
+async function listar(filtros, token) {
+  return componer(await repo.findAll(filtros), token);
+}
+
+async function obtener(id, token) {
   const pedido = await repo.findById(id);
   if (!pedido) throw noExiste(id);
-  return pedido;
+  const [compuesto] = await componer([pedido], token);
+  return compuesto;
 }
 
-async function crear(datos) {
+async function crear(datos, token) {
   const errores = validarPedido(datos);
   if (errores.length > 0) throw new HttpError(400, 'Datos inválidos', errores);
-  return repo.create(construirPedido(datos));
+  const pedido = construirPedido(datos);
+  await validarCliente(pedido.cliente_id, token);
+  const nuevo = await repo.create(pedido);
+  const [compuesto] = await componer([nuevo], token);
+  return compuesto;
 }
 
 // PUT: valida igual que crear y responde 404 si el pedido no existe
-async function actualizar(id, datos) {
+async function actualizar(id, datos, token) {
   const errores = validarPedido(datos);
   if (errores.length > 0) throw new HttpError(400, 'Datos inválidos', errores);
-  const actualizado = await repo.update(id, construirPedido(datos));
+  const pedido = construirPedido(datos);
+  await validarCliente(pedido.cliente_id, token);
+  const actualizado = await repo.update(id, pedido);
   if (!actualizado) throw noExiste(id);
-  return actualizado;
+  const [compuesto] = await componer([actualizado], token);
+  return compuesto;
 }
 
 // DELETE: responde 404 si el pedido no existe
