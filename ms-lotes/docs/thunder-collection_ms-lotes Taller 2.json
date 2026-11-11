@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "ms-lotes Taller 2",
     "collectionId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
-    "dateExported": "2026-11-03T15:53:14.327Z",
+    "dateExported": "2026-11-11T16:11:10.287Z",
     "version": "1.4",
     "folders": [],
     "requests": [
@@ -87,7 +87,7 @@
             "body": {
                 "type": "json",
                 "raw": [
-                    "{ \"codigo_lote\": \"LOT-MAN-2026-010\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-27\", \"cantidad\": 250, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Valle del Cauca\" }"
+                    "{ \"codigo_lote\": \"LOT-MAN-2026-010\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-27\", \"cantidad\": 250, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\" }"
                 ],
                 "form": []
             }
@@ -135,7 +135,7 @@
             "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
             "containerId": "",
             "name": "9 Actualizar dato ya existente",
-            "url": "http://127.0.0.1:3005/lotes/4",
+            "url": "http://127.0.0.1:3005/lotes/5",
             "method": "PUT",
             "sortNum": 90000,
             "created": "2026-11-01T03:29:54.065Z",
@@ -144,7 +144,7 @@
             "body": {
                 "type": "json",
                 "raw": [
-                    "{ \"codigo_lote\": \"LOT-MAN-2026-010\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-27\", \"cantidad\": 400, \"resultado_calidad\": \"aprobado\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\" }"
+                    "{ \"codigo_lote\": \"LOT-MAN-2026-001\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-27\", \"cantidad\": 400, \"resultado_calidad\": \"aprobado\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\" }"
                 ],
                 "form": []
             }
@@ -173,7 +173,7 @@
             "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
             "containerId": "",
             "name": "11 Eliminar dato existente",
-            "url": "http://127.0.0.1:3005/lotes/4",
+            "url": "http://127.0.0.1:3005/lotes/5",
             "method": "DELETE",
             "sortNum": 105000,
             "created": "2026-11-01T03:32:14.497Z",
@@ -210,7 +210,224 @@
                 ],
                 "form": []
             }
+        },
+        {
+            "_id": "cc6076ae-ed79-4b00-8912-90dd6fc87e11",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "14 C1. Login del administrador",
+            "url": "http://127.0.0.1:3001/usuarios/login",
+            "method": "POST",
+            "sortNum": 130000,
+            "created": "2026-11-08T21:47:10.295Z",
+            "modified": "2026-11-08T21:47:10.295Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"email\": \"admin@empresa.com\", \"password\": \"Admin2026*\" }"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "25ab8e04-880e-4623-9d23-9d842183b9bf",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "Creación de usuarios de la aplicación, producción",
+            "url": "http://127.0.0.1:3001/usuarios",
+            "method": "POST",
+            "sortNum": 140000,
+            "created": "2026-11-08T21:54:53.420Z",
+            "modified": "2026-11-08T21:54:53.420Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"nombre\": \"Andrés Castillo\", \"email\": \"andres@agrored.com\", \"rol\": \"produccion\", \"password\": \"Produccion2026*\", \"activo\": true }"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDE3NDIzMiwiZXhwIjoxNzk0MjAzMDMyfQ.UAEtni-HVbTpOBjEKQVoHnZMeUPUIVUX6IQb_6RYIsU"
+            }
+        },
+        {
+            "_id": "fcb8b94e-6cfc-448e-bf57-833eec377e23",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "16 Login Comercial",
+            "url": "http://127.0.0.1:3001/usuarios/login",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2026-11-08T21:59:59.328Z",
+            "modified": "2026-11-08T21:59:59.328Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"email\": \"laura@agrored.com\", \"password\": \"Comercial2026*\" }"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "e215d184-9236-4ba4-84d8-78c4acf2b5b1",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "17 Login Producción",
+            "url": "http://127.0.0.1:3001/usuarios/login",
+            "method": "POST",
+            "sortNum": 160000,
+            "created": "2026-11-08T22:01:55.467Z",
+            "modified": "2026-11-08T22:01:55.467Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \"email\": \"andres@agrored.com\", \"password\": \"Produccion2026*\"}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "99a2d754-a77a-45e0-b114-747a5fe0f001",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "Caso 19: POST /lotes con producto válido (201)",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "POST",
+            "sortNum": 170000,
+            "created": "2026-11-11T15:47:00.982Z",
+            "modified": "2026-11-11T15:47:00.982Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"codigo_lote\": \"LOT-MAN-2026-019\",\r",
+                    "  \"producto_id\": 1,\r",
+                    "  \"fecha_produccion\": \"2026-10-20\",\r",
+                    "  \"cantidad\": 100,\r",
+                    "  \"resultado_calidad\": \"aprobado\",\r",
+                    "  \"fecha_vencimiento\": \"2026-11-10\",\r",
+                    "  \"centro_produccion\": \"Valle del Cauca\"\r",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQxMTMxNywiZXhwIjoxNzk0NDQwMTE3fQ.o_D5hY2_lk5Cyjzh9D_59GN4A-pMW4cr9JZyIFYn2HE"
+            }
+        },
+        {
+            "_id": "81afdcf1-a4ea-45c1-a092-9496c00041c3",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "Caso 20: POST /lotes con producto inexistente (400)",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2026-11-11T15:48:57.858Z",
+            "modified": "2026-11-11T15:48:57.858Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"codigo_lote\": \"LOT-MAN-2026-020\",\r",
+                    "  \"producto_id\": 999,\r",
+                    "  \"fecha_produccion\": \"2026-10-20\",\r",
+                    "  \"cantidad\": 100,\r",
+                    "  \"resultado_calidad\": \"pendiente\"\r",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQxMTMxNywiZXhwIjoxNzk0NDQwMTE3fQ.o_D5hY2_lk5Cyjzh9D_59GN4A-pMW4cr9JZyIFYn2HE"
+            }
+        },
+        {
+            "_id": "a7be1551-207b-4a90-acf9-9e758ac8ca92",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "Caso 21: GET /lotes/1 con producto compuesto (200)",
+            "url": "http://127.0.0.1:3005/lotes/1",
+            "method": "GET",
+            "sortNum": 190000,
+            "created": "2026-11-11T15:50:26.993Z",
+            "modified": "2026-11-11T15:50:26.994Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQxMTMxNywiZXhwIjoxNzk0NDQwMTE3fQ.o_D5hY2_lk5Cyjzh9D_59GN4A-pMW4cr9JZyIFYn2HE"
+            }
+        },
+        {
+            "_id": "bccc05d0-3438-4d08-b61d-b4fc43d117e6",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "Caso 22: Listar (verificar una sola petición ?ids=)",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "GET",
+            "sortNum": 200000,
+            "created": "2026-11-11T15:53:04.080Z",
+            "modified": "2026-11-11T15:53:04.080Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQxMTMxNywiZXhwIjoxNzk0NDQwMTE3fQ.o_D5hY2_lk5Cyjzh9D_59GN4A-pMW4cr9JZyIFYn2HE"
+            }
+        },
+        {
+            "_id": "b0aa0298-a27d-4cf8-9786-7c7fe00ee9a8",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "Caso 23: GET /lotes con ms-productos detenido (200)",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "GET",
+            "sortNum": 210000,
+            "created": "2026-11-11T15:55:46.722Z",
+            "modified": "2026-11-11T15:55:46.722Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQxMTMxNywiZXhwIjoxNzk0NDQwMTE3fQ.o_D5hY2_lk5Cyjzh9D_59GN4A-pMW4cr9JZyIFYn2HE"
+            }
+        },
+        {
+            "_id": "901573d7-489c-4871-8749-1765146141fc",
+            "colId": "d6b16a9b-f27d-4821-9ad7-1d1db66b2d66",
+            "containerId": "",
+            "name": "Caso 24: POST /lotes con ms-productos detenido (503)",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "POST",
+            "sortNum": 220000,
+            "created": "2026-11-11T16:05:14.271Z",
+            "modified": "2026-11-11T16:05:14.271Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{\r",
+                    "  \"codigo_lote\": \"LOT-MAN-2026-024\",\r",
+                    "  \"producto_id\": 1,\r",
+                    "  \"fecha_produccion\": \"2026-10-20\",\r",
+                    "  \"cantidad\": 50,\r",
+                    "  \"resultado_calidad\": \"pendiente\"\r",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQxMTMxNywiZXhwIjoxNzk0NDQwMTE3fQ.o_D5hY2_lk5Cyjzh9D_59GN4A-pMW4cr9JZyIFYn2HE"
+            }
         }
     ],
-    "ref": "5sJTUG4oO1Ib81EI34IBF706a4tImjEZ4vNQ8tuZRFKRm9ikdP7qHe_U0HLI1SzZz7sQG3TdsCxeCe5SQtrrvg"
+    "ref": "5sJTUG4oO1Ib81EI34IBF4Qrwewp0ZRNGX2V30RBHQp5B8HgP1tjQJ4p0DJsMAUSkICtRdWZl4snMm_THNgkOw"
 }
