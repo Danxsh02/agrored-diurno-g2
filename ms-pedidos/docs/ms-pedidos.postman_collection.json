@@ -464,18 +464,20 @@
         }
       ],
       "request": {
-        "method": "DELETE",
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3004/pedidos/{{pedidoId}}",
+          "raw": "http://localhost:3004/pedidos",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "3004",
           "path": [
-            "pedidos",
-            "{{pedidoId}}"
+            "pedidos"
           ]
         }
       },
@@ -495,10 +497,20 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}nc",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3004/pedidos/abc",
+          "raw": "http://localhost:3004/pedidos/1",
           "protocol": "http",
           "host": [
             "localhost"
@@ -506,7 +518,7 @@
           "port": "3004",
           "path": [
             "pedidos",
-            "abc"
+            "1"
           ]
         }
       },
@@ -526,10 +538,20 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{tokenProduccion}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3004/pedidos/abc",
+          "raw": "http://localhost:3004/pedidos/1",
           "protocol": "http",
           "host": [
             "localhost"
@@ -537,7 +559,7 @@
           "port": "3004",
           "path": [
             "pedidos",
-            "abc"
+            "1"
           ]
         }
       },
@@ -595,12 +617,22 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Código 400\", function () { pm.response.to.have.status(400); });"
+              ""
             ]
           }
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{tokenComercial}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [
           {
@@ -610,7 +642,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"cliente_id\": 1,\n  \"producto_id\": 2,\n  \"cantidad\": 0,\n  \"centro_distribucion\": \"Cali\"\n}",
+          "raw": "{ \"cliente_id\": 1, \"producto_id\": 2, \"cantidad\": 10, \"centro_distribucion\": \"Cali\" }",
           "options": {
             "raw": {
               "language": "json"
@@ -645,6 +677,16 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [
           {
@@ -654,7 +696,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"cliente_id\": 1,\n  \"producto_id\": 2,\n  \"cantidad\": 0,\n  \"centro_distribucion\": \"Cali\"\n}",
+          "raw": "{\"cliente_id\": 1, \"producto_id\": 1, \"cantidad\": 5, \"centro_distribucion\": \"Cali\", \"estado\": \"recibido\"}",
           "options": {
             "raw": {
               "language": "json"
@@ -689,6 +731,16 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [
           {
@@ -698,7 +750,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"cliente_id\": 1,\n  \"producto_id\": 2,\n  \"cantidad\": 0,\n  \"centro_distribucion\": \"Cali\"\n}",
+          "raw": "{\"cliente_id\": 99, \"producto_id\": 1, \"cantidad\": 5, \"centro_distribucion\": \"Cali\", \"estado\": \"recibido\"}",
           "options": {
             "raw": {
               "language": "json"
@@ -721,43 +773,34 @@
     },
     {
       "name": "21. consultar un pedido por id",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Código 400\", function () { pm.response.to.have.status(400); });"
-            ]
-          }
-        }
-      ],
       "request": {
-        "method": "POST",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
         "header": [
           {
             "key": "Content-Type",
             "value": "application/json"
           }
         ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"cliente_id\": 1,\n  \"producto_id\": 2,\n  \"cantidad\": 0,\n  \"centro_distribucion\": \"Cali\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
-          "raw": "http://localhost:3004/pedidos",
+          "raw": "http://localhost:3004/pedidos/1",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "3004",
           "path": [
-            "pedidos"
+            "pedidos",
+            "1"
           ]
         }
       },
@@ -780,7 +823,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3004/pedidos/abc",
+          "raw": "http://localhost:3004/pedidos/",
           "protocol": "http",
           "host": [
             "localhost"
@@ -788,7 +831,7 @@
           "port": "3004",
           "path": [
             "pedidos",
-            "abc"
+            ""
           ]
         }
       },
@@ -811,15 +854,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3004/pedidos/abc",
+          "raw": "http://localhost:3004/pedidos",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "3004",
           "path": [
-            "pedidos",
-            "abc"
+            "pedidos"
           ]
         }
       },
@@ -848,7 +890,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"cliente_id\": 1,\n  \"producto_id\": 2,\n  \"cantidad\": 0,\n  \"centro_distribucion\": \"Cali\"\n}",
+          "raw": "{\"cliente_id\": 1, \"producto_id\": 1, \"cantidad\": 5, \"centro_distribucion\": \"Cali\", \"estado\": \"recibido\"}",
           "options": {
             "raw": {
               "language": "json"
