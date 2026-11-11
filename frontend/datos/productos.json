@@ -1,0 +1,8 @@
+[
+    { "id": 1, "nombre": "Mango", "categoria": "fruta", "unidad": "caja", "precio": 45000, "activo": true },
+    { "id": 2, "nombre": "Tomate", "categoria": "hortaliza", "unidad": "kg", "precio": 3500, "activo": true },
+    { "id": 3, "nombre": "Jugo de mora", "categoria": "procesado", "unidad": "caja", "precio": 28000, "activo": true },
+    { "id": 4, "nombre": "Papaya", "categoria": "fruta", "unidad": "kg", "precio": 4200, "activo": true },
+    { "id": 5, "nombre": "Lechuga crespa", "categoria": "hortaliza", "unidad": "kg", "precio": 2800, "activo": true },
+    { "id": 6, "nombre": "Pulpa de lulo", "categoria": "procesado", "unidad": "caja", "precio": 32000, "activo": false }
+]
