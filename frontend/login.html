@@ -29,10 +29,18 @@
         <h2>Iniciar sesión</h2>
         <p class="sub">Elige tu rol para entrar al sistema.</p>
         <div class="roles" id="roles"></div>
+        
         <label class="campo">
           <span>Usuario</span>
-          <input class="entrada" id="nombre" autocomplete="off" placeholder="Selecciona un rol">
+          <input class="entrada" id="nombre" autocomplete="off" placeholder="Selecciona un rol primero" readonly>
         </label>
+
+        <!-- Campo de contraseña agregado visualmente -->
+        <label class="campo">
+          <span>Contraseña</span>
+          <input class="entrada" id="password" type="password" placeholder="Cualquier valor (Simulado)">
+        </label>
+
         <button class="btn oro ancho" id="entrar" type="submit" disabled>Entrar</button>
         <p class="nota">Inicio de sesión simulado (Taller 2). En el Taller 3 se conecta con ms-usuarios.</p>
       </form>

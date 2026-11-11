@@ -198,8 +198,8 @@ Si ms-productos no responde al leer, la respuesta sale igual con `producto: null
 |---|---|---|
 | 400 | Datos inválidos o id no numérico | `{"error":"Datos inválidos","detalles":["cantidad debe ser un número mayor a 0"]}` |
 | 400 | El producto referenciado no existe | `{"error":"No existe el producto con id 999"}` |
-| 401 | Falta el token, es inválido o venció | `{"error":"<mensaje del middleware>"}` |
-| 403 | El rol no tiene permiso para la operación | `{"error":"<mensaje del middleware>"}` |
+| 401 | Falta el token, es inválido o venció | `{"error":"Token no proporcionado o inválido"}` |
+| 403 | El rol no tiene permiso para la operación | `{"error":"No tienes permiso para realizar esta acción"}` |
 | 404 | El lote no existe | `{"error":"No existe el lote con id 99"}` |
 | 409 | `codigo_lote` repetido | `{"error":"Ya existe un lote con el código LOT-MAN-2026-001"}` |
 | 503 | ms-productos no está disponible al escribir | `{"error":"ms-productos no está disponible"}` |
@@ -294,7 +294,7 @@ La columna `producto_id` es un entero sin `FOREIGN KEY`: la tabla de productos v
 
 ## Pruebas
 
-La colección de Thunder Client está exportada en `docs/`. Casos cubiertos:
+La colección de Thunder Client está exportada en `docs/`. Todos los casos (1 al 24) fueron ejecutados y pasaron exitosamente:
 
 | # | Caso | Código esperado |
 |---|---|---|

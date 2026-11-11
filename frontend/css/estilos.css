@@ -209,3 +209,8 @@ tbody tr.saliendo{animation:salir .3s forwards}
 .tag.hortaliza { background: rgba(233,185,62,.14); color: var(--oro); }
 .tag.procesado { background: rgba(255,255,255,.08); color: var(--suave); }
 .tag.inactivo { background: rgba(239,107,92,.14); color: var(--rojo); }
+
+/* ---------- Ajuste para el login (Campos de usuario y contraseña) ---------- */
+#formLogin .campo {
+  margin-bottom: 1rem;
+}
