@@ -1,0 +1,7 @@
+[
+  { "id": 1, "cliente_id": 1, "cliente": { "id": 1, "nombre": "Distribuidora El Valle" }, "producto_id": 1, "producto": { "id": 1, "nombre": "Mango" }, "cantidad": 50, "centro_distribucion": "Cali", "estado": "recibido", "fecha": "2026-10-20" },
+  { "id": 2, "cliente_id": 2, "cliente": { "id": 2, "nombre": "Comercial Andina" }, "producto_id": 2, "producto": { "id": 2, "nombre": "Tomate" }, "cantidad": 120, "centro_distribucion": "Bogotá", "estado": "despachado", "fecha": "2026-10-22" },
+  { "id": 3, "cliente_id": 1, "cliente": { "id": 1, "nombre": "Distribuidora El Valle" }, "producto_id": 3, "producto": { "id": 3, "nombre": "Jugo de mora" }, "cantidad": 30, "centro_distribucion": "Cali", "estado": "entregado", "fecha": "2026-10-25" },
+  { "id": 4, "cliente_id": 3, "cliente": { "id": 3, "nombre": "Agrocomercial Antioquia" }, "producto_id": 2, "producto": { "id": 2, "nombre": "Tomate" }, "cantidad": 200, "centro_distribucion": "Bogotá", "estado": "recibido", "fecha": "2026-10-28" },
+  { "id": 5, "cliente_id": 2, "cliente": { "id": 2, "nombre": "Comercial Andina" }, "producto_id": 1, "producto": { "id": 1, "nombre": "Mango" }, "cantidad": 75, "centro_distribucion": "Cali", "estado": "despachado", "fecha": "2026-10-30" }
+]

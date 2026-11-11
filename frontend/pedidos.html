@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pedidos · AgroRed</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    .tag.recibido{background:rgba(233,185,62,.14);color:var(--oro)}
+    .tag.despachado{background:rgba(111,182,230,.16);color:var(--azul)}
+    .tag.entregado{background:rgba(71,201,123,.14);color:var(--verde)}
+    #filtroCentro{width:auto;min-width:180px}
+    @media(max-width:760px){#filtroCentro{width:100%}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="lateral" id="lateral">
+      <a class="marca" href="pedidos.html"><span class="punto"></span>AgroRed</a>
+      <nav id="menu"></nav>
+      <p class="lateral-pie">Acceso solo desde la subred<br>172.16.1.56/29</p>
+    </aside>
+    <div class="velo" id="velo"></div>
+
+    <div class="contenido">
+      <header class="superior">
+        <button class="icono-btn menu-movil" id="btnMenu" aria-label="Abrir menú"><span data-ico="menu"></span></button>
+        <div class="titulo">
+          <h1>Pedidos</h1>
+          <p>Pedidos de clientes, con su producto y centro de distribución</p>
+        </div>
+        <div class="usuario">
+          <span class="avatar" id="avatar"></span>
+          <div class="usuario-datos">
+            <strong id="nombreUsuario"></strong>
+            <span class="rol-tag" id="rolUsuario"></span>
+          </div>
+          <button class="icono-btn" id="btnSalir" title="Cerrar sesión"><span data-ico="logout"></span></button>
+        </div>
+      </header>
+
+      <main>
+        <section class="resumen">
+          <article class="stat" style="--i:0"><small>Pedidos registrados</small><strong id="stTotal">0</strong></article>
+          <article class="stat oro" style="--i:1"><small>Recibidos</small><strong id="stRec">0</strong></article>
+          <article class="stat" style="--i:2"><small>Despachados</small><strong id="stDes">0</strong></article>
+          <article class="stat" style="--i:3"><small>Entregados</small><strong id="stEnt">0</strong></article>
+        </section>
+
+        <div class="aviso" id="aviso" hidden>
+          <span data-ico="lock" data-tam="20"></span><span id="avisoTexto"></span>
+        </div>
+
+        <section class="panel">
+          <div class="barra-herr">
+            <label class="buscador">
+              <span class="ico-b" data-ico="search"></span>
+              <input class="entrada" id="buscar" type="search" placeholder="Buscar por cliente o producto…" autocomplete="off">
+            </label>
+            <select class="entrada" id="filtroCentro"><option value="">Todos los centros</option><option value="Bogotá">Bogotá</option><option value="Cali">Cali</option></select>
+            <div class="chips" id="chips">
+              <button class="chip activo" data-estado="">Todos</button>
+              <button class="chip" data-estado="recibido">Recibidos</button>
+              <button class="chip" data-estado="despachado">Despachados</button>
+              <button class="chip" data-estado="entregado">Entregados</button>
+            </div>
+            <button class="btn oro" id="btnNuevo" hidden><span data-ico="plus"></span>Nuevo pedido</button>
+          </div>
+          <div class="tabla-caja">
+            <table><thead id="cabecera"></thead><tbody id="cuerpo"></tbody></table>
+          </div>
+          <p class="conteo" id="conteo"></p>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Formulario crear / editar -->
+  <div class="modal" id="modalForm">
+    <div class="modal-caja" role="dialog" aria-modal="true" aria-labelledby="tituloForm">
+      <div class="modal-cab">
+        <h2 id="tituloForm">Nuevo pedido</h2>
+        <button class="icono-btn" data-cerrar aria-label="Cerrar"><span data-ico="x"></span></button>
+      </div>
+      <form id="form" novalidate>
+        <div class="rejilla">
+          <label class="campo"><span>Cliente</span><select class="entrada" name="cliente_id" id="selCliente"></select><em class="err"></em></label>
+          <label class="campo"><span>Producto</span><select class="entrada" name="producto_id" id="selProducto"></select><em class="err"></em></label>
+          <label class="campo"><span>Cantidad</span><input class="entrada" type="number" name="cantidad" min="1" step="1"><em class="err"></em></label>
+          <label class="campo"><span>Centro de distribución</span>
+            <select class="entrada" name="centro_distribucion">
+              <option value="">Selecciona…</option>
+              <option value="Bogotá">Bogotá</option>
+              <option value="Cali">Cali</option>
+            </select><em class="err"></em>
+          </label>
+          <label class="campo"><span>Estado (opcional)</span>
+            <select class="entrada" name="estado">
+              <option value="">Recibido (por defecto)</option>
+              <option value="recibido">Recibido</option>
+              <option value="despachado">Despachado</option>
+              <option value="entregado">Entregado</option>
+            </select><em class="err"></em>
+          </label>
+          <label class="campo"><span>Fecha (opcional)</span><input class="entrada" type="date" name="fecha"><em class="err"></em></label>
+        </div>
+        <div class="form-pie">
+          <button type="button" class="btn sec" data-cerrar>Cancelar</button>
+          <button type="submit" class="btn oro" id="btnGuardar"><span id="textoGuardar">Crear pedido</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirmación de eliminación -->
+  <div class="modal" id="modalEliminar">
+    <div class="modal-caja chica" role="dialog" aria-modal="true">
+      <div class="modal-cab"><h2>Eliminar pedido</h2>
+        <button class="icono-btn" data-cerrar aria-label="Cerrar"><span data-ico="x"></span></button>
+      </div>
+      <p class="texto-modal">¿Seguro que quieres eliminar el pedido <strong id="nombreBorrar"></strong>? Esta acción no se puede deshacer.</p>
+      <div class="form-pie">
+        <button class="btn sec" data-cerrar>Cancelar</button>
+        <button class="btn peligro" id="btnConfirmar">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toasts"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/sesion.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/api-pedidos.js"></script>
+  <script src="js/pedidos.js"></script>
+</body>
+</html>
