@@ -1,5 +1,5 @@
 /* =====================================================================
-   AgroRed · estilos compartidos del frontend
+    AgroRed · estilos compartidos del frontend
    ===================================================================== */
 :root{
   --bg:#07130c; --panel:#102418;
@@ -204,3 +204,8 @@ tbody tr.saliendo{animation:salir .3s forwards}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+/* ---------- Productos: etiquetas de categoría y estado ---------- */
+.tag.fruta, .tag.activo { background: rgba(71,201,123,.14); color: var(--verde); }
+.tag.hortaliza { background: rgba(233,185,62,.14); color: var(--oro); }
+.tag.procesado { background: rgba(255,255,255,.08); color: var(--suave); }
+.tag.inactivo { background: rgba(239,107,92,.14); color: var(--rojo); }
