@@ -59,7 +59,9 @@ DB_PORT=3306
 DB_NAME=productos_db
 DB_USER=productos_user
 DB_PASSWORD=una-clave-segura
+JWT_SECRET=la-misma-frase-del-grupo
 ```
+`JWT_SECRET` debe ser **exactamente la misma** en todos los microservicios del grupo (la de ms-usuarios). Además, antes de `npm install` ten en cuenta que ahora se instala `jsonwebtoken`.
 
 El archivo `.env` nunca se sube al repositorio. Si todo salió bien, la consola muestra:
 
@@ -201,6 +203,8 @@ El servicio primero valida el formato y solo después busca duplicados. Por eso 
 | `ms-pedidos` | `GET /productos/:id` (validar que el producto exista al crear o actualizar un pedido) · `GET /productos?ids=…` (componer la respuesta de los pedidos) | `id`, `nombre`, `precio` |
 | `ms-lotes` | `GET /productos/:id` (validar al crear o actualizar un lote) · `GET /productos?ids=…` (componer la respuesta de los lotes) | `id`, `nombre`, `categoria` |
 
+ms-pedidos y ms-lotes deben reenviar el token del usuario en la cabecera `Authorization`; si no, ms-productos responde 401.
+
 Si cambio el nombre o el tipo de alguno de esos atributos, aviso al grupo antes de subir el cambio.
 
 ## Datos de partida
@@ -278,5 +282,31 @@ Para pasar de memoria a MySQL solo se reescribió el repositorio (y se agregó `
 
 ## Próximos pasos
 
-- **Semana 2:** seguridad con tokens JWT y permisos por rol, y atender las consultas de ms-pedidos y ms-lotes.
+| **Versión** | Taller 2 (semana 2) |
+Ahora, todas las rutas exigen un token JWT emitido por ms-usuarios y los permisos dependen del rol.
+
+## Seguridad
+
+Todas las rutas de `/productos` exigen la cabecera `Authorization: Bearer <token>`. El token lo entrega `POST /usuarios/login` de ms-usuarios y se verifica con `JWT_SECRET`. `/health` es público.
+
+| Operación | Roles permitidos |
+|---|---|
+| Consultar (`GET /productos`, `GET /productos?ids=…`, `GET /productos/:id`) | administrador, comercial, produccion |
+| Crear, modificar y eliminar (`POST`, `PUT`, `DELETE`) | administrador |
+
+| Código | Cuándo |
+|---|---|
+| 401 | Falta el token, está modificado o venció |
+| 403 | El token es válido, pero el rol no tiene permiso para esa operación |
+
+## Casos de prueba
+Desde el caso 14, cada petición lleva un token (Auth, luego Bearer). Hay que crear en ms-usuarios un usuario de cada rol y hacer login con cada uno.
+
+| 14 | `GET /productos` sin token | 401 |
+| 15 | `GET /productos` con un token modificado | 401 |
+| 16 | `GET /productos` con el token de comercial | 200 |
+| 17 | `POST /productos` con el token de comercial | 403 |
+| 18 | `POST /productos` con el token de administrador | 201 |
+
+
 - **Taller 3:** despliegue en el ambiente.
