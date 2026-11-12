@@ -44,6 +44,9 @@ Abra el archivo `.env` y escriba su contraseña real en `DB_PASSWORD`. Variables
 | DB_NAME | Base de datos del servicio | pedidos_db |
 | DB_USER | Usuario de MySQL del servicio | pedidos_user |
 | DB_PASSWORD | Contraseña de ese usuario | (la suya; el `.env` no se sube al repositorio) |
+| JWT_SECRET | Clave para verificar los tokens (la misma en todos los microservicios) | (la del grupo; no se sube al repositorio) |
+| CLIENTES_URL | Dirección de ms-clientes | http://127.0.0.1:3003 |
+| PRODUCTOS_URL | Dirección de ms-productos | http://127.0.0.1:3002 |
 
 **4. Arrancar:**
 
@@ -66,6 +69,8 @@ Prueben en el navegador: http://localhost:3004/health y http://localhost:3004/pe
 | src/db.js | Acceso a datos | Pool de conexiones a MySQL con los datos del `.env` |
 | src/models/pedido.js | Modelo | Atributos de la entidad y su validación |
 | src/utils/http-error.js | Utilidad | Error con código de estado HTTP |
+| src/middlewares/auth.js | Seguridad | Verifica el token JWT (`verificarToken`) y el rol (`requiereRol`) |
+| src/clients/clientes.client.js, productos.client.js | Acceso a otros servicios | Peticiones HTTP a ms-clientes y ms-productos (reenvían el token) |
 | db/schema.sql | Base de datos | Tabla `pedidos` y registros iniciales |
 
 ## Contrato de la API
@@ -88,7 +93,7 @@ Como Pedido guarda referencias a otros microservicios, la respuesta incluye adem
 }
 ```
 
-> **Estado de la implementación:** los objetos `cliente` y `producto` los agrega el servicio en la semana 2 (consulta a ms-clientes y ms-productos). Hasta entonces, la respuesta trae solo los campos propios del pedido (`id`, `cliente_id`, `producto_id`, `cantidad`, `centro_distribucion`, `estado`, `fecha`), como en los ejemplos de más abajo. Si el otro servicio no responde, el objeto vendrá en `null`.
+> **Composición:** los objetos `cliente` y `producto` los agrega ms-pedidos al responder, consultando a ms-clientes y ms-productos con una sola petición `?ids=` a cada uno. Si uno de esos servicios no responde, la consulta (GET) sigue funcionando: el objeto de ese servicio viene en `null` y la respuesta trae un campo `aviso` (por ejemplo `"aviso": "ms-productos no disponible"`).
 
 ### Atributos
 
@@ -111,8 +116,8 @@ Como Pedido guarda referencias a otros microservicios, la respuesta incluye adem
 | Listar | GET | /pedidos | — | 200, arreglo de pedidos | — |
 | Filtrar | GET | /pedidos?estado=recibido | — | 200, arreglo de los pedidos de ese estado | — |
 | Obtener | GET | /pedidos/:id | — | 200, el pedido | 400 id no numérico · 404 no existe |
-| Crear | POST | /pedidos | Pedido sin `id` | 201, el pedido creado + cabecera Location | 400 datos inválidos |
-| Actualizar | PUT | /pedidos/:id | Pedido completo sin `id` (reemplaza el registro) | 200, el pedido actualizado | 400 id no numérico o datos inválidos · 404 no existe |
+| Crear | POST | /pedidos | Pedido sin `id` | 201, el pedido creado + cabecera Location | 400 datos inválidos o cliente/producto inexistente · 401 · 403 · 503 |
+| Actualizar | PUT | /pedidos/:id | Pedido completo sin `id` (reemplaza el registro) | 200, el pedido actualizado | 400 id no numérico, datos inválidos o cliente/producto inexistente · 401 · 403 · 404 no existe · 503 |
 | Eliminar | DELETE | /pedidos/:id | — | 204, sin cuerpo | 400 id no numérico · 404 no existe |
 
 No hay consulta por lotes (`?ids=`) porque ningún otro microservicio consulta ms-pedidos.
@@ -136,7 +141,9 @@ Respuesta `201 Created` (cabecera `Location: /pedidos/4`):
 {
   "id": 4,
   "cliente_id": 1,
+  "cliente": { "id": 1, "nombre": "Distribuidora El Valle" },
   "producto_id": 2,
+  "producto": { "id": 2, "nombre": "Tomate" },
   "cantidad": 10,
   "centro_distribucion": "Cali",
   "estado": "recibido",
@@ -153,7 +160,9 @@ Respuesta `201 Created` (cabecera `Location: /pedidos/4`):
   {
     "id": 3,
     "cliente_id": 1,
+    "cliente": { "id": 1, "nombre": "Distribuidora El Valle" },
     "producto_id": 3,
+    "producto": { "id": 3, "nombre": "Jugo de mora" },
     "cantidad": 30,
     "centro_distribucion": "Cali",
     "estado": "entregado",
@@ -162,11 +171,29 @@ Respuesta `201 Created` (cabecera `Location: /pedidos/4`):
 ]
 ```
 
+### Seguridad
+
+Todas las rutas exigen un token JWT en la cabecera `Authorization: Bearer <token>` (el token lo entrega ms-usuarios al iniciar sesión).
+
+| Operación | Roles permitidos |
+|---|---|
+| GET /pedidos y GET /pedidos/:id | administrador, comercial, produccion |
+| POST, PUT y DELETE | administrador, comercial |
+
 ### Formato de los errores
 
 ```json
 { "error": "Datos inválidos", "detalles": ["cantidad es obligatoria y debe ser un entero mayor que 0"] }
 ```
+
+| Código | Cuándo |
+|---|---|
+| 400 | Datos inválidos, o el cliente / producto referenciado no existe |
+| 401 | Falta el token, o es inválido o está vencido |
+| 403 | El rol del usuario no tiene permiso para esa operación |
+| 404 | No existe el pedido |
+| 502 | ms-clientes o ms-productos respondió algo inesperado |
+| 503 | Al crear o actualizar, ms-clientes o ms-productos no está disponible |
 
 ## Relaciones
 

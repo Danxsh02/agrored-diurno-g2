@@ -7,13 +7,14 @@
 //   - cantidad: entero mayor que 0
 //   - centro_distribucion: Bogotá o Cali
 //   - estado: recibido, despachado o entregado
-// Relación: el cliente referenciado debe existir en ms-clientes.
+// Relaciones: el cliente (ms-clientes) y el producto (ms-productos) deben existir.
 // Pedido no tiene un campo único, así que no hay regla de 409.
 // =====================================================================
 const repo = require('../repositories/pedidos.repository');
 const { validarPedido, construirPedido } = require('../models/pedido');
 const HttpError = require('../utils/http-error');
 const clientesClient = require('../clients/clientes.client');
+const productosClient = require('../clients/productos.client');
 
 function noExiste(id) {
   return new HttpError(404, `No existe el pedido con id ${id}`);
@@ -26,15 +27,34 @@ async function validarCliente(clienteId, token) {
   }
 }
 
-// Agrega a cada pedido su objeto cliente, con UNA sola consulta a ms-clientes
-async function componer(pedidos, token) {
-  const ids = [...new Set(pedidos.map((p) => p.cliente_id))];
-  const clientes = await clientesClient.clientesPorIds(ids, token);
-  if (!clientes) {                                  // degradación controlada
-    return pedidos.map((p) =>
-      ({ ...p, cliente: null, aviso: 'ms-clientes no disponible' }));
+// Relación: el producto referenciado debe existir en ms-productos
+async function validarProducto(productoId, token) {
+  if (!(await productosClient.existeProducto(productoId, token))) {
+    throw new HttpError(400, `No existe el producto con id ${productoId}`);
   }
-  return pedidos.map((p) => ({ ...p, cliente: clientes.get(p.cliente_id) || null }));
+}
+
+// Agrega a cada pedido su cliente y su producto, con UNA consulta a cada servicio.
+// Si un servicio no responde, solo ese campo queda en null (degradación controlada).
+async function componer(pedidos, token) {
+  const idsClientes = [...new Set(pedidos.map((p) => p.cliente_id))];
+  const idsProductos = [...new Set(pedidos.map((p) => p.producto_id))];
+  const [clientes, productos] = await Promise.all([
+    clientesClient.clientesPorIds(idsClientes, token),
+    productosClient.productosPorIds(idsProductos, token),
+  ]);
+  return pedidos.map((p) => {
+    const resultado = {
+      ...p,
+      cliente: clientes ? clientes.get(p.cliente_id) || null : null,
+      producto: productos ? productos.get(p.producto_id) || null : null,
+    };
+    const avisos = [];
+    if (!clientes) avisos.push('ms-clientes no disponible');
+    if (!productos) avisos.push('ms-productos no disponible');
+    if (avisos.length > 0) resultado.aviso = avisos.join('; ');
+    return resultado;
+  });
 }
 
 async function listar(filtros, token) {
@@ -53,6 +73,7 @@ async function crear(datos, token) {
   if (errores.length > 0) throw new HttpError(400, 'Datos inválidos', errores);
   const pedido = construirPedido(datos);
   await validarCliente(pedido.cliente_id, token);
+  await validarProducto(pedido.producto_id, token);
   const nuevo = await repo.create(pedido);
   const [compuesto] = await componer([nuevo], token);
   return compuesto;
@@ -64,6 +85,7 @@ async function actualizar(id, datos, token) {
   if (errores.length > 0) throw new HttpError(400, 'Datos inválidos', errores);
   const pedido = construirPedido(datos);
   await validarCliente(pedido.cliente_id, token);
+  await validarProducto(pedido.producto_id, token);
   const actualizado = await repo.update(id, pedido);
   if (!actualizado) throw noExiste(id);
   const [compuesto] = await componer([actualizado], token);
