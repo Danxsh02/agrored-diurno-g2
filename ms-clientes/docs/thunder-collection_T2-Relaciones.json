@@ -1,0 +1,214 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "T2-Relaciones",
+    "collectionId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+    "dateExported": "2026-11-13T13:05:16.027Z",
+    "version": "1.4",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "1d64c639-40e8-4931-8cd4-e58986394f43",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Obtener el token",
+            "url": "http://127.0.0.1:3001/usuarios/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2026-11-12T15:09:09.472Z",
+            "modified": "2026-11-12T15:09:09.472Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"email\": \"admin@empresa.com\",",
+                    "  \"password\": \"Admin2026*\"",
+                    "}"
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "74a1fc9f-b2fb-4e70-bbf2-7977aac703a0",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Probar ms-clientes",
+            "url": "http://127.0.0.1:3003/clientes",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2026-11-12T15:34:48.700Z",
+            "modified": "2026-11-12T15:34:48.700Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"email\": \"admin@empresa.com\",",
+                    "  \"password\": \"Admin2026*\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQ5NjE2NSwiZXhwIjoxNzk3MDg4MTY1fQ.NacH3bObye8BxKH1WTTtWu0SJ-WREZQS9EkVNtXGNos"
+            }
+        },
+        {
+            "_id": "44666306-2fd5-48fc-ad3c-77435a0eaf83",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Relación pedidos a clientes y productos",
+            "url": "http://127.0.0.1:3004/pedidos",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2026-11-12T15:37:40.184Z",
+            "modified": "2026-11-12T15:37:40.184Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQ5NjE2NSwiZXhwIjoxNzk3MDg4MTY1fQ.NacH3bObye8BxKH1WTTtWu0SJ-WREZQS9EkVNtXGNos"
+            }
+        },
+        {
+            "_id": "49c19ab4-7694-4f9b-a660-e0ce58387241",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Crear pedido",
+            "url": "http://127.0.0.1:3004/pedidos",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2026-11-12T15:50:30.983Z",
+            "modified": "2026-11-12T15:50:30.983Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"cliente_id\": 1,",
+                    "  \"producto_id\": 2,",
+                    "  \"cantidad\": 10,",
+                    "  \"centro_distribucion\": \"Cali\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQ5NjE2NSwiZXhwIjoxNzk3MDg4MTY1fQ.NacH3bObye8BxKH1WTTtWu0SJ-WREZQS9EkVNtXGNos"
+            }
+        },
+        {
+            "_id": "a4c42364-ee10-4c0b-b547-e5b9192b1df7",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Relación Lotes a Productos",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2026-11-12T15:51:29.665Z",
+            "modified": "2026-11-12T15:51:29.666Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQ5NjE2NSwiZXhwIjoxNzk3MDg4MTY1fQ.NacH3bObye8BxKH1WTTtWu0SJ-WREZQS9EkVNtXGNos"
+            }
+        },
+        {
+            "_id": "0cbb4688-141c-4c60-872c-98d67e13eb44",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Creación de lotes",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2026-11-12T15:58:36.928Z",
+            "modified": "2026-11-12T15:58:36.928Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"codigo_lote\": \"LOT-PRUEBA-2026-001\",",
+                    "  \"producto_id\": 1,",
+                    "  \"fecha_produccion\": \"2026-11-12\",",
+                    "  \"cantidad\": 250,",
+                    "  \"resultado_calidad\": \"pendiente\",",
+                    "  \"fecha_vencimiento\": \"2026-12-12\",",
+                    "  \"centro_produccion\": \"Valle del Cauca\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQ5NjE2NSwiZXhwIjoxNzk3MDg4MTY1fQ.NacH3bObye8BxKH1WTTtWu0SJ-WREZQS9EkVNtXGNos"
+            }
+        },
+        {
+            "_id": "28e0f92d-2e37-4db7-89ab-65d062ff5128",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Get usuario",
+            "url": "http://127.0.0.1:3001/usuarios",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2026-11-12T16:32:56.915Z",
+            "modified": "2026-11-12T16:32:56.915Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQ5NjE2NSwiZXhwIjoxNzk3MDg4MTY1fQ.NacH3bObye8BxKH1WTTtWu0SJ-WREZQS9EkVNtXGNos"
+            }
+        },
+        {
+            "_id": "ad426838-5012-4c49-8475-ed2240c6ebb7",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Get productos",
+            "url": "http://127.0.0.1:3002/productos",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2026-11-12T16:34:20.848Z",
+            "modified": "2026-11-12T16:34:20.849Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQ5NjE2NSwiZXhwIjoxNzk3MDg4MTY1fQ.NacH3bObye8BxKH1WTTtWu0SJ-WREZQS9EkVNtXGNos"
+            }
+        },
+        {
+            "_id": "e7ba7a2d-0e2f-47ef-aa3d-f2f5d153ba83",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Get lotes",
+            "url": "http://127.0.0.1:3005/lotes",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2026-11-12T16:34:53.139Z",
+            "modified": "2026-11-12T16:34:53.139Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQ5NjE2NSwiZXhwIjoxNzk3MDg4MTY1fQ.NacH3bObye8BxKH1WTTtWu0SJ-WREZQS9EkVNtXGNos"
+            }
+        },
+        {
+            "_id": "e365fa5f-726c-4d8a-abad-23fbede8d3cc",
+            "colId": "b9be92af-b0df-4205-8d99-c44d9a933a00",
+            "containerId": "",
+            "name": "Get pedidos",
+            "url": "http://127.0.0.1:3004/pedidos",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2026-11-12T16:36:02.491Z",
+            "modified": "2026-11-12T16:36:02.491Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDQ5NjE2NSwiZXhwIjoxNzk3MDg4MTY1fQ.NacH3bObye8BxKH1WTTtWu0SJ-WREZQS9EkVNtXGNos"
+            }
+        }
+    ],
+    "ref": "VWeEyt7lIZmmxcAQfQPeWDJjLl4JBjyajcKhVChof2eL1tzbodj9NCkhw6CYn1kp2YLu3mTWrfjpnAX-JCfKzg"
+}
