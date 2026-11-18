@@ -25,24 +25,23 @@
     </section>
 
     <section class="acceso">
-      <form class="tarjeta" id="formLogin">
+        <form class="tarjeta" id="formLogin">
         <h2>Iniciar sesión</h2>
-        <p class="sub">Elige tu rol para entrar al sistema.</p>
-        <div class="roles" id="roles"></div>
-        
+        <p class="sub">Ingresa con tu correo y contraseña.</p>
+
         <label class="campo">
-          <span>Usuario</span>
-          <input class="entrada" id="nombre" autocomplete="off" placeholder="Selecciona un rol primero" readonly>
+          <span>Correo</span>
+          <input class="entrada" id="email" type="email" autocomplete="username" placeholder="usuario@agrored.com" required>
         </label>
 
-        <!-- Campo de contraseña agregado visualmente -->
         <label class="campo">
           <span>Contraseña</span>
-          <input class="entrada" id="password" type="password" placeholder="Cualquier valor (Simulado)">
+          <input class="entrada" id="password" type="password" autocomplete="current-password" required>
         </label>
 
-        <button class="btn oro ancho" id="entrar" type="submit" disabled>Entrar</button>
-        <p class="nota">Inicio de sesión simulado (Taller 2). En el Taller 3 se conecta con ms-usuarios.</p>
+        <p class="nota" id="error" role="alert" style="color:#b3261e;display:none"></p>
+
+        <button class="btn oro ancho" id="entrar" type="submit">Entrar</button>
       </form>
     </section>
   </main>

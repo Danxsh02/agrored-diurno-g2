@@ -3,9 +3,8 @@
 // En el Taller 3 solo cambian MODO y API_BASE (y el login simulado por el real).
 // =====================================================================
 const CONFIG = {
-  MODO: 'ejemplo',                      // 'ejemplo' = datos del JSON · 'real' = microservicios
-  API_BASE: 'http://127.0.0.1:3003',    // Taller 3: '/api'
-  API_BASE: 'http://127.0.0.1:3003',    // Taller 3: '/api'
+  MODO: 'real',                      // 'ejemplo' = datos del JSON · 'real' = microservicios
+  API_BASE: '/api',    // Taller 3: '/api'
   DATOS_CLIENTES: 'datos/clientes.json',
   INICIO: 'clientes.html',              // página de inicio (el grupo la ajusta por rol)
   ROLES_ESCRITURA_CLIENTES: ['administrador', 'comercial'],

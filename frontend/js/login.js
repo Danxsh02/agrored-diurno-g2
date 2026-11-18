@@ -1,31 +1,44 @@
 (() => {
-  if (Sesion.actual()) { location.replace(CONFIG.INICIO); return; }
+  if (Sesion.actual()) { location.replace(inicioDe(Sesion.actual().rol)); return; }
 
-  const caja = document.getElementById('roles');
-  const nombre = document.getElementById('nombre');
+  const form = document.getElementById('formLogin');
+  const email = document.getElementById('email');
+  const password = document.getElementById('password');
   const entrar = document.getElementById('entrar');
-  let rol = null;
+  const error = document.getElementById('error');
 
-  caja.innerHTML = Object.entries(CONFIG.ROLES).map(([k, r]) => `
-    <button type="button" class="rol" data-rol="${k}">
-      <span class="rol-ico">${UI.icono(r.icono, 22)}</span>
-      <span><strong>${r.texto}</strong><small>${r.desc}</small></span>
-      <span class="rol-ok">${UI.icono('check', 14)}</span>
-    </button>`).join('');
+  // La página de inicio es el primer módulo del menú del rol (config.js)
+  function inicioDe(rol) {
+    const menu = CONFIG.MENU[rol];
+    return menu ? CONFIG.MODULOS[menu[0]].href : 'login.html';
+  }
 
-  const botones = [...caja.querySelectorAll('.rol')];
-  botones.forEach((b) => b.addEventListener('click', () => {
-    rol = b.dataset.rol;
-    botones.forEach((x) => x.classList.toggle('sel', x === b));
-    nombre.value = CONFIG.ROLES[rol].usuario;
-    entrar.disabled = false;
-  }));
+  function mostrarError(texto) {
+    error.textContent = texto;
+    error.style.display = 'block';
+  }
 
-  document.getElementById('formLogin').addEventListener('submit', (ev) => {
+  form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
-    if (!rol) return;
-    Sesion.iniciar({ nombre: nombre.value.trim() || CONFIG.ROLES[rol].usuario, rol, token: 'token-simulado' });
-    document.body.classList.add('saliendo');
-    setTimeout(() => { location.href = CONFIG.INICIO; }, 350);
+    error.style.display = 'none';
+    entrar.disabled = true;
+    try {
+      const r = await fetch(CONFIG.API_BASE + '/usuarios/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.value.trim(), password: password.value })
+      });
+      if (r.status === 401) { mostrarError('Correo o contraseña incorrectos'); return; }
+      if (!r.ok) { mostrarError('No se pudo iniciar sesión (error ' + r.status + ')'); return; }
+      const { token, usuario } = await r.json();
+      if (!CONFIG.MENU[usuario.rol]) { mostrarError('Rol sin página de inicio: ' + usuario.rol); return; }
+      Sesion.iniciar({ nombre: usuario.nombre, rol: usuario.rol, token });
+      document.body.classList.add('saliendo');
+      setTimeout(() => { location.href = inicioDe(usuario.rol); }, 350);
+    } catch (e) {
+      mostrarError('No se pudo conectar con el servidor');
+    } finally {
+      entrar.disabled = false;
+    }
   });
 })();
