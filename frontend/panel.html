@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel general · AgroRed</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="lateral" id="lateral">
+      <a class="marca" href="panel.html"><span class="punto"></span>AgroRed</a>
+      <nav id="menu"></nav>
+      <p class="lateral-pie">Acceso solo desde la subred<br>172.16.1.56/29</p>
+    </aside>
+    <div class="velo" id="velo"></div>
+
+    <div class="contenido">
+      <header class="superior">
+        <button class="icono-btn menu-movil" id="btnMenu" aria-label="Abrir menú"><span data-ico="menu"></span></button>
+        <div class="titulo">
+          <h1>Panel general</h1>
+          <p>Totales de cada entidad de AgroRed</p>
+        </div>
+        <div class="usuario">
+          <span class="avatar" id="avatar"></span>
+          <div class="usuario-datos">
+            <strong id="nombreUsuario"></strong>
+            <span class="rol-tag" id="rolUsuario"></span>
+          </div>
+          <button class="icono-btn" id="btnSalir" title="Cerrar sesión"><span data-ico="logout"></span></button>
+        </div>
+      </header>
+
+      <main>
+        <section class="resumen">
+          <article class="stat" style="--i:0"><small>Clientes</small><strong id="st-clientes">–</strong></article>
+          <article class="stat" style="--i:1"><small>Productos</small><strong id="st-productos">–</strong></article>
+          <article class="stat" style="--i:2"><small>Pedidos</small><strong id="st-pedidos">–</strong></article>
+          <article class="stat oro" style="--i:3"><small>Lotes</small><strong id="st-lotes">–</strong></article>
+          <article class="stat" style="--i:4"><small>Usuarios</small><strong id="st-usuarios">–</strong></article>
+        </section>
+
+        <section class="panel">
+          <div class="tabla-caja">
+            <table>
+              <thead><tr><th>Servicio</th><th>Estado</th><th></th></tr></thead>
+              <tbody id="cuerpo"></tbody>
+            </table>
+          </div>
+          <p class="conteo" id="conteo"></p>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="toasts"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/sesion.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/panel.js"></script>
+</body>
+</html>
