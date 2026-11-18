@@ -4,7 +4,7 @@
 
   const $ = (s) => document.querySelector(s);
   // Tabla de permisos del Taller 1: solo el administrador crea, modifica y elimina productos
-  const ROLES_ESCRITURA_PRODUCTOS = ['administrador'];
+  const ROLES_ESCRITURA_PRODUCTOS = ['administrador', 'produccion'];
   const puedeEscribir = ROLES_ESCRITURA_PRODUCTOS.includes(sesion.rol);
   const estado = { lista: [], texto: '', categoria: '', editando: null, borrando: null, destacado: null };
   const modalForm = $('#modalForm');
