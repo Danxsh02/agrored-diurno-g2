@@ -17,7 +17,6 @@ const CONFIG = {
 
   MODULOS: {
     panel:     { texto: 'Panel general', href: 'panel.html', icono: 'menu' },
-    administrador: ['panel', 'clientes', 'productos', 'pedidos', 'lotes', 'usuarios'],
     clientes:  { texto: 'Clientes',  href: 'clientes.html',  icono: 'users' },
     productos: { texto: 'Productos', href: 'productos.html', icono: 'box' },
     pedidos:   { texto: 'Pedidos',   href: 'pedidos.html',   icono: 'clipboard' },
@@ -26,7 +25,7 @@ const CONFIG = {
   },
 
   MENU: {
-    administrador: ['clientes', 'productos', 'pedidos', 'lotes', 'usuarios'],
+    administrador: ['panel', 'clientes', 'productos', 'pedidos', 'lotes', 'usuarios'],
     comercial:     ['pedidos', 'clientes', 'productos'],
     produccion:    ['lotes', 'productos', 'clientes']
   }
