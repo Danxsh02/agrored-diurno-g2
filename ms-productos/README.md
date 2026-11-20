@@ -309,4 +309,18 @@ Desde el caso 14, cada petición lleva un token (Auth, luego Bearer). Hay que cr
 | 18 | `POST /productos` con el token de administrador | 201 |
 
 
-- **Taller 3:** despliegue en el ambiente.
+## Despliegue (Taller 3)
+
+En servidor2 el código no cambia, solo cambia el `.env`.
+
+| Variable | En el PC (Taller 2) | En servidor2 (Taller 3) |
+|---|---|---|
+| `DB_HOST` | `localhost` | `172.16.1.58` (servidor1) |
+| `DB_PASSWORD` | la de desarrollo | la nueva de servidor1 |
+| `JWT_SECRET` | la del grupo para desarrollo | la nueva, igual en los 5 servicios |
+
+- **Base de datos:** `productos_db` / `productos_user`@`172.16.1.59` en servidor1. La tabla se crea desde servidor2 con `mysql -h 172.16.1.58 -u productos_user -p productos_db < db/schema.sql`.
+- **Servicio:** `ms-productos.service` (copia en `deploy/`), con usuario `nodeapps`, escuchando solo en `127.0.0.1:3002`.
+- **Gateway:** se accede por `http://app.agrored.com/api/productos`, ya no por el puerto 3002.
+- **Actualizar:** `git pull`, `npm ci --omit=dev` y `sudo systemctl restart ms-productos`.
+- **Pruebas por el gateway:** `docs/thunder-collection_ms-productos-gateway-v2.json` (24 casos, con tokens por variable en el entorno `gateway`).
