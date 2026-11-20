@@ -35,6 +35,8 @@ Los roles de trabajo rotan cada semana; los del Taller 3 están en la sección s
 
 `ms-usuarios` emite el token JWT con el login; los demás lo verifican con la misma `JWT_SECRET`. Las llamadas entre servicios (por ejemplo, de `ms-lotes` a `ms-productos`) van directas a `127.0.0.1:300X`, no por el gateway.
 
+Cada microservicio tiene su propio `README.md` dentro de su carpeta, con su contrato (atributos, endpoints, errores), sus relaciones y su tabla de pruebas.
+
 ## Roles de la aplicación y permisos
 
 Hay tres roles: `administrador`, `comercial` y `produccion`. Todos los endpoints exigen token (sin token: 401). Cualquier usuario autenticado puede consultar (GET); crear, editar y eliminar requiere uno de estos roles (si no: 403):
@@ -46,6 +48,8 @@ Hay tres roles: `administrador`, `comercial` y `produccion`. Todos los endpoints
 | Clientes | todos | administrador, comercial |
 | Pedidos | todos | administrador, comercial |
 | Lotes | todos | administrador, produccion |
+
+Los permisos se validan siempre en el backend. El frontend oculta los botones solo para facilitar el uso: una petición forzada de un rol sin permiso recibe 403.
 
 ## Frontend
 
@@ -114,6 +118,16 @@ ms-xxx/
 
 Las contraseñas y la `JWT_SECRET` se acuerdan en el canal privado del grupo. **Nunca** se suben al repositorio (ni el `.env`).
 
+### Firewall (ufw)
+
+| Equipo | Puertos abiertos | Para qué |
+|---|---|---|
+| servidor1 | 22/tcp, 53/tcp y 53/udp, 3128/tcp, 25/tcp, 143/tcp | SSH, DNS, Squid y correo (Módulo 2) |
+| servidor1 | 3306/tcp solo desde `172.16.1.59` | MySQL: únicamente servidor2 puede conectarse |
+| servidor2 | 22/tcp, 80/tcp | SSH y gateway Apache |
+
+Los puertos 3001 a 3006 de los microservicios **no** se abren: escuchan solo en `127.0.0.1` y desde Windows se llega a ellos únicamente por el gateway.
+
 ### 1. MySQL en servidor1
 1. `sudo apt update && sudo apt install -y mysql-server`
 2. En `/etc/mysql/mysql.conf.d/mysqld.cnf`: `bind-address = 127.0.0.1,172.16.1.58` (sin espacio tras la coma) y `sudo systemctl restart mysql`.
@@ -143,7 +157,18 @@ chmod 640 .env && sudo chgrp nodeapps .env
 sudo cp /srv/agrored/app/deploy/ms-<nombre>.service /etc/systemd/system/
 sudo systemctl daemon-reload && sudo systemctl enable --now ms-<nombre>
 ```
-En el `.env` solo cambian: `DB_HOST=172.16.1.58`, `DB_PASSWORD` (la de servidor1) y `JWT_SECRET` (la **misma** en los 5). `ms-pedidos` y `ms-lotes` usan `CLIENTES_URL` y `PRODUCTOS_URL` apuntando a `http://127.0.0.1:300X`.
+En el `.env` solo cambian respecto al de desarrollo: `DB_HOST=172.16.1.58`, `DB_PASSWORD` (la de servidor1) y `JWT_SECRET` (una frase nueva, la **misma** en los 5).
+
+Variables del `.env` (el `.env.example` de cada servicio las trae todas):
+
+| Variable | Qué es | En servidor2 |
+|---|---|---|
+| `PORT`, `HOST` | Puerto del servicio y `127.0.0.1` | Igual que en el PC |
+| `DB_HOST`, `DB_PORT` | Servidor MySQL | `172.16.1.58`, `3306` |
+| `DB_NAME`, `DB_USER`, `DB_PASSWORD` | Base y usuario propios del servicio | Nombres iguales; clave de servidor1 |
+| `JWT_SECRET` | Clave con la que se verifican los tokens | La misma en los 5 servicios |
+| `CLIENTES_URL` | Solo `ms-pedidos`: dónde está `ms-clientes` | `http://127.0.0.1:3003` |
+| `PRODUCTOS_URL` | `ms-pedidos` y `ms-lotes`: dónde está `ms-productos` | `http://127.0.0.1:3002` |
 
 Verificar: `systemctl status ms-<nombre>`, `curl http://127.0.0.1:300X/health` y `sudo ss -tlnp | grep 300` (deben escuchar en `127.0.0.1`). **No abrir** los puertos 3001–3006 en ufw: en servidor2 solo 22 y 80.
 
@@ -177,7 +202,7 @@ sudo cp -r frontend/* /var/www/app/
 Debe aparecer `login.html`, `panel.html` y `usuarios.html` en `/var/www/app`.
 
 ### 8. Windows (cliente)
-En PowerShell **como administrador**: `Add-DnsClientNrptRule -Namespace ".agrored.com" -NameServer "172.16.1.58"`. Verificar con `Resolve-DnsName app.agrored.com` (no con `nslookup`, que ignora esta regla). Si el navegador usa el proxy Squid, agregar `*.agrored.com` a las excepciones.
+En PowerShell **como administrador**: `Add-DnsClientNrptRule -Namespace ".agrored.com" -NameServers "172.16.1.58"`. Verificar con `Resolve-DnsName app.agrored.com` (no con `nslookup`, que ignora esta regla). Si el navegador usa el proxy Squid, agregar `*.agrored.com` a las excepciones.
 
 ## Actualizar un ambiente ya desplegado
 
@@ -211,9 +236,12 @@ Los usuarios y los datos viven en MySQL de servidor1 y **no** viajan con Git: se
 | El navegador muestra "Index of /" | `/var/www/app` está vacío: copiar `frontend/*` (paso 7) |
 | Cambios del frontend que no se ven | Caché del navegador: Ctrl+F5, o F12 → Red → "Deshabilitar caché" |
 | `Resolve-DnsName` no encuentra `app.agrored.com` | Falta la regla NRPT (paso 8) o servidor1 está apagada |
+| `curl` o el navegador no resuelven pero `nslookup` sí | `nslookup` pregunta directo a servidor1; el navegador usa el resolvedor de Windows: aplicar la regla NRPT (paso 8) |
+| "Acceso denegado" al ejecutar `Add-DnsClientNrptRule` o `Set-DnsClientServerAddress` | PowerShell sin permisos: abrirla con clic derecho → Ejecutar como administrador |
 | `ECONNREFUSED 127.0.0.1:3306` al arrancar un servicio | `DB_HOST` mal puesto en el `.env` |
 | `ECONNREFUSED`/`ETIMEDOUT` hacia `172.16.1.58` | Revisar `ip route get 172.16.1.58`: debe salir por `eth1` |
 | 401 en todas las peticiones tras cambiar claves | `JWT_SECRET` distinta entre microservicios |
+| 403 aunque el botón aparece en pantalla | Es lo esperado: el backend valida el rol del token, sin importar lo que muestre el frontend |
 | 503 en `/api/<recurso>` | El servicio está detenido: `systemctl status ms-<nombre>` |
 
 ## Cómo ejecutar un microservicio (desarrollo en PC)
