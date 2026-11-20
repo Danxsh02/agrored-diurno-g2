@@ -1,0 +1,605 @@
+{
+  "info": {
+    "_postman_id": "7990fb60-3f0e-4dcb-90ab-dfaa367f4401",
+    "name": "ms-lotes (gateway t3)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 Listar todos los lotes (200)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 Filtrar por resultado_calidad (200)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes?resultado_calidad=aprobado",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ],
+          "query": [
+            {
+              "key": "resultado_calidad",
+              "value": "aprobado"
+            }
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03 Obtener lote 1 con producto compuesto (200)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes/1",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes",
+            "1"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "04 Obtener lote inexistente (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes/99999",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes",
+            "99999"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05 Id no numerico (400)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes/abc",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes",
+            "abc"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "06 Crear sin codigo_lote (400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"producto_id\": 1, \"fecha_produccion\": \"2026-10-20\", \"cantidad\": 100, \"resultado_calidad\": \"pendiente\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07 Codigo de lote repetido (409)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"codigo_lote\": \"LOT-MAN-2026-001\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-20\", \"cantidad\": 100, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "08 Fecha de produccion futura (400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"codigo_lote\": \"LOT-T3-FUTURO\", \"producto_id\": 1, \"fecha_produccion\": \"2030-01-01\", \"cantidad\": 100, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "09 Crear con producto inexistente (400)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"codigo_lote\": \"LOT-T3-PROD\", \"producto_id\": 999, \"fecha_produccion\": \"2026-10-20\", \"cantidad\": 100, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10 Actualizar lote 1 con sus mismos datos (200)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes/1",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes",
+            "1"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"codigo_lote\": \"LOT-MAN-2026-001\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-20\", \"cantidad\": 500, \"resultado_calidad\": \"aprobado\", \"fecha_vencimiento\": \"2026-11-10\", \"centro_produccion\": \"Valle del Cauca\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11 Actualizar lote inexistente (404)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes/99999",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes",
+            "99999"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"codigo_lote\": \"LOT-MAN-2026-001\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-20\", \"cantidad\": 500, \"resultado_calidad\": \"aprobado\", \"fecha_vencimiento\": \"2026-11-10\", \"centro_produccion\": \"Valle del Cauca\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12 Eliminar lote inexistente (404)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes/99999",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes",
+            "99999"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13 Listar (verificar UNA sola peticion ?ids= en journalctl de ms-productos)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "14 Sin token (401)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "auth": {
+          "type": "noauth"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "15 Comercial puede consultar (200)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_comercial}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "16 Comercial no puede crear (403)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"codigo_lote\": \"LOT-T3-403\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-20\", \"cantidad\": 100, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_comercial}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "17 Comercial no puede eliminar (403)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes/1",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes",
+            "1"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_comercial}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

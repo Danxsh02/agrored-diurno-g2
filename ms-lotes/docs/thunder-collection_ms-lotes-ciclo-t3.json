@@ -1,0 +1,113 @@
+{
+  "info": {
+    "_postman_id": "37cfc14b-7c8a-4383-87e7-71d688f54b72",
+    "name": "ms-lotes (ciclo crear-eliminar t3)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "C1 Crear lote valido (201): el id debe ser 6 (ver pasos)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"codigo_lote\": \"LOT-T3-CICLO\", \"producto_id\": 1, \"fecha_produccion\": \"2026-10-20\", \"cantidad\": 100, \"resultado_calidad\": \"pendiente\", \"fecha_vencimiento\": \"2026-11-20\", \"centro_produccion\": \"Cali\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C2 Eliminar el lote 6 (204)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes/6",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes",
+            "6"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C3 Eliminar de nuevo el lote 6 (404)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/lotes/6",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "lotes",
+            "6"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
