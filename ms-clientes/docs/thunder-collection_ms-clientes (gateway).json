@@ -1,0 +1,654 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "ms-clientes (gateway)",
+    "collectionId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+    "dateExported": "2026-11-20T18:47:10.877Z",
+    "version": "1.4",
+    "folders": [
+        {
+            "_id": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "ms-clientes gateway T3",
+            "containerId": "",
+            "created": "2026-11-20T05:08:13.221Z",
+            "sortNum": 10000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "8bd5e1bd-8e03-4fb3-af52-1dcc47930550",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "01 Listar todos",
+            "url": "http://app.agrored.com/api/clientes",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2026-11-20T05:08:13.222Z",
+            "modified": "2026-11-20T05:08:13.222Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "9eddb007-a175-4e17-ab13-2212b1a6a20a",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "02 Filtrar por ciudad",
+            "url": "http://app.agrored.com/api/clientes?ciudad=Cali",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2026-11-20T05:08:13.223Z",
+            "modified": "2026-11-20T05:08:13.223Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "09455e36-ce7e-43ba-b50d-f9ef1cf0fb21",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "03 Consultar por lotes",
+            "url": "http://app.agrored.com/api/clientes?ids=1,2",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2026-11-20T05:08:13.224Z",
+            "modified": "2026-11-20T05:08:13.224Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "6dbf7d2f-b24f-4cfa-a996-1eb570b7cf6f",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "04 Obtener existente",
+            "url": "http://app.agrored.com/api/clientes/1",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2026-11-20T05:08:13.225Z",
+            "modified": "2026-11-20T05:08:13.225Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "e766fab4-1adb-4c1d-afe9-7f0d67a8bdff",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "05 Obtener inexistente",
+            "url": "http://app.agrored.com/api/clientes/99",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2026-11-20T05:08:13.226Z",
+            "modified": "2026-11-20T05:08:13.226Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "404"
+                }
+            ]
+        },
+        {
+            "_id": "a20e73da-94a8-4440-b174-32a89f7d7660",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "06 Obtener id no numerico",
+            "url": "http://app.agrored.com/api/clientes/abc",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2026-11-20T05:08:13.227Z",
+            "modified": "2026-11-20T05:08:13.227Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "400"
+                }
+            ]
+        },
+        {
+            "_id": "17dd4618-58e7-48d8-87d7-1fb605ee7a8b",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "07 Crear valido",
+            "url": "http://app.agrored.com/api/clientes",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2026-11-20T05:08:13.228Z",
+            "modified": "2026-11-20T05:08:13.228Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Cliente Prueba Gateway\",",
+                    "  \"nit\": \"901999000-1\",",
+                    "  \"ciudad\": \"Cali\",",
+                    "  \"telefono\": \"3150001122\",",
+                    "  \"tipo\": \"comercio\",",
+                    "  \"direccion\": \"Calle 5 # 10-20\",",
+                    "  \"email\": \"prueba@gateway.com\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "201"
+                }
+            ]
+        },
+        {
+            "_id": "a4f62c8a-97be-4145-8dab-300ac732d118",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "08 Crear sin atributo obligatorio",
+            "url": "http://app.agrored.com/api/clientes",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2026-11-20T05:08:13.229Z",
+            "modified": "2026-11-20T05:08:13.229Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Solo nombre\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "400"
+                }
+            ]
+        },
+        {
+            "_id": "914d63f6-a46d-4278-9e89-201827d8b87c",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "09 Crear con NIT repetido",
+            "url": "http://app.agrored.com/api/clientes",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2026-11-20T05:08:13.230Z",
+            "modified": "2026-11-20T05:08:13.230Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Cliente Prueba Gateway\",",
+                    "  \"nit\": \"900123456-7\",",
+                    "  \"ciudad\": \"Cali\",",
+                    "  \"telefono\": \"3150001122\",",
+                    "  \"tipo\": \"comercio\",",
+                    "  \"direccion\": \"Calle 5 # 10-20\",",
+                    "  \"email\": \"prueba@gateway.com\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "409"
+                }
+            ]
+        },
+        {
+            "_id": "d9b153ef-2f23-4d9a-b086-f8d095b666ac",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "10 Actualizar inexistente",
+            "url": "http://app.agrored.com/api/clientes/99",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2026-11-20T05:08:13.231Z",
+            "modified": "2026-11-20T05:08:13.231Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Cliente Prueba Gateway\",",
+                    "  \"nit\": \"901999000-1\",",
+                    "  \"ciudad\": \"Palmira\",",
+                    "  \"telefono\": \"3150001122\",",
+                    "  \"tipo\": \"comercio\",",
+                    "  \"direccion\": \"Calle 5 # 10-20\",",
+                    "  \"email\": \"prueba@gateway.com\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "404"
+                }
+            ]
+        },
+        {
+            "_id": "d7c4d3a0-452f-43ab-8e73-4ea3f45fcadc",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "11 Actualizar existente",
+            "url": "http://app.agrored.com/api/clientes/4",
+            "method": "PUT",
+            "sortNum": 110000,
+            "created": "2026-11-20T05:08:13.232Z",
+            "modified": "2026-11-20T05:08:13.232Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Cliente Prueba Gateway\",",
+                    "  \"nit\": \"901999000-1\",",
+                    "  \"ciudad\": \"Palmira\",",
+                    "  \"telefono\": \"3150001122\",",
+                    "  \"tipo\": \"comercio\",",
+                    "  \"direccion\": \"Calle 5 # 10-20\",",
+                    "  \"email\": \"prueba@gateway.com\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "acff57ad-04d0-4aa4-9bbe-914c42181af0",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "12 Eliminar existente",
+            "url": "http://app.agrored.com/api/clientes/4",
+            "method": "DELETE",
+            "sortNum": 120000,
+            "created": "2026-11-20T05:08:13.233Z",
+            "modified": "2026-11-20T05:08:13.233Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "204"
+                }
+            ]
+        },
+        {
+            "_id": "5680226a-4f63-4d17-a75c-c1dad7da3ac8",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "13 Eliminar otra vez",
+            "url": "http://app.agrored.com/api/clientes/4",
+            "method": "DELETE",
+            "sortNum": 130000,
+            "created": "2026-11-20T05:08:13.234Z",
+            "modified": "2026-11-20T05:08:13.234Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "404"
+                }
+            ]
+        },
+        {
+            "_id": "d83208bb-c1ed-4e20-9ce6-4d5e7dbb97ab",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "14 Sin token",
+            "url": "http://app.agrored.com/api/clientes",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2026-11-20T05:08:13.235Z",
+            "modified": "2026-11-20T05:08:13.235Z",
+            "headers": [],
+            "auth": {
+                "type": "none"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "401"
+                }
+            ]
+        },
+        {
+            "_id": "eab7c7b9-a053-48b7-baa8-03330ba55fa2",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "15 Token modificado",
+            "url": "http://app.agrored.com/api/clientes",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2026-11-20T05:08:13.236Z",
+            "modified": "2026-11-20T05:08:13.236Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_comercial}}X"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "401"
+                }
+            ]
+        },
+        {
+            "_id": "18962b0a-64c4-421b-8146-803c789dfbee",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "16 Produccion consulta",
+            "url": "http://app.agrored.com/api/clientes",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2026-11-20T05:08:13.237Z",
+            "modified": "2026-11-20T05:08:13.237Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_produccion}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "1a79bf26-e814-4068-8ee0-ce72f8bed17a",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "17 Produccion intenta crear",
+            "url": "http://app.agrored.com/api/clientes",
+            "method": "POST",
+            "sortNum": 170000,
+            "created": "2026-11-20T05:08:13.238Z",
+            "modified": "2026-11-20T05:08:13.238Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Cliente Prueba Gateway\",",
+                    "  \"nit\": \"901999000-1\",",
+                    "  \"ciudad\": \"Cali\",",
+                    "  \"telefono\": \"3150001122\",",
+                    "  \"tipo\": \"comercio\",",
+                    "  \"direccion\": \"Calle 5 # 10-20\",",
+                    "  \"email\": \"prueba@gateway.com\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_produccion}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "403"
+                }
+            ]
+        },
+        {
+            "_id": "daa3decc-f22f-49b5-afad-5a968bb10041",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "18 Comercial crea",
+            "url": "http://app.agrored.com/api/clientes",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2026-11-20T05:08:13.239Z",
+            "modified": "2026-11-20T05:08:13.239Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"nombre\": \"Cliente Prueba Gateway\",",
+                    "  \"nit\": \"901999000-1\",",
+                    "  \"ciudad\": \"Cali\",",
+                    "  \"telefono\": \"3150001122\",",
+                    "  \"tipo\": \"comercio\",",
+                    "  \"direccion\": \"Calle 5 # 10-20\",",
+                    "  \"email\": \"prueba@gateway.com\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_comercial}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "201"
+                }
+            ]
+        },
+        {
+            "_id": "25cf4dbf-0bed-4e52-9c4f-990e4bb9bded",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "19 Limpieza: eliminar el cliente del caso 18",
+            "url": "http://app.agrored.com/api/clientes/5",
+            "method": "DELETE",
+            "sortNum": 190000,
+            "created": "2026-11-20T05:08:13.240Z",
+            "modified": "2026-11-20T05:08:13.240Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token_admin}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "204"
+                }
+            ]
+        },
+        {
+            "_id": "2e2973e9-f718-47cb-98d9-ddc288e4d710",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "00 - Login administrador",
+            "url": "http://app.agrored.com/api/usuarios/login",
+            "method": "POST",
+            "sortNum": 200000,
+            "created": "2026-11-20T18:31:21.435Z",
+            "modified": "2026-11-20T18:31:21.435Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"email\": \"admin@agrored.com\",",
+                    "  \"password\": \"adminAgroR1*\"",
+                    "}"
+                ],
+                "form": []
+            },
+            "postReq": {
+                "inlineScripts": [
+                    {
+                        "script": [
+                            "tc.test(\"Login administrador exitoso\", function () {",
+                            "    tc.expect(tc.response.status).to.equal(200);",
+                            "});",
+                            "",
+                            "tc.setVar(\"tokenAdmin\", tc.response.json.token);"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "16e99051-5e12-4208-9715-9f99e5efff5c",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "01 - Login comercial",
+            "url": "http://app.agrored.com/api/usuarios/login",
+            "method": "POST",
+            "sortNum": 210000,
+            "created": "2026-11-20T18:40:45.071Z",
+            "modified": "2026-11-20T18:40:45.071Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ \r",
+                    "  \"email\": \"laura.gomez@agrored.com\", \r",
+                    "\"password\": \"Comercial2026*\"\r",
+                    "}\r",
+                    ""
+                ],
+                "form": []
+            }
+        },
+        {
+            "_id": "88cc8993-d30a-49c1-88c5-8feaf5573a2e",
+            "colId": "1fdb4c55-ce83-4ae6-b7d6-e4c9c3592d35",
+            "containerId": "c8dd48fb-42f7-4868-82e1-873980d35a74",
+            "name": "02 - Login producción",
+            "url": "http://app.agrored.com/api/usuarios/login",
+            "method": "POST",
+            "sortNum": 220000,
+            "created": "2026-11-20T18:42:45.482Z",
+            "modified": "2026-11-20T18:42:45.482Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{ ",
+                    "  \"email\": \"andres.castillo@agrored.com\", ",
+                    "\"password\": \"Produccion2026*\"",
+                    "}",
+                    ""
+                ],
+                "form": []
+            }
+        }
+    ],
+    "ref": "eTJkiX9ZdVLO0cepnZguJ1WhSnkd8jK_618rFWXbe-zq-5WCc8tHgWRo963yjq98gLWsQsIx3h0VflkIC41kMA"
+}
