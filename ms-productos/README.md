@@ -292,7 +292,7 @@ Todas las rutas de `/productos` exigen la cabecera `Authorization: Bearer <token
 | Operación | Roles permitidos |
 |---|---|
 | Consultar (`GET /productos`, `GET /productos?ids=…`, `GET /productos/:id`) | administrador, comercial, produccion |
-| Crear, modificar y eliminar (`POST`, `PUT`, `DELETE`) | administrador |
+| Crear, modificar y eliminar (`POST`, `PUT`, `DELETE`) | administrador, produccion|
 
 | Código | Cuándo |
 |---|---|

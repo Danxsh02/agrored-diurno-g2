@@ -1,6 +1,6 @@
 // CAPA DE PRESENTACIÓN (rutas)
 // Todas las rutas exigen token. Consultan: administrador, comercial y produccion.
-// Crean, modifican y eliminan: solo administrador
+// Crean, modifican y eliminan: administrador y produccion
 const { Router } = require('express');
 const controller = require('../controllers/productos.controller');
 const { verificarToken, requiereRol } = require('../middlewares/auth');

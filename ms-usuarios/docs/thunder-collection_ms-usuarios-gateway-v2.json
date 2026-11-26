@@ -1,0 +1,1193 @@
+{
+  "info": {
+    "_postman_id": "7ef4573e-8c99-4e9f-b695-ebf37099cba9",
+    "name": "ms-usuarios (gateway v2)",
+    "description": "Pruebas de ms-usuarios a través de http://app.agrored.com/api/",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "00a Login administrador",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 200', () => pm.response.to.have.status(200));",
+              "if (pm.response.code === 200) pm.collectionVariables.set('token_admin', pm.response.json().token);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/login",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email_admin}}\",\n  \"password\": \"{{pass_admin}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "00b Login comercial",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 200', () => pm.response.to.have.status(200));",
+              "if (pm.response.code === 200) pm.collectionVariables.set('token_comercial', pm.response.json().token);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/login",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email_comercial}}\",\n  \"password\": \"{{pass_comercial}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "00c Login produccion",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 200', () => pm.response.to.have.status(200));",
+              "if (pm.response.code === 200) pm.collectionVariables.set('token_produccion', pm.response.json().token);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/login",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email_produccion}}\",\n  \"password\": \"{{pass_produccion}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "00d Login contraseña incorrecta",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 401', () => pm.response.to.have.status(401));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/login",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "login"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email_admin}}\",\n  \"password\": \"ClaveIncorrecta123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "01 Listar todos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 200', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 Filtrar por rol",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 200', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios?rol=comercial",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ],
+          "query": [
+            {
+              "key": "rol",
+              "value": "comercial"
+            }
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03 Consultar por lotes",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 200', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios?ids=1,2",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ],
+          "query": [
+            {
+              "key": "ids",
+              "value": "1,2"
+            }
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "04 Obtener existente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 200', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/1",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "1"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05 Obtener inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 404', () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/9999",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "9999"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "06 Obtener id no numérico",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 400', () => pm.response.to.have.status(400));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/abc",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "abc"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07 Crear usuario temporal",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 201', () => pm.response.to.have.status(201));",
+              "if (pm.response.code === 201) pm.collectionVariables.set('id_nuevo', pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Usuario Temporal Gateway\",\n  \"email\": \"temporal.gateway@agrored.com\",\n  \"rol\": \"comercial\",\n  \"password\": \"Temporal2026\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "08 Crear sin nombre",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 400', () => pm.response.to.have.status(400));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"\",\n  \"email\": \"otro.temporal@agrored.com\",\n  \"rol\": \"comercial\",\n  \"password\": \"Temporal2026\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "09 Crear email repetido (regla de negocio)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 409', () => pm.response.to.have.status(409));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Usuario Temporal Gateway\",\n  \"email\": \"temporal.gateway@agrored.com\",\n  \"rol\": \"comercial\",\n  \"password\": \"Temporal2026\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "09b Crear con rol inválido",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 400', () => pm.response.to.have.status(400));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Usuario Temporal Gateway\",\n  \"email\": \"otro.temporal@agrored.com\",\n  \"rol\": \"gerente\",\n  \"password\": \"Temporal2026\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10 Actualizar usuario temporal",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 200', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/{{id_nuevo}}",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "{{id_nuevo}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Usuario Temporal Editado\",\n  \"email\": \"temporal.gateway@agrored.com\",\n  \"rol\": \"comercial\",\n  \"activo\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11 Actualizar inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 404', () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/9999",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "9999"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"No Existe\",\n  \"email\": \"no.existe@agrored.com\",\n  \"rol\": \"comercial\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12 Eliminar usuario temporal",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 204', () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/{{id_nuevo}}",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "{{id_nuevo}}"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13 Eliminar el mismo otra vez",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 404', () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/{{id_nuevo}}",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "{{id_nuevo}}"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_admin}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "14 Sin token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 401', () => pm.response.to.have.status(401));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "15 Token modificado",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 401', () => pm.response.to.have.status(401));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tYnJlIjoiQWRtaW5pc3RyYWRvciBHZW5lcmFsIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc5NDM2NTgyNiwiZXhwIjoxNzk0Mzk0NjI2fQ.ov4Tr3hUnj3HwsDQWY3vb-V0998GWRpupCTolrWS8ii",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "16 GET /me con rol comercial",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 200', () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/me",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "me"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_comercial}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "17 Listar con rol comercial (solo admin)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 403', () => pm.response.to.have.status(403));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_comercial}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "18 Crear con rol produccion (sin permiso)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 403', () => pm.response.to.have.status(403));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Usuario Temporal Gateway\",\n  \"email\": \"sin.permiso@agrored.com\",\n  \"rol\": \"comercial\",\n  \"password\": \"Temporal2026\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_produccion}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "19 Ver otro usuario con rol comercial",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Código 403', () => pm.response.to.have.status(403));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://app.agrored.com/api/usuarios/1",
+          "protocol": "http",
+          "host": [
+            "app",
+            "agrored",
+            "com"
+          ],
+          "path": [
+            "api",
+            "usuarios",
+            "1"
+          ]
+        },
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token_comercial}}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "token_admin",
+      "value": ""
+    },
+    {
+      "key": "token_comercial",
+      "value": ""
+    },
+    {
+      "key": "token_produccion",
+      "value": ""
+    },
+    {
+      "key": "email_admin",
+      "value": "admin@agrored.com"
+    },
+    {
+      "key": "pass_admin",
+      "value": ""
+    },
+    {
+      "key": "email_comercial",
+      "value": "laura.gomez@agrored.com"
+    },
+    {
+      "key": "pass_comercial",
+      "value": ""
+    },
+    {
+      "key": "email_produccion",
+      "value": "andres.castillo@agrored.com"
+    },
+    {
+      "key": "pass_produccion",
+      "value": ""
+    },
+    {
+      "key": "id_nuevo",
+      "value": ""
+    }
+  ]
+}
